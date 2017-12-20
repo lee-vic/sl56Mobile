@@ -7,4 +7,9 @@ export class deliveryRecord{
     Amount:string;
     Date:string;
     Selected:boolean;
+    ModeOfTransportName:string;
+    ProductContent:string;
+    ChargeableWeight:string;
+    Piece:Number;
+    CountryName:string;
 }

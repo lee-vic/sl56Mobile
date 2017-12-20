@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Modal, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Modal, ModalController, ToastController } from 'ionic-angular';
 import { UserLoginPage, UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage } from '../pages';
 
 /**
@@ -52,7 +52,7 @@ export class MemberPage {
   ];
   loginModalPage:Modal;
   isLogin:boolean=false;
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController, public navParams: NavParams,public toastCtrl: ToastController,
     public modalCtrl: ModalController) {
 
   }
@@ -61,13 +61,24 @@ export class MemberPage {
     console.log('ionViewDidLoad UserPage');
   }
   menuClick(item){
-    if(!this.isLogin){
-      this.showLogin(item.page);
-    
+    if(item.page==undefined){
+      let toast = this.toastCtrl.create({
+        message: '开发中，敬请期待',
+        position: 'middle',
+        duration: 1500
+      });
+      toast.present();
     }
     else{
-      this.navCtrl.push(item.page);
+      if(!this.isLogin){
+        this.showLogin(item.page);
+      
+      }
+      else{
+        this.navCtrl.push(item.page);
+      }
     }
+    
   }
   loginClick(){
     

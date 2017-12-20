@@ -11,13 +11,37 @@
 </ion-header>
 <ion-content>
   <div class="my-head">
-    <div class="total-amount">100.00</div>
-    <div class="total-text">应付金额(元)</div>
+    <div class="total-amount">{{data?.TotalAmount}}</div>
+    <div class="total-text">应付总金额(元)</div>
+  </div>
+  <div class="my-head1">
+    <div class="head-col">
+      <div>{{data?.Amount==""?"0":data?.Amount}}</div>
+      <div>运费(元)</div>
+    </div>
+    <div class="head-col">
+        <div>{{data?.Commission}}</div>
+        <div>手续费(元)</div>
+    </div>
   </div>
   <ion-list>
     <ion-item>
       <ion-label>支付金额</ion-label>
-      <ion-input type="number" placeholder="请输入支付金额"></ion-input>
+      <ion-input type="number" placeholder="请输入支付金额" [ngModel]="data?.Amount" (ngModelChange)="data.Amount=$event" (input)="amountChange()"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-label>{{allSelected?'反选':'全选'}}</ion-label>
+      <ion-checkbox (ionChange)="onAllClick()" [(ngModel)]="allSelected"></ion-checkbox>
+    </ion-item>
+    <ion-item *ngFor="let item of data?.ReceiveGoodsDetailList">
+      <ion-label>{{item.ReferenceNumber}}</ion-label>
+      <ion-checkbox [(ngModel)]="item.Selected" (ionChange)="selectChange()"></ion-checkbox>
+      <ion-note item-end>{{item.Amount}}元</ion-note>
     </ion-item>
   </ion-list>
 </ion-content>
+<ion-footer>
+  <button ion-button full class="my-button">支付</button>
+</ion-footer>

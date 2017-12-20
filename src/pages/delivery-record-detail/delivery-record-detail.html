@@ -112,18 +112,34 @@
       <ion-list>
        
         <ion-item *ngFor="let item of data?.Tracks">
-            <div class="vertical-line">
-                a
-            </div>
-          <ion-avatar item-start>
-           
-            <img src="assets/imgs/delivery-record-detail-1.png">
-        
-          </ion-avatar>
+          
+         
           <h2>{{item?.Date}}</h2>
 
           <p>{{item?.Location}}</p>
           <p>{{item?.Activity}}</p>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngSwitchCase="4">
+      <ion-list>
+       
+        <ion-item *ngFor="let item of data?.AccountReceivableDetails">
+          
+         
+          <h3>{{item?.Name}}</h3>
+          <p>{{item?.Remark}}</p>
+          <ion-note item-end>{{item?.Amount}} {{item?.Currency}}</ion-note>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngSwitchCase="5">
+      <ion-list>
+       
+        <ion-item *ngFor="let item of data?.Problems">
+          <h3>{{item?.Name}}</h3>
+          <p>{{item?.Remark}}</p>
+          <ion-note item-end>{{item?.StatusName}}</ion-note>
         </ion-item>
       </ion-list>
     </div>

@@ -1,13 +1,25 @@
 page-wechat-pay {
     .my-head{
-        height: 12rem;
+        height: 9rem;
         background-color: #004ea2;
         color: white;
+    }
+    .my-head1{
+        height: 5rem;
+        background-color: #004ea2;
+        color: white;
+    }
+    .head-col{
+        width: 50%;
+        text-align: center;
+        height: 5rem;
+        float: left;
+        font-size: 2rem;
     }
     .total-amount{
         font-size: 4rem;
         text-align: center;
-        padding-top: 3rem;
+        padding-top: 2rem;
     }
     .total-text{
         text-align: center;
@@ -16,5 +28,13 @@ page-wechat-pay {
     }
     .content-ios{
         background-color: #f7f7f7;
+    }
+    .my-button{
+        padding: 0;
+        margin: 0;
+        background-color: #004ea2;
+    }
+    .checkbox-ios .checkbox-checked{
+        background-color: #004ea2;
     }
 }
