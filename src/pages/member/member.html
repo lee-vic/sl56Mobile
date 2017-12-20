@@ -1,0 +1,25 @@
+<!--
+  Generated template for the MemberPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-content>
+  <div class="user-header">
+    <div class="user-header-title">欢迎进入会员中心</div>
+    <button ion-button clear id="btnLogin" (click)="loginClick()" *ngIf="!isLogin">登录</button>
+
+  </div>
+  <ion-grid>
+    <ion-row *ngFor="let row of menus">
+      <ion-col text-center col-4 *ngFor="let item of row.items">
+        <div (click)="menuClick(item)">
+          <div>
+            <img [src]="item.image"> </div>
+          <div class="menu-title">{{item.title}}</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

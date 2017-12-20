@@ -1,0 +1,40 @@
+page-member {
+    .user-header{
+        height: 10rem;
+        background: url(../assets/imgs/member-1.png);
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size:cover;
+    }
+    .user-header-title{
+       color: white;
+       font-size: 2rem;
+       padding-top: 2rem;
+       padding-left: 4rem;
+    }
+    #btnLogin{
+        border: solid 1px white;
+        color: white;
+        width: 9rem;
+        margin-left: 4rem;
+        height: 2.5em;
+        margin-top: 1em;
+    }
+    ion-row.row{
+        border-bottom: solid 1px #dcdcdc;
+    }
+    ion-col.col{
+        padding-top: 1.6rem;
+        padding-bottom: 1.6rem;
+        border-right: solid 1px #dcdcdc;
+    }
+    ion-col.col:last-child{
+        border-right:none;
+    }
+    ion-grid.grid{
+        padding: 0;
+    }
+    .menu-title{
+        margin-top: 1rem;
+    }
+}

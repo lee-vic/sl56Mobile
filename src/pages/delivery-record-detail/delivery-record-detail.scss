@@ -1,0 +1,19 @@
+page-delivery-record-detail {
+    ion-note.note{
+        color:black;
+    }
+    button.item{
+        padding-left: 0;
+    }
+    div.item-inner{
+        padding-left: 1rem;
+    }
+    ion-item.item{
+        padding-left: 0;
+    }
+    .vertical-line{
+        background-color: black;
+        width: 1px;
+        height: 100%;
+    }
+}

@@ -1,0 +1,48 @@
+<!--
+  Generated template for the RemotePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>偏远查询</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="doQuery(myForm.value)" [formGroup]="myForm">
+    <ion-list>
+      <ion-item>
+        <ion-label>运输方式</ion-label>
+        <ion-select interface="popover" formControlName="ModeOfTransportTypeId">
+          <ion-option *ngFor="let item of modeOfTransportTypeList" [value]="item.Id" [selected]="item.Id==0">{{item.Name}}</ion-option>
+        </ion-select>
+      </ion-item>
+     
+      <ion-item>
+        <ion-label>国家</ion-label>
+        <ion-input type="text" formControlName="countryId" (ionBlur)="onCountryBlur()" (keyup)="onCountryKeyup($event)" (input)="filterCountryItems($event)"
+          [(ngModel)]="countryInput" clearInput="true" placeholder="国家二字代码、中文名"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="showCountryList">
+        <ion-list>
+          <button ion-item *ngFor="let item of countrySearch">{{item.Name}}</button>
+        </ion-list>
+      </ion-item>
+      <ion-item>
+        <ion-label>邮编</ion-label>
+        <ion-input type="text" formControlName="postalCode" clearInput="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>城市</ion-label>
+        <ion-input type="text" formControlName="city" clearInput="true"></ion-input>
+      </ion-item>
+      
+      <button ion-button block type="submit" [disabled]="!myForm.valid">查询</button>
+    </ion-list>
+  </form>
+</ion-content>

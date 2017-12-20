@@ -1,0 +1,11 @@
+export const UserLoginPage="LoginPage";
+export const UserCalculationPage="CalculationPage";
+export const SelectCountryPage="CountryPage";
+export const UserCalculationListPage="CalculationListPage";
+export const UserCalculationDetailPage="CalculationDetailPage";
+export const UserRemotePage="RemotePage";
+export const UserConfirmationPage="ConfirmationPage";
+export const UserForgotPasswordPage="ForgotPasswordPage";
+export const UserDeliveryRecordPage="DeliveryRecordPage";
+export const UserDeliveryRecordDetailPage="DeliveryRecordDetailPage";
+export const UserWechatPayPage="WechatPayPage";

@@ -1,0 +1,92 @@
+<!--
+  Generated template for the CalculationDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>报价详情</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-segment [(ngModel)]="tab" mode="md">
+    <ion-segment-button value="1">
+      基本信息
+    </ion-segment-button>
+    <ion-segment-button value="5">
+      费用明细
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      报价声明
+    </ion-segment-button>
+    <ion-segment-button value="3">
+      报价备注
+    </ion-segment-button>
+    <ion-segment-button value="4">
+      国家备注
+    </ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="tab">
+    <div *ngSwitchCase="1">
+      <ion-list>
+        <ion-item>
+          <ion-label>报价编码</ion-label>
+          <ion-input text-right readonly="true" value="{{data.PriceNo}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>报价名称</ion-label>
+
+          <ion-input text-right readonly="true" value="{{data.ShortPriceName}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>运输方式</ion-label>
+          <ion-input text-right readonly="true" value="{{data.ModeOfTransportName}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>金额</ion-label>
+          <ion-input text-right readonly="true" value="{{data.TotalAmount}}"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>币别</ion-label>
+            <ion-input text-right readonly="true" value="{{data.Currency}}"></ion-input>
+          </ion-item>
+        <ion-item>
+          <ion-label>计费重量</ion-label>
+          <ion-input text-right readonly="true" value="{{data.ChargeableWeight}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>体积除数</ion-label>
+          <ion-input text-right readonly="true" value="{{data.Volumetric}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>含油参价</ion-label>
+          <ion-input text-right readonly="true" value="{{data.UnitPrice}}"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngSwitchCase="2" [innerHTML]="data.CommonRemark" >
+    
+    </div>
+    <div *ngSwitchCase="3"  [innerHTML]="data.Remark">
+     
+    </div>
+    <div *ngSwitchCase="4" [innerHTML]="data.CountryRemark">
+      
+    </div>
+    <div *ngSwitchCase="5">
+      <ion-list>
+      
+        <ion-item *ngFor="let item of data.Charges">
+          <ion-label>{{item.ChargeName}}</ion-label>
+          
+          <ion-input text-right readonly="true" value="{{item.Expression}}={{item.Amount}}"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

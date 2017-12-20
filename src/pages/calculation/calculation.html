@@ -1,0 +1,111 @@
+<!--
+  Generated template for the CalculationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>资费计算</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-segment [(ngModel)]="calculateMode" mode="md">
+    <ion-segment-button value="1">
+      精简模式
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      完整模式
+    </ion-segment-button>
+
+  </ion-segment>
+  <div [ngSwitch]="calculateMode">
+    <div *ngSwitchCase="1">
+      <form (ngSubmit)="doCalculate(myForm.value)" [formGroup]="myForm">
+        <ion-list>
+
+          <ion-item>
+            <ion-label>货物类型</ion-label>
+            <ion-select interface="popover" formControlName="productType">
+              <ion-option value="1" selected="true">包裹</ion-option>
+              <ion-option value="0">文件</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>国家</ion-label>
+            <ion-input type="text" formControlName="countryId" (ionBlur)="onCountryBlur()" (keyup)="onCountryKeyup($event)" (input)="filterCountryItems($event)"
+              [(ngModel)]="countryInput" clearInput="true"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="showCountryList">
+            <ion-list mode="md">
+              <button ion-item *ngFor="let item of countrySearch">{{item.Name}}</button>
+            </ion-list>
+          </ion-item>
+          <ion-item>
+            <ion-label>重量</ion-label>
+            <ion-input type="number" formControlName="actualWeight"></ion-input>
+          </ion-item>
+          <button ion-button block type="submit" [disabled]="!myForm.valid">计算</button>
+        </ion-list>
+      </form>
+    </div>
+    <div *ngSwitchCase="2">
+      <form (ngSubmit)="doCalculate(myForm.value)" [formGroup]="myForm">
+        <ion-list>
+          <ion-item>
+            <ion-label>运输方式</ion-label>
+            <ion-select interface="popover" formControlName="ModeOfTransportId">
+              <ion-option *ngFor="let item of modeOfTransportList" [value]="item.Id" [selected]="item.Id==0">{{item.Name}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>货物类型</ion-label>
+            <ion-select interface="popover" formControlName="productType">
+              <ion-option value="1" selected="true">包裹</ion-option>
+              <ion-option value="0">文件</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>国家</ion-label>
+            <ion-input type="text" formControlName="countryId" (ionBlur)="onCountryBlur()" (keyup)="onCountryKeyup($event)" (input)="filterCountryItems($event)"
+              [(ngModel)]="countryInput" clearInput="true"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="showCountryList">
+            <ion-list>
+              <button ion-item *ngFor="let item of countrySearch">{{item.Name}}</button>
+            </ion-list>
+          </ion-item>
+          <ion-item>
+            <ion-label>邮编</ion-label>
+            <ion-input type="text" formControlName="postalCode"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>城市</ion-label>
+            <ion-input type="text" formControlName="city"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>申报价值</ion-label>
+            <ion-input type="text" formControlName="declaredValue"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>实重</ion-label>
+            <ion-input type="number" formControlName="actualWeight"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>体积重</ion-label>
+            <ion-input type="number" formControlName="volumeWeight"  placeholder="请选你输入的体积重除数"></ion-input>
+            <ion-select interface="popover" formControlName="volumetric">
+              <ion-option  *ngFor="let item of volumetricDivisorList"  [value]="item.Id">{{item.Name}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <button ion-button block type="submit" [disabled]="!myForm.valid">计算</button>
+        </ion-list>
+      </form>
+    </div>
+  </div>
+
+</ion-content>
