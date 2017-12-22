@@ -9,3 +9,6 @@ export const UserForgotPasswordPage="ForgotPasswordPage";
 export const UserDeliveryRecordPage="DeliveryRecordPage";
 export const UserDeliveryRecordDetailPage="DeliveryRecordDetailPage";
 export const UserWechatPayPage="WechatPayPage";
+export const UserWechatPayListPage="WechatPayListPage";
+export const UserWechatPayConfirmPage="WechatPayConfirmPage";
+export const UserWechatBindingPage="WechatBindingPage";

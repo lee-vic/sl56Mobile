@@ -15,12 +15,11 @@ export class RemoteProvider {
     console.log('Hello RemoteProvider Provider');
   }
   getModeOfTransportTypeList(){
-    let seq= this.api.get("common/GetModeOfTransportTypeList", null);
+    let seq= this.api.get("common/GetModeOfTransportTypeList",null,{ withCredentials:true});
     return seq;
   }
   Query(formValue){
-    let data=JSON.stringify(formValue);
-    let seq= this.api.post("Remote/Query", data);
+    let seq= this.api.post("Remote/Query", formValue,{ withCredentials:true});
     return seq;
   }
 }

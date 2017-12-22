@@ -86,7 +86,6 @@ export class DeliveryRecordPage  implements OnInit, OnDestroy {
     this.content.scrollToTop();
   }
   detail(item){
-    console.log(item.Id);
     this.navCtrl.push(UserDeliveryRecordDetailPage,{
         id:item.Id
     });

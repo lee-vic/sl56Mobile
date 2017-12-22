@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, PopoverController } from 'ionic-angular';
 import { WechatPayProvider } from '../../providers/wechat-pay/wechat-pay';
+import { UserWechatPayListPage, UserWechatPayConfirmPage } from '../pages';
 
 /**
  * Generated class for the WechatPayPage page.
@@ -8,6 +9,7 @@ import { WechatPayProvider } from '../../providers/wechat-pay/wechat-pay';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+declare var jQuery: any;
 
 @IonicPage()
 @Component({
@@ -16,11 +18,14 @@ import { WechatPayProvider } from '../../providers/wechat-pay/wechat-pay';
 })
 export class WechatPayPage implements OnInit, OnDestroy {
   data: any;
+  
   allSelected: boolean = true;
   constructor(public navCtrl: NavController,
     public service: WechatPayProvider,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
+  
+    public popoverCtrl: PopoverController,
     public navParams: NavParams) {
 
   }
@@ -36,10 +41,19 @@ export class WechatPayPage implements OnInit, OnDestroy {
     loading.present();
     this.service.getList().subscribe(res => {
       this.data = res;
-     
       loading.dismiss();
     });
-   
+    jQuery.connection.hub.url = "http://signalr.sl56.com/signalr";
+    var hub =jQuery.connection.messageHub;
+    hub.client.waitNotify=this.success.bind(this);
+    jQuery.connection.hub.start({ xdomain: true }).done(function () {
+      console.log('Now connected, connection ID=' + jQuery.connection.hub.id);
+    });
+  }
+  
+  success(msg){
+    console.log(msg);
+    this.navCtrl.push(UserWechatPayListPage);
   }
   ngOnDestroy(): void {
     document.querySelector(".tabbar")['style'].display = 'flex';
@@ -78,24 +92,29 @@ export class WechatPayPage implements OnInit, OnDestroy {
     this.data.TotalAmount = (tempAmount + parseFloat(this.data.Commission)).toFixed(2);
   }
   payClick(){
-    let loading = this.loadingCtrl.create({
-      content: '请稍后...'
-    });
-    loading.present();
-    this.service.pay(this.data).subscribe(res=>{
-      console.log(res);
-      loading.dismiss();
+    
+  
+    // let loading = this.loadingCtrl.create({
+    //   content: '请稍后...'
+    // });
+    // loading.present();
+    // this.service.pay(this.data).subscribe(res=>{
+    //   console.log(res);
+    //   loading.dismiss();
      
-      window.location.href=res.toString();
-    },(err)=>{
-      loading.dismiss();
-      let toast = this.toastCtrl.create({
-        message: err.message,
-        position: 'middle',
-        duration: 3000
-      });
+    //   window.location.href=res.toString();
+    // },(err)=>{
+    //   loading.dismiss();
+    //   let toast = this.toastCtrl.create({
+    //     message: err.message,
+    //     position: 'middle',
+    //     duration: 3000
+    //   });
 
-      toast.present();
-    });
+    //   toast.present();
+    // });
+  }
+  listClick(){
+    this.navCtrl.push(UserWechatPayListPage);
   }
 }

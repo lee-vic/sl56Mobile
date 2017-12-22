@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage,  NavParams, LoadingController, ViewController, ToastController, ModalController } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage,  NavParams, LoadingController, ViewController, ToastController, ModalController, Platform } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../providers/user/user';
 import { UserForgotPasswordPage } from '../pages';
@@ -17,7 +17,8 @@ import { UserForgotPasswordPage } from '../pages';
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage {
+export class LoginPage implements OnInit{
+
 
   public authForm: FormGroup;
   public loading: any;
@@ -29,13 +30,19 @@ export class LoginPage {
     public viewCtrl: ViewController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
+    public plt: Platform,
     public user: User ) {
     this.authForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      clientType:[],
+      userType:['0']
     });
   }
-
+  ngOnInit(): void {
+    console.log(this.plt.platforms());
+   
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
@@ -55,6 +62,9 @@ export class LoginPage {
       dismissOnPageChange: true
     });
     this.loading.present();
+    if(this.plt.is("mobileweb")){
+      formValue.clientType=1;
+    }
     this.user.auth(formValue).subscribe((res)=>{
       this.isLogin=("true"===res.toString());
       this.loading.dismiss();

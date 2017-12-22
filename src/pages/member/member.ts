@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Modal, ModalController, ToastController } from 'ionic-angular';
-import { UserLoginPage, UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage } from '../pages';
+import { UserLoginPage, UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage, UserWechatBindingPage } from '../pages';
 
 /**
  * Generated class for the MemberPage page.
@@ -46,7 +46,7 @@ export class MemberPage {
       items: [
         { title: "修改密码", image: "assets/imgs/member-11.png" },
         { title: "子账号管理", image: "assets/imgs/member-12.png" },
-        { title: "微信绑定", image: "assets/imgs/member-13.png" }
+        { title: "微信绑定", image: "assets/imgs/member-13.png",page:UserWechatBindingPage }
       ]
     }
   ];

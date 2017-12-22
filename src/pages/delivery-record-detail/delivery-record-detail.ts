@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { DeliveryRecordDetailProvider } from '../../providers/delivery-record-detail/delivery-record-detail';
 
 /**
@@ -20,13 +20,18 @@ export class DeliveryRecordDetailPage implements OnInit {
   tab="1";
   constructor(public navCtrl: NavController, 
     public service:DeliveryRecordDetailProvider,
+    public loadingCtrl: LoadingController,
     public navParams: NavParams) {
       this.id=navParams.get("id");
   }
   ngOnInit(): void {
+    let loading = this.loadingCtrl.create({
+      content: '请稍后...'
+    });
+    loading.present();
     this.service.getDetail(this.id).subscribe(res=>{
       this.data=res;
-      console.log(this.data);
+      loading.dismiss();
     });
   }
   ionViewDidLoad() {
