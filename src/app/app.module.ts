@@ -16,6 +16,7 @@ import { ConfirmationProvider } from '../providers/confirmation/confirmation';
 import { DeliveryRecordProvider } from '../providers/delivery-record/delivery-record';
 import { WechatPayProvider } from '../providers/wechat-pay/wechat-pay';
 import { DeliveryRecordDetailProvider } from '../providers/delivery-record-detail/delivery-record-detail';
+import { ChannelProvider } from '../providers/channel/channel';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { DeliveryRecordDetailProvider } from '../providers/delivery-record-detai
     ConfirmationProvider,
     DeliveryRecordProvider,
     WechatPayProvider,
-    DeliveryRecordDetailProvider
+    DeliveryRecordDetailProvider,
+    ChannelProvider
   ]
 })
 export class AppModule {}

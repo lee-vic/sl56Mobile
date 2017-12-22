@@ -32,15 +32,13 @@ export class DeliveryRecordPage  implements OnInit, OnDestroy {
     document.querySelector(".tabbar")['style'].display = 'flex';
   }
   getData(){
-    // let loading = this.loadingCtrl.create({
-    //   content: '请稍后...',
-
-    //   dismissOnPageChange: true
-    // });
-    // loading.present();
+    let loading = this.loadingCtrl.create({
+      content: '请稍后...'
+    });
+    loading.present();
     this.service.getList(this.startDate,this.endDate).subscribe(res=>{
-      // loading.dismiss();
       this.searchList=this.deliveryRecordList=res;
+      loading.dismiss();
     });
   }
 

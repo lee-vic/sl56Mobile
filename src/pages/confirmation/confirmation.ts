@@ -117,8 +117,6 @@ export class ConfirmationPage implements OnInit, OnDestroy {
   doConfirm(selectedIdList){
      let loading = this.loadingCtrl.create({
       content: '请稍后...',
-
-      dismissOnPageChange: true
     });
     loading.present();
     this.service.confirm(selectedIdList).subscribe(res=>{

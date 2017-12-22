@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { WechatPayProvider } from '../../providers/wechat-pay/wechat-pay';
 
 /**
@@ -20,6 +20,7 @@ export class WechatPayPage implements OnInit, OnDestroy {
   constructor(public navCtrl: NavController,
     public service: WechatPayProvider,
     public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController,
     public navParams: NavParams) {
 
   }
@@ -30,15 +31,15 @@ export class WechatPayPage implements OnInit, OnDestroy {
   ngOnInit(): void {
     document.querySelector(".tabbar")['style'].display = 'none';
     let loading = this.loadingCtrl.create({
-      content: '请稍后...',
-
-      dismissOnPageChange: true
+      content: '请稍后...'
     });
     loading.present();
     this.service.getList().subscribe(res => {
       this.data = res;
+     
       loading.dismiss();
     });
+   
   }
   ngOnDestroy(): void {
     document.querySelector(".tabbar")['style'].display = 'flex';
@@ -75,5 +76,26 @@ export class WechatPayPage implements OnInit, OnDestroy {
       this.data.Commission = 0;
     }
     this.data.TotalAmount = (tempAmount + parseFloat(this.data.Commission)).toFixed(2);
+  }
+  payClick(){
+    let loading = this.loadingCtrl.create({
+      content: '请稍后...'
+    });
+    loading.present();
+    this.service.pay(this.data).subscribe(res=>{
+      console.log(res);
+      loading.dismiss();
+     
+      window.location.href=res.toString();
+    },(err)=>{
+      loading.dismiss();
+      let toast = this.toastCtrl.create({
+        message: err.message,
+        position: 'middle',
+        duration: 3000
+      });
+
+      toast.present();
+    });
   }
 }

@@ -12,9 +12,9 @@
 <ion-content>
   <div class="my-head">
     <div class="total-amount">{{data?.TotalAmount}}</div>
-    <div class="total-text">应付总金额(元)</div>
+    <div class="total-text">支付金额(元)</div>
   </div>
-  <div class="my-head1">
+  <div class="my-head1" *ngIf="data?.WXPaymentCommission">
     <div class="head-col">
       <div>{{data?.Amount==""?"0":data?.Amount}}</div>
       <div>运费(元)</div>
@@ -43,5 +43,5 @@
   </ion-list>
 </ion-content>
 <ion-footer>
-  <button ion-button full class="my-button">支付</button>
+  <button ion-button full class="my-button" (click)="payClick()">支付</button>
 </ion-footer>

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { apiUrl } from '../../globals';
-import { deliveryRecord } from '../../models/delivery-record.model';
 
 /*
   Generated class for the WechatPayProvider provider.
@@ -18,6 +17,10 @@ export class WechatPayProvider {
   getList(){
    
     let seq= this.http.get(apiUrl+"/WeChatPay/Query",{ withCredentials:true});
+    return seq;
+  }
+  pay(data:any){
+    let seq= this.http.post(apiUrl+"/WeChatPay/Pay",data,{ withCredentials:true});
     return seq;
   }
 }
