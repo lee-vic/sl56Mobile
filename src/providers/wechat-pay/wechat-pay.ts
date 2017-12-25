@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { apiUrl } from '../../globals';
+import { UnifiedOrderResul } from '../../models/unified-order-result.model';
 
 /*
   Generated class for the WechatPayProvider provider.
@@ -20,7 +21,7 @@ export class WechatPayProvider {
     return seq;
   }
   pay(data:any){
-    let seq= this.http.post(apiUrl+"/WeChatPay/Pay",data,{ withCredentials:true});
+    let seq= this.http.post<UnifiedOrderResul>(apiUrl+"/WeChatPay/Pay",data,{ withCredentials:true});
     return seq;
   }
 }

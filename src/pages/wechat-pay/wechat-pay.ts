@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController, PopoverController } from 'ionic-angular';
 import { WechatPayProvider } from '../../providers/wechat-pay/wechat-pay';
-import { UserWechatPayListPage, UserWechatPayConfirmPage } from '../pages';
+import { UserWechatPayListPage } from '../pages';
 
 /**
  * Generated class for the WechatPayPage page.
@@ -10,6 +10,7 @@ import { UserWechatPayListPage, UserWechatPayConfirmPage } from '../pages';
  * Ionic pages and navigation.
  */
 declare var jQuery: any;
+declare var WeixinJSBridge: any;
 
 @IonicPage()
 @Component({
@@ -18,13 +19,13 @@ declare var jQuery: any;
 })
 export class WechatPayPage implements OnInit, OnDestroy {
   data: any;
-  
+
   allSelected: boolean = true;
   constructor(public navCtrl: NavController,
     public service: WechatPayProvider,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
-  
+
     public popoverCtrl: PopoverController,
     public navParams: NavParams) {
 
@@ -34,7 +35,10 @@ export class WechatPayPage implements OnInit, OnDestroy {
     console.log('ionViewDidLoad WechatPayPage');
   }
   ngOnInit(): void {
-    document.querySelector(".tabbar")['style'].display = 'none';
+    let tabbar = document.querySelector(".tabbar");
+    if (tabbar != undefined) {
+      tabbar['style'].display = 'none';
+    }
     let loading = this.loadingCtrl.create({
       content: '请稍后...'
     });
@@ -42,22 +46,34 @@ export class WechatPayPage implements OnInit, OnDestroy {
     this.service.getList().subscribe(res => {
       this.data = res;
       loading.dismiss();
+    }, (error) => {
+      loading.dismiss();
+      let toast = this.toastCtrl.create({
+        message: error.statusText,
+        position: 'middle',
+        duration: 1500
+      });
+      toast.present();
     });
     jQuery.connection.hub.url = "http://signalr.sl56.com/signalr";
-    var hub =jQuery.connection.messageHub;
-    hub.client.waitNotify=this.success.bind(this);
+    var hub = jQuery.connection.messageHub;
+    hub.client.waitNotify = this.success.bind(this);
     jQuery.connection.hub.start({ xdomain: true }).done(function () {
       console.log('Now connected, connection ID=' + jQuery.connection.hub.id);
     });
   }
-  
-  success(msg){
+  ngOnDestroy(): void {
+    let tabbar = document.querySelector(".tabbar");
+    if (tabbar != undefined) {
+      tabbar['style'].display = 'flex';
+    }
+
+  }
+  success(msg) {
     console.log(msg);
     this.navCtrl.push(UserWechatPayListPage);
   }
-  ngOnDestroy(): void {
-    document.querySelector(".tabbar")['style'].display = 'flex';
-  }
+
   onAllClick() {
 
     this.data.ReceiveGoodsDetailList.forEach(element => {
@@ -66,7 +82,7 @@ export class WechatPayPage implements OnInit, OnDestroy {
   }
   selectChange() {
     let totalAmount: number = 0;
-    let selectedItems = this.data.ReceiveGoodsDetailList.filter(item => {
+    this.data.ReceiveGoodsDetailList.filter(item => {
       return item.Selected;
     }).forEach(item => {
 
@@ -82,7 +98,7 @@ export class WechatPayPage implements OnInit, OnDestroy {
   calculateAmount() {
     let tempAmount: number = 0;
     if (this.data.Amount != "")
-      tempAmount =parseFloat(this.data.Amount) ;
+      tempAmount = parseFloat(this.data.Amount);
     if (this.data.WXPaymentCommission) {
       this.data.Commission = (tempAmount * 3 / 997).toFixed(2);
     }
@@ -91,30 +107,108 @@ export class WechatPayPage implements OnInit, OnDestroy {
     }
     this.data.TotalAmount = (tempAmount + parseFloat(this.data.Commission)).toFixed(2);
   }
-  payClick(){
-    
-  
-    // let loading = this.loadingCtrl.create({
-    //   content: '请稍后...'
-    // });
-    // loading.present();
-    // this.service.pay(this.data).subscribe(res=>{
-    //   console.log(res);
-    //   loading.dismiss();
-     
-    //   window.location.href=res.toString();
-    // },(err)=>{
-    //   loading.dismiss();
-    //   let toast = this.toastCtrl.create({
-    //     message: err.message,
-    //     position: 'middle',
-    //     duration: 3000
-    //   });
-
-    //   toast.present();
-    // });
+  payClick() {
+    //微信浏览器
+    if (this.IsMicroMessenger()) {
+      this.payByJsApi();
+    }
+    else {
+      this.payByH5();
+    }
   }
-  listClick(){
+  payByJsApi() {
+    this.data.TradeType = "JSAPI";
+    let loading = this.loadingCtrl.create({
+      content: '请稍后...'
+    });
+    loading.present();
+    this.service.pay(this.data).subscribe(res => {
+    
+      let para=JSON.parse(res.Data);
+      console.log(para);
+      loading.dismiss();
+      this.callpay(res.Data);
+     
+    }, (err) => {
+      loading.dismiss();
+      let toast = this.toastCtrl.create({
+        message: err.message,
+        position: 'middle',
+        duration: 3000
+      });
+
+      toast.present();
+    });
+  }
+  payByH5() {
+    this.data.TradeType = "MWEB";
+    let loading = this.loadingCtrl.create({
+      content: '请稍后...'
+    });
+    loading.present();
+    this.service.pay(this.data).subscribe(res => {
+     
+      loading.dismiss();
+      if(res.Success){
+        console.log(res.PayUrl);
+        window.location.href = res.PayUrl;
+      }
+      
+    }, (err) => {
+      loading.dismiss();
+      let toast = this.toastCtrl.create({
+        message: err.message,
+        position: 'middle',
+        duration: 3000
+      });
+
+      toast.present();
+    });
+  }
+
+
+  IsMicroMessenger(): boolean {
+    let ua = navigator.userAgent.toLowerCase();
+    let m = ua.match(/MicroMessenger/i);
+
+    if (m != null && m.toString() == "micromessenger") {
+      return true;
+    }
+    return false;
+  }
+
+  listClick() {
     this.navCtrl.push(UserWechatPayListPage);
+  }
+  callpay(order) {
+    if (typeof WeixinJSBridge == "undefined") {
+      console.log("undefined");
+      if (document.addEventListener) {
+        document.addEventListener('WeixinJSBridgeReady', this.jsApiCall.bind(this), false);
+      }
+
+      else if (document['attachEvent']) {
+        document['attachEvent']('WeixinJSBridgeReady', this.jsApiCall.bind(this));
+        document['attachEvent']('onWeixinJSBridgeReady',this.jsApiCall.bind(this));
+      }
+    }
+    else {
+      console.log("jsApiCall");
+      this.jsApiCall(order);
+    }
+  }
+  jsApiCall(order) {
+    WeixinJSBridge.invoke(
+      'getBrandWCPayRequest',
+      order,//josn串
+      (res) => {
+        if (res.err_msg == "get_brand_wcpay_request:ok") {
+          alert("已成功支付");
+          window.location.href = "/DelivervRecord/Index";
+        }
+        else {
+          alert(res.err_code + res.err_desc + res.err_msg);
+        }
+      });
   }
 }
