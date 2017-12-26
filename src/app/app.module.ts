@@ -8,7 +8,6 @@ import { MyApp } from './app.component';
 import { User } from '../providers/user/user';
 import { Api } from '../providers/api/api';
 import { CalculationProvider } from '../providers/calculation/calculation';
-import { CookieService } from 'ng2-cookies';
 import { AutoCompleteModule } from '../../node_modules/ionic2-auto-complete';
 import { CountryProvider } from '../providers/country/country';
 import { RemoteProvider } from '../providers/remote/remote';
@@ -18,6 +17,7 @@ import { WechatPayProvider } from '../providers/wechat-pay/wechat-pay';
 import { DeliveryRecordDetailProvider } from '../providers/delivery-record-detail/delivery-record-detail';
 import { WechatPayListProvider } from '../providers/wechat-pay-list/wechat-pay-list';
 import { WechatBindingProvider } from '../providers/wechat-binding/wechat-binding';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [

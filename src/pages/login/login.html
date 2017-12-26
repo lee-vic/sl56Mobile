@@ -12,11 +12,12 @@
       返回
     </button>
 
-    <ion-title>登录</ion-title>
+   
     <ion-buttons end>
         <button ion-button (click)="forgetPasswordClick()">
          忘记密码?
         </button>
+      
       </ion-buttons>
   </ion-navbar>
 
@@ -26,7 +27,7 @@
 <ion-content padding>
   <form (ngSubmit)="doLogin(authForm.value)" [formGroup]="authForm" novalidate>
 
-
+   <h1>登录</h1>
 
     <ion-item>
       <ion-label stacked color="dark">用户名</ion-label>
@@ -39,7 +40,10 @@
     </ion-item>
 
     <button ion-button block type="submit" [disabled]="!authForm.valid">登录</button>
-
+  
 
   </form>
+  <button ion-button (click)="getCookie()">
+    Cookie
+   </button>
 </ion-content>

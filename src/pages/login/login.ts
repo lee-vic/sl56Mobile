@@ -3,6 +3,7 @@ import { IonicPage,  NavParams, LoadingController, ViewController, ToastControll
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../providers/user/user';
 import { UserForgotPasswordPage } from '../pages';
+import { CookieService } from 'ngx-cookie-service';
 
 
 /**
@@ -30,6 +31,7 @@ export class LoginPage implements OnInit{
     public viewCtrl: ViewController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
+    private cookieService: CookieService,
     public plt: Platform,
     public user: User ) {
     this.authForm = this.formBuilder.group({
@@ -37,7 +39,8 @@ export class LoginPage implements OnInit{
       password: ['', Validators.required],
       clientType:[],
       userType:['0'],
-      rememberMe:[true]
+      rememberMe:[true],
+      isBind:[true]
     });
   }
   ngOnInit(): void {
@@ -68,6 +71,7 @@ export class LoginPage implements OnInit{
     }
     this.user.auth(formValue).subscribe((res)=>{
       this.isLogin=("true"===res.toString());
+      console.log("aa"+this.cookieService.get('sl56Auth'));
       this.loading.dismiss();
       
       if(this.isLogin){
@@ -91,6 +95,11 @@ export class LoginPage implements OnInit{
       toast.present();
     });
 
+  }
+  getCookie(){
+    console.log(this.cookieService.get('OpenId'));
+    console.log(this.cookieService.get('UnionId'));
+    console.log(this.cookieService.get('State'));
   }
 
 }

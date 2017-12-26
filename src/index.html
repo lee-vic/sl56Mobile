@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="UTF-8">
   <title>sl56</title>
@@ -17,6 +18,12 @@
 
   <!-- cordova.js required for cordova apps (remove if not needed) -->
   <script src="cordova.js"></script>
+  <script src="assets/imgs/screenfull.js"></script>
+  <script>
+    if (screenfull.enabled) {
+      screenfull.request();
+    }
+  </script>
 
   <!-- un-comment this code to enable service worker
   <script>
@@ -26,12 +33,14 @@
         .catch(err => console.error('Error', err));
     }
   </script>-->
+
   <script src="http://signalr.sl56.com/Scripts/jquery-1.10.2.min.js"></script>
   <script src="http://signalr.sl56.com/Scripts/jquery.signalR-2.2.1.js"></script>
   <script src="http://signalr.sl56.com/signalr/hubs"></script>
   <link href="build/main.css" rel="stylesheet">
 
 </head>
+
 <body>
 
   <!-- Ionic's root component and where the app will load -->
@@ -48,4 +57,5 @@
   <script src="build/main.js"></script>
 
 </body>
+
 </html>

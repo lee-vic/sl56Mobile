@@ -57,7 +57,7 @@ export class WechatPayPage implements OnInit, OnDestroy {
     });
     jQuery.connection.hub.url = "http://signalr.sl56.com/signalr";
     var hub = jQuery.connection.messageHub;
-    hub.client.waitNotify = this.success.bind(this);
+    hub.client.messageReceived = this.success.bind(this);
     jQuery.connection.hub.start({ xdomain: true }).done(function () {
       console.log('Now connected, connection ID=' + jQuery.connection.hub.id);
     });
@@ -70,8 +70,18 @@ export class WechatPayPage implements OnInit, OnDestroy {
 
   }
   success(msg) {
-    console.log(msg);
-    this.navCtrl.push(UserWechatPayListPage);
+    let obj=JSON.parse(msg);
+    if(obj.Content=="True"){
+      this.navCtrl.push(UserWechatPayListPage);
+    }
+    else{
+      let toast1 = this.toastCtrl.create({
+        message: "支付失败",
+        position: 'middle',
+        duration: 1500
+      });
+      toast1.present();
+    }
   }
 
   onAllClick() {

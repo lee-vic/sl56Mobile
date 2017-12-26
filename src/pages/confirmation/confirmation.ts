@@ -58,7 +58,7 @@ export class ConfirmationPage implements OnInit, OnDestroy {
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.searchList = this.receiveGoodsDetailList.filter((item) => {
-        return (item.Number.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (item.ReferenceNumber.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
     else {
