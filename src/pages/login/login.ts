@@ -36,7 +36,8 @@ export class LoginPage implements OnInit{
       username: ['', Validators.required],
       password: ['', Validators.required],
       clientType:[],
-      userType:['0']
+      userType:['0'],
+      rememberMe:[true]
     });
   }
   ngOnInit(): void {

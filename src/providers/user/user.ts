@@ -16,17 +16,17 @@ export class User {
 
   }
   auth(form: any) {
-    let data=JSON.stringify(form);
-    let seq= this.api.post("account/logon2", data,{
-      headers:{
-        "content-type":"application/json"
+    let data = JSON.stringify(form);
+    let seq = this.api.post("account/logon", data, {
+      headers: {
+        "content-type": "application/json"
       },
-      withCredentials:true,
-      responseType:"text"
+      withCredentials: true,
+      responseType: "text"
     }
-  );
-    
-      return seq;
+    );
+
+    return seq;
 
   }
 

@@ -123,11 +123,9 @@ export class WechatPayPage implements OnInit, OnDestroy {
     });
     loading.present();
     this.service.pay(this.data).subscribe(res => {
-    
-      let para=JSON.parse(res.Data);
-      console.log(para);
+      console.log(res);
       loading.dismiss();
-      this.callpay(res.Data);
+      this.callpay(res);
      
     }, (err) => {
       loading.dismiss();
@@ -147,13 +145,10 @@ export class WechatPayPage implements OnInit, OnDestroy {
     });
     loading.present();
     this.service.pay(this.data).subscribe(res => {
-     
+      console.log(res);
       loading.dismiss();
-      if(res.Success){
-        console.log(res.PayUrl);
+      if(res.Success)
         window.location.href = res.PayUrl;
-      }
-      
     }, (err) => {
       loading.dismiss();
       let toast = this.toastCtrl.create({
@@ -184,13 +179,13 @@ export class WechatPayPage implements OnInit, OnDestroy {
     if (typeof WeixinJSBridge == "undefined") {
       console.log("undefined");
       if (document.addEventListener) {
-        document.addEventListener('WeixinJSBridgeReady', this.jsApiCall.bind(this), false);
+        document.addEventListener('WeixinJSBridgeReady', this.jsApiCall, false);
       }
 
-      else if (document['attachEvent']) {
-        document['attachEvent']('WeixinJSBridgeReady', this.jsApiCall.bind(this));
-        document['attachEvent']('onWeixinJSBridgeReady',this.jsApiCall.bind(this));
-      }
+      // else if (document.attachEvent) {
+      //   document.attachEvent('WeixinJSBridgeReady', this.jsApiCall);
+      //   document.attachEvent('onWeixinJSBridgeReady',this.jsApiCall);
+      // }
     }
     else {
       console.log("jsApiCall");
