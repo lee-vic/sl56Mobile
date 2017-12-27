@@ -1,14 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, PopoverController, ViewController } from 'ionic-angular';
 import { WechatPayProvider } from '../../providers/wechat-pay/wechat-pay';
 import { UserWechatPayListPage } from '../pages';
+import { CookieService } from 'ngx-cookie-service';
 
-/**
- * Generated class for the WechatPayPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 declare var jQuery: any;
 declare var WeixinJSBridge: any;
 
@@ -25,7 +21,8 @@ export class WechatPayPage implements OnInit, OnDestroy {
     public service: WechatPayProvider,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
-
+    public viewCtrl: ViewController,
+    private cookieService: CookieService,
     public popoverCtrl: PopoverController,
     public navParams: NavParams) {
 
@@ -55,6 +52,8 @@ export class WechatPayPage implements OnInit, OnDestroy {
       });
       toast.present();
     });
+    if (this.cookieService.get('State') != "")
+      this.viewCtrl.showBackButton(false);
     jQuery.connection.hub.url = "http://signalr.sl56.com/signalr";
     var hub = jQuery.connection.messageHub;
     hub.client.messageReceived = this.success.bind(this);

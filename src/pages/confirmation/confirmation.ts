@@ -1,14 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController, AlertController, LoadingController, ViewController } from 'ionic-angular';
 import { ConfirmationProvider } from '../../providers/confirmation/confirmation';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-
-/**
- * Generated class for the ConfirmationPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { CookieService } from 'ngx-cookie-service';
+import { UserDeliveryRecordDetailPage } from '../pages';
 
 @IonicPage()
 @Component({
@@ -17,45 +11,48 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class ConfirmationPage implements OnInit, OnDestroy {
   allSelected: boolean = false;
-  total=0;
-  ngOnDestroy(): void {
-    document.querySelector(".tabbar")['style'].display = 'flex';
-  }
+  total = 0;
   receiveGoodsDetailList: any;
   searchList: any;
-  ngOnInit(): void {
-    this.service.getReceiveGoodsDetailList().subscribe(res => {
-      this.searchList = this.receiveGoodsDetailList = res;
-      
-    });
-  }
 
   constructor(public navCtrl: NavController,
     public service: ConfirmationProvider,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
+    public viewCtrl: ViewController,
+    private cookieService: CookieService,
     public navParams: NavParams) {
-    document.querySelector(".tabbar")['style'].display = 'none';
-  }
 
+  }
+  ngOnInit(): void {
+    this.service.getReceiveGoodsDetailList().subscribe(res => {
+      this.searchList = this.receiveGoodsDetailList = res;
+    });
+    let tabbar = document.querySelector(".tabbar");
+    if (tabbar != undefined) {
+      tabbar['style'].display = 'none';
+    }
+    if (this.cookieService.get('State') != "")
+      this.viewCtrl.showBackButton(false);
+  }
+  ngOnDestroy(): void {
+    let tabbar = document.querySelector(".tabbar");
+    if (tabbar != undefined) {
+      tabbar['style'].display = 'flex';
+    }
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConfirmationPage');
   }
   onAllClick() {
-
     this.searchList.forEach(element => {
       element.Selected = this.allSelected;
     });
   }
   getItems(ev: any) {
-
-
-
-    // set val to the value of the searchbar
     let val = ev.target.value;
     console.log(val);
-    // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.searchList = this.receiveGoodsDetailList.filter((item) => {
         return (item.ReferenceNumber.toLowerCase().indexOf(val.toLowerCase()) > -1);
@@ -114,15 +111,15 @@ export class ConfirmationPage implements OnInit, OnDestroy {
       confirm.present();
     }
   }
-  doConfirm(selectedIdList){
-     let loading = this.loadingCtrl.create({
+  doConfirm(selectedIdList) {
+    let loading = this.loadingCtrl.create({
       content: '请稍后...',
     });
     loading.present();
-    this.service.confirm(selectedIdList).subscribe(res=>{
+    this.service.confirm(selectedIdList).subscribe(res => {
       loading.dismiss();
       this.searchList = this.receiveGoodsDetailList = res;
-    },(err)=>{
+    }, (err) => {
       loading.dismiss();
       let toast = this.toastCtrl.create({
         message: err.message,
@@ -131,6 +128,11 @@ export class ConfirmationPage implements OnInit, OnDestroy {
       });
       toast.present();
     });
+  }
+  detail(item){
+    this.navCtrl.push(UserDeliveryRecordDetailPage,{
+      id:item.Id
+  });
   }
 
 }

@@ -23,11 +23,11 @@
 
       <ion-label> 单号:{{item.ReferenceNumber}}</ion-label>
       <ion-checkbox [(ngModel)]="item.Selected"></ion-checkbox>
-      <button ion-button clear item-end>查看详情</button>
+      <button ion-button clear item-end (click)="detail(item)">查看详情</button>
     </ion-item>
 
 
-    <button ion-item class="bottom-border">
+    <button ion-item class="bottom-border" (click)="detail(item)">
       <h2>{{item.PriceName}}</h2>
       <p>计费重:{{item.Weight}}Kg</p>
       <ion-note item-end>￥{{item.Amount}}</ion-note>

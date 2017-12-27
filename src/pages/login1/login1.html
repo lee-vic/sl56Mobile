@@ -1,5 +1,5 @@
 <!--
-  Generated template for the LoginPage page.
+  Generated template for the Login1Page page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,12 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <button ion-button color="dark" clear icon-start (click)="dismiss()">
-      <ion-icon name='arrow-back'></ion-icon>
-      返回
-    </button>
-
-
+   
     <ion-buttons end>
       <button ion-button (click)="forgetPasswordClick()">
         忘记密码?
@@ -27,7 +22,7 @@
 <ion-content padding>
   <form (ngSubmit)="doLogin(authForm.value)" [formGroup]="authForm" novalidate>
 
-    <h1>登录</h1>
+   <h1>登录</h1>
 
     <ion-item>
       <ion-label stacked color="dark">用户名</ion-label>
@@ -40,10 +35,10 @@
     </ion-item>
 
     <button ion-button block type="submit" [disabled]="!authForm.valid">登录</button>
-
+  
 
   </form>
   <button ion-button (click)="getCookie()">
     Cookie
-  </button>
+   </button>
 </ion-content>

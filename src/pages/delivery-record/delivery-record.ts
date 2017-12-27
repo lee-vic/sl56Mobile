@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Content, ViewController } from 'ionic-angular';
 import { DeliveryRecordProvider } from '../../providers/delivery-record/delivery-record';
 import { deliveryRecord } from '../../models/delivery-record.model';
 import { UserDeliveryRecordDetailPage } from '../pages';
+import { CookieService } from 'ngx-cookie-service';
 
 /**
  * Generated class for the DeliveryRecordPage page.
@@ -24,12 +25,37 @@ export class DeliveryRecordPage  implements OnInit, OnDestroy {
   endDate:string;
   showFilter:boolean=false;
   @ViewChild(Content) content: Content;
+  
+ 
+
+  constructor(public navCtrl: NavController, 
+    public service:DeliveryRecordProvider,
+    public loadingCtrl: LoadingController,
+    public viewCtrl: ViewController,
+    private cookieService: CookieService,
+    public navParams: NavParams) {
+      let now=new Date();
+      this.endDate=now.toISOString();
+      this.startDate=new Date(now.setMonth(now.getMonth()-1)).toISOString();
+   
+  }
   ngOnInit(): void {
-    document.querySelector(".tabbar")['style'].display = 'none';
+    let tabbar = document.querySelector(".tabbar");
+    if (tabbar != undefined) {
+      tabbar['style'].display = 'none';
+    }
     this.getData();
+    if (this.cookieService.get('State') != "")
+    this.viewCtrl.showBackButton(false);
   }
   ngOnDestroy(): void {
-    document.querySelector(".tabbar")['style'].display = 'flex';
+    let tabbar = document.querySelector(".tabbar");
+    if (tabbar != undefined) {
+      tabbar['style'].display = 'flex';
+    }
+  }
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad DeliveryRecordPage');
   }
   getData(){
     let loading = this.loadingCtrl.create({
@@ -40,20 +66,6 @@ export class DeliveryRecordPage  implements OnInit, OnDestroy {
       this.searchList=this.deliveryRecordList=res;
       loading.dismiss();
     });
-  }
-
-  constructor(public navCtrl: NavController, 
-    public service:DeliveryRecordProvider,
-    public loadingCtrl: LoadingController,
-    public navParams: NavParams) {
-      let now=new Date();
-      this.endDate=now.toISOString();
-      this.startDate=new Date(now.setMonth(now.getMonth()-1)).toISOString();
-   
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DeliveryRecordPage');
   }
   filterClick(){
     if(!this.showFilter){
