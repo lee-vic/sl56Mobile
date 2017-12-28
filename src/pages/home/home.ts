@@ -49,7 +49,11 @@ export class HomePage {
       image:"assets/imgs/home-product-3.png",
     }
   ]
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+   
+    public navParams: NavParams) {
+   
+    // alert(this.cookieService.get("sl56Auth"));
   }
 
   ionViewDidLoad() {

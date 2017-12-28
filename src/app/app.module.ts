@@ -6,7 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { User } from '../providers/user/user';
-import { Api } from '../providers/api/api';
 import { CalculationProvider } from '../providers/calculation/calculation';
 import { AutoCompleteModule } from '../../node_modules/ionic2-auto-complete';
 import { CountryProvider } from '../providers/country/country';
@@ -41,7 +40,6 @@ import { CookieService } from 'ngx-cookie-service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     User,
-    Api,
     CalculationProvider,
     CookieService,
     CountryProvider,

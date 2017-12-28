@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Api } from '../api/api';
+import { HttpClient } from '@angular/common/http';
 
 /*
   Generated class for the CountryProvider provider.
@@ -10,11 +10,11 @@ import { Api } from '../api/api';
 @Injectable()
 export class CountryProvider {
 
-  constructor(public api: Api) {
+  constructor(private http: HttpClient) {
     console.log('Hello CountryProvider Provider');
   }
   getCoutryList(){
-    let seq= this.api.get("common/GetCountryList", null,{
+    let seq= this.http.get("common/GetCountryList",{
       withCredentials:true,
       responseType:"json"
     });

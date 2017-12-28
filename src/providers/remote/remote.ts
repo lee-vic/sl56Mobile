@@ -1,6 +1,7 @@
 
 import { Injectable } from '@angular/core';
-import { Api } from '../api/api';
+import { HttpClient } from '@angular/common/http';
+
 
 /*
   Generated class for the RemoteProvider provider.
@@ -11,15 +12,15 @@ import { Api } from '../api/api';
 @Injectable()
 export class RemoteProvider {
 
-  constructor(public api: Api) {
+  constructor(private http: HttpClient) {
     console.log('Hello RemoteProvider Provider');
   }
   getModeOfTransportTypeList(){
-    let seq= this.api.get("common/GetModeOfTransportTypeList",null,{ withCredentials:true});
+    let seq= this.http.get("common/GetModeOfTransportTypeList",{ withCredentials:true});
     return seq;
   }
   Query(formValue){
-    let seq= this.api.post("Remote/Query", formValue,{ withCredentials:true});
+    let seq= this.http.post("Remote/Query", formValue,{ withCredentials:true});
     return seq;
   }
 }

@@ -1,7 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { Api } from '../api/api';
-
+import { HttpClient } from '@angular/common/http';
 /*
   Generated class for the ConfirmationProvider provider.
 
@@ -11,11 +10,11 @@ import { Api } from '../api/api';
 @Injectable()
 export class ConfirmationProvider {
 
-  constructor(public api: Api) {
+  constructor(private http: HttpClient) {
     console.log('Hello ConfirmationProvider Provider');
   }
   getReceiveGoodsDetailList(){
-    let seq= this.api.get("Confirmation/GetReceiveGoodsDetailList",null,{
+    let seq= this.http.get("Confirmation/GetReceiveGoodsDetailList",{
       headers:{
         "content-type":"application/json"
       },
@@ -27,7 +26,7 @@ export class ConfirmationProvider {
   confirm(selectIdList:string){
    
    let data={"SelectIdList":selectIdList};
-    let seq= this.api.post("Confirmation/Confirm",data,{
+    let seq= this.http.post("Confirmation/Confirm",data,{
       headers:{
         "content-type":"application/json"
       },

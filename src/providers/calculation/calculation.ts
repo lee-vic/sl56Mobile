@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { Api } from '../api/api';
+import { HttpClient } from '@angular/common/http';
 
 /*
   Generated class for the CalculationProvider provider.
@@ -11,20 +11,21 @@ import { Api } from '../api/api';
 @Injectable()
 export class CalculationProvider {
 
-  constructor(public api: Api) {
+  constructor(private http: HttpClient) {
     console.log('Hello CalculationProvider Provider');
   }
   getModeOfTransportList(){
-    let seq= this.api.get("common/GetModeOfTransportList",null,{
+    
+    let seq=this.http.get("common/GetModeOfTransportList",{
       withCredentials:true,
       responseType:"json"
-    });
+    })
     return seq;
   }
   calculate(form){
     let data=JSON.stringify(form);
     console.log(data);
-    let seq=this.api.post("Calculation/Calculate",data,{
+    let seq=this.http.post("Calculation/Calculate",data,{
       headers:{
         "content-type":"application/json"
       },
@@ -34,8 +35,7 @@ export class CalculationProvider {
     return seq;
   }
   getVolumetricDivisorList(){
-    let seq= this.api.get("common/GetVolumetricDivisorList",null,{
-    
+    let seq= this.http.get("common/GetVolumetricDivisorList",{
       withCredentials:true,
       responseType:"json"
     })
