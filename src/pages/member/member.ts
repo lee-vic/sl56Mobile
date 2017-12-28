@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Modal, ModalController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Modal, ModalController, ToastController, LoadingController } from 'ionic-angular';
 import { UserLoginPage, UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage, UserWechatBindingPage } from '../pages';
 import { User } from '../../providers/user/user';
 
@@ -47,7 +47,7 @@ export class MemberPage implements OnInit {
       rowIndex: 2,
       items: [
         { title: "修改密码", image: "assets/imgs/member-11.png" },
-        { title: "子账号管理", image: "assets/imgs/member-12.png" },
+        { title: "账号管理", image: "assets/imgs/member-12.png" },
         { title: "微信绑定", image: "assets/imgs/member-13.png", page: UserWechatBindingPage }
       ]
     }
@@ -58,14 +58,27 @@ export class MemberPage implements OnInit {
     public navParams: NavParams,
     public toastCtrl: ToastController,
     public service: User,
+    public loadingCtrl: LoadingController,
     public modalCtrl: ModalController) {
 
   }
   ngOnInit(): void {
+    let loading = this.loadingCtrl.create({
+      content: '请稍后...'
+    });
+    loading.present();
     this.service.isAuthenticated().subscribe(res => {
+      loading.dismiss();
     }, (err) => {
+      loading.dismiss();
       console.log(err);
-    })
+      if(err.status==401){
+        this.isLogin=false;
+      }
+      else if(err.status==200){
+        this.isLogin=true;
+      }
+    });
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserPage');

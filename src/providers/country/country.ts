@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { apiUrl } from '../../globals';
 
 /*
   Generated class for the CountryProvider provider.
@@ -14,7 +15,7 @@ export class CountryProvider {
     console.log('Hello CountryProvider Provider');
   }
   getCoutryList(){
-    let seq= this.http.get("common/GetCountryList",{
+    let seq= this.http.get(apiUrl + "/common/GetCountryList",{
       withCredentials:true,
       responseType:"json"
     });

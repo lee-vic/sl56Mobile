@@ -8,6 +8,6 @@ import { RemotePage } from './remote';
   ],
   imports: [
     IonicPageModule.forChild(RemotePage),
-  ],
+  ]
 })
 export class RemotePageModule {}

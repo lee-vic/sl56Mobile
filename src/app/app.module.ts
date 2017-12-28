@@ -6,8 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { User } from '../providers/user/user';
-import { CalculationProvider } from '../providers/calculation/calculation';
-import { AutoCompleteModule } from '../../node_modules/ionic2-auto-complete';
 import { CountryProvider } from '../providers/country/country';
 import { RemoteProvider } from '../providers/remote/remote';
 import { ConfirmationProvider } from '../providers/confirmation/confirmation';
@@ -17,6 +15,7 @@ import { DeliveryRecordDetailProvider } from '../providers/delivery-record-detai
 import { WechatPayListProvider } from '../providers/wechat-pay-list/wechat-pay-list';
 import { WechatBindingProvider } from '../providers/wechat-binding/wechat-binding';
 import { CookieService } from 'ngx-cookie-service';
+import { CalculationProvider } from '../providers/calculation/calculation';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,6 @@ import { CookieService } from 'ngx-cookie-service';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AutoCompleteModule,
     IonicModule.forRoot(MyApp,{
       mode:"ios",
       backButtonText:"返回"
@@ -40,7 +38,6 @@ import { CookieService } from 'ngx-cookie-service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     User,
-    CalculationProvider,
     CookieService,
     CountryProvider,
     RemoteProvider,
@@ -49,6 +46,7 @@ import { CookieService } from 'ngx-cookie-service';
     WechatPayProvider,
     DeliveryRecordDetailProvider,
     WechatPayListProvider,
+    CalculationProvider,
     WechatBindingProvider
   ]
 })

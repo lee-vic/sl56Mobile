@@ -8,6 +8,6 @@ import { WechatPayListPage } from './wechat-pay-list';
   ],
   imports: [
     IonicPageModule.forChild(WechatPayListPage),
-  ],
+  ]
 })
 export class WechatPayListPageModule {}

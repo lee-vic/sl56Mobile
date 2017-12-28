@@ -8,6 +8,6 @@ import { WechatBindingPage } from './wechat-binding';
   ],
   imports: [
     IonicPageModule.forChild(WechatBindingPage),
-  ],
+  ]
 })
 export class WechatBindingPageModule {}

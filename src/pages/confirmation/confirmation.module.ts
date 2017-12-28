@@ -8,6 +8,6 @@ import { ConfirmationPage } from './confirmation';
   ],
   imports: [
     IonicPageModule.forChild(ConfirmationPage),
-  ],
+  ]
 })
 export class ConfirmationPageModule {}

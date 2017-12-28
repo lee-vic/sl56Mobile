@@ -18,7 +18,7 @@ export class User {
   }
   auth(form: any) {
     let data = JSON.stringify(form);
-    let seq = this.http.post(apiUrl + "account/logon", data, {
+    let seq = this.http.post(apiUrl + "/account/logon", data, {
       headers: {
         "content-type": "application/json"
       },

@@ -8,6 +8,6 @@ import { DeliveryRecordPage } from './delivery-record';
   ],
   imports: [
     IonicPageModule.forChild(DeliveryRecordPage),
-  ],
+  ]
 })
 export class DeliveryRecordPageModule {}

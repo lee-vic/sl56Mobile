@@ -1,6 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { apiUrl } from '../../globals';
 
 
 /*
@@ -16,11 +17,11 @@ export class RemoteProvider {
     console.log('Hello RemoteProvider Provider');
   }
   getModeOfTransportTypeList(){
-    let seq= this.http.get("common/GetModeOfTransportTypeList",{ withCredentials:true});
+    let seq= this.http.get(apiUrl + "/common/GetModeOfTransportTypeList",{ withCredentials:true});
     return seq;
   }
   Query(formValue){
-    let seq= this.http.post("Remote/Query", formValue,{ withCredentials:true});
+    let seq= this.http.post(apiUrl + "/Remote/Query", formValue,{ withCredentials:true});
     return seq;
   }
 }

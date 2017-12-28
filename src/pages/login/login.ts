@@ -97,9 +97,11 @@ export class LoginPage implements OnInit{
 
   }
   getCookie(){
-    console.log(this.cookieService.get('OpenId'));
-    console.log(this.cookieService.get('UnionId'));
-    console.log(this.cookieService.get('State'));
+    // console.log(this.cookieService.get('OpenId'));
+    // console.log(this.cookieService.get('UnionId'));
+    // console.log(this.cookieService.get('State'));
+    //console.log(this.plt.platforms());
+    alert(this.plt.platforms())
   }
 
 }
