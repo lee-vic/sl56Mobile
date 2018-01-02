@@ -26,7 +26,8 @@ import { CalculationProvider } from '../providers/calculation/calculation';
     HttpClientModule,
     IonicModule.forRoot(MyApp,{
       mode:"ios",
-      backButtonText:"返回"
+      backButtonText:"返回",
+      tabsHideOnSubPages:true
     })
   ],
   bootstrap: [IonicApp],

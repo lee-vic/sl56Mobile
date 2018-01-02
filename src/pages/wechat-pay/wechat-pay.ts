@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController, PopoverController, ViewController } from 'ionic-angular';
 import { WechatPayProvider } from '../../providers/wechat-pay/wechat-pay';
 import { UserWechatPayListPage } from '../pages';
@@ -13,7 +13,7 @@ declare var WeixinJSBridge: any;
   selector: 'page-wechat-pay',
   templateUrl: 'wechat-pay.html',
 })
-export class WechatPayPage implements OnInit, OnDestroy {
+export class WechatPayPage implements OnInit {
   data: any;
 
   allSelected: boolean = true;
@@ -32,10 +32,7 @@ export class WechatPayPage implements OnInit, OnDestroy {
     console.log('ionViewDidLoad WechatPayPage');
   }
   ngOnInit(): void {
-    let tabbar = document.querySelector(".tabbar");
-    if (tabbar != undefined) {
-      tabbar['style'].display = 'none';
-    }
+   
     let loading = this.loadingCtrl.create({
       content: '请稍后...'
     });
@@ -61,13 +58,7 @@ export class WechatPayPage implements OnInit, OnDestroy {
       console.log('Now connected, connection ID=' + jQuery.connection.hub.id);
     });
   }
-  ngOnDestroy(): void {
-    let tabbar = document.querySelector(".tabbar");
-    if (tabbar != undefined) {
-      tabbar['style'].display = 'flex';
-    }
 
-  }
   success(msg) {
     let obj=JSON.parse(msg);
     if(obj.Content=="True"){
@@ -157,7 +148,7 @@ export class WechatPayPage implements OnInit, OnDestroy {
       console.log(res);
       loading.dismiss();
       if(res.Success)
-        window.location.href = res.PayUrl;
+      location.href=res.PayUrl;
     }, (err) => {
       loading.dismiss();
       let toast = this.toastCtrl.create({

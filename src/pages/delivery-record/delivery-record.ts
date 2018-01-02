@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, Content, ViewController } from 'ionic-angular';
 import { DeliveryRecordProvider } from '../../providers/delivery-record/delivery-record';
 import { deliveryRecord } from '../../models/delivery-record.model';
@@ -17,7 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
   selector: 'page-delivery-record',
   templateUrl: 'delivery-record.html',
 })
-export class DeliveryRecordPage  implements OnInit, OnDestroy {
+export class DeliveryRecordPage  implements OnInit {
   
   deliveryRecordList:Array<deliveryRecord>;
   searchList:Array<deliveryRecord>;
@@ -40,20 +40,12 @@ export class DeliveryRecordPage  implements OnInit, OnDestroy {
    
   }
   ngOnInit(): void {
-    let tabbar = document.querySelector(".tabbar");
-    if (tabbar != undefined) {
-      tabbar['style'].display = 'none';
-    }
+  
     this.getData();
     if (this.cookieService.get('State') != "")
     this.viewCtrl.showBackButton(false);
   }
-  ngOnDestroy(): void {
-    let tabbar = document.querySelector(".tabbar");
-    if (tabbar != undefined) {
-      tabbar['style'].display = 'flex';
-    }
-  }
+ 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DeliveryRecordPage');
   }

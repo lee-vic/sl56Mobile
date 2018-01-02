@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController, LoadingController, ViewController } from 'ionic-angular';
 import { ConfirmationProvider } from '../../providers/confirmation/confirmation';
 import { CookieService } from 'ngx-cookie-service';
@@ -9,7 +9,7 @@ import { UserDeliveryRecordDetailPage } from '../pages';
   selector: 'page-confirmation',
   templateUrl: 'confirmation.html',
 })
-export class ConfirmationPage implements OnInit, OnDestroy {
+export class ConfirmationPage implements OnInit {
   allSelected: boolean = false;
   total = 0;
   receiveGoodsDetailList: any;
@@ -29,19 +29,11 @@ export class ConfirmationPage implements OnInit, OnDestroy {
     this.service.getReceiveGoodsDetailList().subscribe(res => {
       this.searchList = this.receiveGoodsDetailList = res;
     });
-    let tabbar = document.querySelector(".tabbar");
-    if (tabbar != undefined) {
-      tabbar['style'].display = 'none';
-    }
+   
     if (this.cookieService.get('State') != "")
       this.viewCtrl.showBackButton(false);
   }
-  ngOnDestroy(): void {
-    let tabbar = document.querySelector(".tabbar");
-    if (tabbar != undefined) {
-      tabbar['style'].display = 'flex';
-    }
-  }
+ 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConfirmationPage');
   }

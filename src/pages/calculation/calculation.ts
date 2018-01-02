@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, LoadingController, ToastController, ViewController } from 'ionic-angular';
 import { CalculationProvider } from '../../providers/calculation/calculation';
 import { CountryProvider } from '../../providers/country/country';
@@ -12,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
   selector: 'page-calculation',
   templateUrl: 'calculation.html',
 })
-export class CalculationPage implements OnInit, OnDestroy {
+export class CalculationPage implements OnInit {
 
   calculateMode = "1";
   countryList: any;
@@ -61,19 +61,10 @@ export class CalculationPage implements OnInit, OnDestroy {
       .subscribe((res) => {
         this.countryList = this.countrySearch = res;
       });
-    let tabbar = document.querySelector(".tabbar");
-    if (tabbar != undefined) {
-      tabbar['style'].display = 'none';
-    }
     if (this.cookieService.get('State') != "")
       this.viewCtrl.showBackButton(false);
   }
-  ngOnDestroy(): void {
-    let tabbar = document.querySelector(".tabbar");
-    if (tabbar != undefined) {
-      tabbar['style'].display = 'flex';
-    }
-  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad CalculationPage');
   }
