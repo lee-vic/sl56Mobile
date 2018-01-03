@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'product.html',
 })
 export class ProductPage {
-
+  tab="1";
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 

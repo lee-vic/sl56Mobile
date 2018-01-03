@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController, PopoverController, ViewController } from 'ionic-angular';
 import { WechatPayProvider } from '../../providers/wechat-pay/wechat-pay';
 import { UserWechatPayListPage } from '../pages';
@@ -13,7 +13,8 @@ declare var WeixinJSBridge: any;
   selector: 'page-wechat-pay',
   templateUrl: 'wechat-pay.html',
 })
-export class WechatPayPage implements OnInit {
+export class WechatPayPage implements OnInit,OnDestroy {
+ 
   data: any;
 
   allSelected: boolean = true;
@@ -57,8 +58,11 @@ export class WechatPayPage implements OnInit {
     jQuery.connection.hub.start({ xdomain: true }).done(function () {
       console.log('Now connected, connection ID=' + jQuery.connection.hub.id);
     });
+   
   }
-
+  ngOnDestroy(): void {
+    jQuery.connection.hub.stop();
+  }
   success(msg) {
     let obj=JSON.parse(msg);
     if(obj.Content=="True"){
@@ -123,9 +127,10 @@ export class WechatPayPage implements OnInit {
     });
     loading.present();
     this.service.pay(this.data).subscribe(res => {
-      console.log(res);
+      
       loading.dismiss();
-      this.callpay(res);
+      let jsApiParam=JSON.parse(res.Data) ;
+      this.callpay(jsApiParam);
      
     }, (err) => {
       loading.dismiss();
@@ -175,7 +180,7 @@ export class WechatPayPage implements OnInit {
   listClick() {
     this.navCtrl.push(UserWechatPayListPage);
   }
-  callpay(order) {
+  callpay(jsApiParam) {
     if (typeof WeixinJSBridge == "undefined") {
       console.log("undefined");
       if (document.addEventListener) {
@@ -189,17 +194,22 @@ export class WechatPayPage implements OnInit {
     }
     else {
       console.log("jsApiCall");
-      this.jsApiCall(order);
+      this.jsApiCall(jsApiParam);
     }
   }
-  jsApiCall(order) {
+  jsApiCall(jsApiParam) {
+   
     WeixinJSBridge.invoke(
       'getBrandWCPayRequest',
-      order,//josn串
+      jsApiParam,//josn串
       (res) => {
         if (res.err_msg == "get_brand_wcpay_request:ok") {
-          alert("已成功支付");
-          window.location.href = "/DelivervRecord/Index";
+          let toast = this.toastCtrl.create({
+            message: "支付成功",
+            position: 'middle',
+            duration: 1000
+          });
+          toast.present();
         }
         else {
           alert(res.err_code + res.err_desc + res.err_msg);

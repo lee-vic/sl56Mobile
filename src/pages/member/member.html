@@ -8,7 +8,7 @@
 <ion-content>
   <div class="user-header">
     <div class="user-header-title">欢迎进入会员中心</div>
-    <button ion-button clear id="btnLogin" (click)="loginClick()" *ngIf="!isLogin">登录</button>
+    <button ion-button clear id="btnLogin" (click)="loginClick()">{{isLogin?"退出":"登录"}}</button>
 
   </div>
   <ion-grid>

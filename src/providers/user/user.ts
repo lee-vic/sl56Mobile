@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class User {
 
-  constructor(public http: HttpClient) {
+  constructor(private http: HttpClient) {
     console.log('Hello UserProvider Provider');
 
   }
@@ -31,5 +31,8 @@ export class User {
     let seq = this.http.get(apiUrl + "/Account/IsAuthenticated", { withCredentials: true });
     return seq;
   }
-
+  logOff(){
+    let seq = this.http.get(apiUrl + "/Account/LogOff", { withCredentials: true, responseType: "text" });
+    return seq;
+  }
 }

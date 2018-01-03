@@ -22,7 +22,7 @@ export class MemberPage implements OnInit {
     {
       rowIndex: 1,
       items: [
-        { title: "资费计算", image: "assets/imgs/member-2.png", page: UserCalculationPage },
+        { title: "价格查询", image: "assets/imgs/member-2.png", page: UserCalculationPage },
         { title: "偏远查询", image: "assets/imgs/member-3.png", page: UserRemotePage },
         { title: "交货清单", image: "assets/imgs/member-4.png" }
       ]
@@ -86,7 +86,7 @@ export class MemberPage implements OnInit {
   menuClick(item) {
     if (item.page == undefined) {
       let toast = this.toastCtrl.create({
-        message: '开发中，敬请期待',
+        message: '开发中...',
         position: 'middle',
         duration: 1500
       });
@@ -104,8 +104,21 @@ export class MemberPage implements OnInit {
 
   }
   loginClick() {
-
-    this.showLogin(UserCalculationPage);
+    if(this.isLogin){
+      this.service.logOff().subscribe(res=>{
+        this.isLogin=false;
+        let toast = this.toastCtrl.create({
+          message: '已成功退出',
+          position: 'middle',
+          duration: 1000
+        });
+        toast.present();
+      });
+    }
+    else{
+      this.showLogin(UserCalculationPage);
+    }
+   
   }
   showLogin(navPage: string) {
     this.loginModalPage = this.modalCtrl.create(UserLoginPage);
