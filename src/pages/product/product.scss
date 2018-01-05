@@ -1,3 +1,16 @@
 page-product {
-
+    .product-title{
+        border-left:solid 0.5rem #9ecdfe;
+        padding-left: 0.6rem;
+    }
+    .product-1{
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    p{
+        text-indent:2em; 
+    }
+    .product-item{
+        padding-top: 1.5rem;
+    }
 }

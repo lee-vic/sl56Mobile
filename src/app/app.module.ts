@@ -17,6 +17,7 @@ import { WechatBindingProvider } from '../providers/wechat-binding/wechat-bindin
 import { CookieService } from 'ngx-cookie-service';
 import { CalculationProvider } from '../providers/calculation/calculation';
 
+
 @NgModule({
   declarations: [
     MyApp
