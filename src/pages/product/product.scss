@@ -7,10 +7,55 @@ page-product {
         font-weight: bold;
         font-size: 1.5rem;
     }
-    p{
-        text-indent:2em; 
-    }
+    
     .product-item{
         padding-top: 1.5rem;
     }
+    .my-button{
+        width: 100%;
+        height: 3rem;
+        border-radius:0;
+        padding: 0;
+        margin: 0;
+        color: #444444;
+    }
+    .my-button-current{
+        background-color: #9ecdfe;
+    }
+    [col-3]{
+        padding: 0;
+    }
+    .grid{
+        border: solid 1px #444444;
+      
+        padding: 3px;
+   
+    }
+    .segment-button{
+        font-size: 1.5rem !important;
+        color: #969696 !important;
+    }
+    .segment-activated{
+        border-color: #004ea2 !important;
+        border-bottom-width:3px !important;
+        color: #444444 !important;
+    }
+    .dot-box{
+     
+        width: 20px;
+        height: 19px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .dot{
+        width: 10px;
+        height: 10px;
+        background-color: #9ecdfe;
+        border-radius: 50%;
+    }
+    .clear {
+        clear: both;
+        }
+   
+  
 }
