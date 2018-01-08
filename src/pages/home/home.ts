@@ -19,12 +19,14 @@ export class HomePage {
     {
       title:"公司通知",
       description:"升蓝重要通知",
-      image:"assets/imgs/home-news-1.png"
+      image:"assets/imgs/home-news-1.png",
+      cateId:2
     },
     {
       title:"业务信息",
       description:"升蓝最新信息",
-      image:"assets/imgs/home-news-2.png"
+      image:"assets/imgs/home-news-2.png",
+      cateId:3
     }
   ];
   slides = [
@@ -70,6 +72,11 @@ export class HomePage {
     
    
     //this.navCtrl.push(ProductPage,{tab:prod.product},{updateUrl:true});
+  }
+  openNews(item){
+    let tabs:Tabs=this.navCtrl.parent;
+    localStorage.setItem("homeSelectedNews",item.cateId);
+    tabs.select(2);
   }
 
 }

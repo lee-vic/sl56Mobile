@@ -39,7 +39,7 @@
     </ion-list-header>
 
     <ion-item *ngFor="let item of news">
-      <button ion-item>
+      <button ion-item (click)="openNews(item)">
         <ion-thumbnail item-start>
           <img [src]="item.image">
         </ion-thumbnail>

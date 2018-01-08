@@ -16,6 +16,7 @@ import { WechatPayListProvider } from '../providers/wechat-pay-list/wechat-pay-l
 import { WechatBindingProvider } from '../providers/wechat-binding/wechat-binding';
 import { CookieService } from 'ngx-cookie-service';
 import { CalculationProvider } from '../providers/calculation/calculation';
+import { NoticeProvider } from '../providers/notice/notice';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { CalculationProvider } from '../providers/calculation/calculation';
     DeliveryRecordDetailProvider,
     WechatPayListProvider,
     CalculationProvider,
-    WechatBindingProvider
+    WechatBindingProvider,
+    NoticeProvider
   ]
 })
 export class AppModule {}

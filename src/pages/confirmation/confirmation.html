@@ -23,7 +23,8 @@
 
       <ion-label> 单号:{{item.ReferenceNumber}}</ion-label>
       <ion-checkbox [(ngModel)]="item.Selected"></ion-checkbox>
-      <button ion-button clear item-end (click)="detail(item)">查看详情</button>
+      <ion-note item-end>目的地:{{item.CountryName}}</ion-note>
+     
     </ion-item>
 
 

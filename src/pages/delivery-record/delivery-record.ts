@@ -70,9 +70,6 @@ export class DeliveryRecordPage  implements OnInit {
     }
   }
   getItems(ev: any) {
-
-
-
     // set val to the value of the searchbar
     let val = ev.target.value;
     console.log(val);
