@@ -108,6 +108,8 @@ export class CalculationPage implements OnInit {
     }
   }
   doCalculate(formValue) {
+    if(this.selectedCountry==null)
+      return;
     this.loading = this.loadingCtrl.create({
       content: '请稍后...',
 

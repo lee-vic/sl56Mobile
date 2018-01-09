@@ -42,7 +42,7 @@
           </ion-item>
           <ion-item *ngIf="showCountryList">
             <ion-list mode="md">
-              <button ion-item *ngFor="let item of countrySearch">{{item.Name}}</button>
+              <button ion-item *ngFor="let item of countrySearch" (click)="countryItemClick(item)">{{item.Name}}</button>
             </ion-list>
           </ion-item>
           <ion-item>
@@ -76,7 +76,7 @@
           </ion-item>
           <ion-item *ngIf="showCountryList">
             <ion-list>
-              <button ion-item *ngFor="let item of countrySearch">{{item.Name}}</button>
+              <button ion-item *ngFor="let item of countrySearch" (click)="countryItemClick(item)">{{item.Name}}</button>
             </ion-list>
           </ion-item>
           <ion-item>

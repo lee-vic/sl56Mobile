@@ -1,7 +1,8 @@
 
 import { Injectable } from '@angular/core';
 import { apiUrl } from '../../globals';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ForgotPassword } from '../../models/forgot-password.model';
 
 /*
   Generated class for the UserProvider provider.
@@ -33,6 +34,12 @@ export class User {
   }
   logOff(){
     let seq = this.http.get(apiUrl + "/Account/LogOff", { withCredentials: true, responseType: "text" });
+    return seq;
+  }
+  forgotPassword(account:string){
+    let paras=new HttpParams()
+    .set("account",account)
+    let seq = this.http.get<ForgotPassword>(apiUrl + "/Account/ForgotPassword", { withCredentials: true,params:paras});
     return seq;
   }
 }

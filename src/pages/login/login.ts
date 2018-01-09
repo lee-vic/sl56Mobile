@@ -57,6 +57,7 @@ export class LoginPage implements OnInit{
     let loginModalPage= this.modalCtrl.create(UserForgotPasswordPage);
    
     loginModalPage.present();
+   
   }
   doLogin(formValue) {
 

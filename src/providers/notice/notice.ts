@@ -23,4 +23,10 @@ export class NoticeProvider {
     let seq= this.http.get<Array<Notice>> (apiUrl+"/Notice/GetData",{ withCredentials:true,params:paras});
     return seq;
   }
+  getDetail(id){
+    let paras=new HttpParams()
+    .set("id",id)
+    let seq= this.http.get<Notice> (apiUrl+"/Notice/Detail",{ withCredentials:true,params:paras});
+    return seq;
+  }
 }

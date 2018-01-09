@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NoticeProvider } from '../../providers/notice/notice';
 import { Notice } from '../../models/notice.model';
 import { NoticeTab } from '../../models/notice-Tab.model';
+import { NoticeDetailPage } from '../pages';
 
 /**
  * Generated class for the NewsPage page.
@@ -81,8 +82,8 @@ export class NewsPage implements OnInit {
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewsPage');
   }
-  openDetail(item) {
-
+  openDetail(item:Notice) {
+    this.navCtrl.push(NoticeDetailPage,{id:item.NoticeId});
   }
   segmentChanged(ev) {
     
