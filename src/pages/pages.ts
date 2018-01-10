@@ -7,6 +7,7 @@ export const UserRemotePage="RemotePage";
 export const UserConfirmationPage="ConfirmationPage";
 export const UserForgotPasswordPage="ForgotPasswordPage";
 export const UserForgotPassword1Page="ForgotPassword1Page";
+export const UserForgotPassword2Page="ForgotPassword2Page";
 export const UserDeliveryRecordPage="DeliveryRecordPage";
 export const UserDeliveryRecordDetailPage="DeliveryRecordDetailPage";
 export const UserWechatPayPage="WechatPayPage";

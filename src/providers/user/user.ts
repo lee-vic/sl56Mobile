@@ -42,4 +42,34 @@ export class User {
     let seq = this.http.get<ForgotPassword>(apiUrl + "/Account/ForgotPassword", { withCredentials: true,params:paras});
     return seq;
   }
+  getCode(form:ForgotPassword){
+    let data = JSON.stringify(form);
+    let seq = this.http.post<ForgotPassword>(apiUrl + "/account/SendCode", data, {
+      headers: {
+        "content-type": "application/json"
+      },
+      withCredentials: true
+    })
+    return seq;
+  }
+  forgotPassword1(form:ForgotPassword){
+    let data = JSON.stringify(form);
+    let seq = this.http.post<ForgotPassword>(apiUrl + "/account/ForgotPassword1", data, {
+      headers: {
+        "content-type": "application/json"
+      },
+      withCredentials: true
+    })
+    return seq;
+  }
+  forgotPassword2(form:ForgotPassword){
+    let data = JSON.stringify(form);
+    let seq = this.http.post<ForgotPassword>(apiUrl + "/account/ForgotPassword2", data, {
+      headers: {
+        "content-type": "application/json"
+      },
+      withCredentials: true
+    })
+    return seq;
+  }
 }
