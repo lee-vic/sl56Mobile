@@ -15,3 +15,5 @@ export const UserWechatPayListPage="WechatPayListPage";
 export const UserWechatBindingPage="WechatBindingPage";
 export const ProductPage="ProductPage";
 export const NoticeDetailPage="NoticeDetailPage";
+export const UserResetPasswordPage="ResetPasswordPage";
+export const UserPriceListPage="PriceListPage";

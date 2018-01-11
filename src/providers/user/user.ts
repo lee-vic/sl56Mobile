@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { apiUrl } from '../../globals';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ForgotPassword } from '../../models/forgot-password.model';
+import { ResetPassword } from '../../models/reset-Password.model';
 
 /*
   Generated class for the UserProvider provider.
@@ -65,6 +66,16 @@ export class User {
   forgotPassword2(form:ForgotPassword){
     let data = JSON.stringify(form);
     let seq = this.http.post<ForgotPassword>(apiUrl + "/account/ForgotPassword2", data, {
+      headers: {
+        "content-type": "application/json"
+      },
+      withCredentials: true
+    })
+    return seq;
+  }
+  resetPassword(form:ResetPassword){
+    let data = JSON.stringify(form);
+    let seq = this.http.post<ResetPassword>(apiUrl + "/account/ResetPassword", data, {
       headers: {
         "content-type": "application/json"
       },

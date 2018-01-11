@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, Modal, ModalController, ToastController, LoadingController } from 'ionic-angular';
-import { UserLoginPage, UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage, UserWechatBindingPage } from '../pages';
+import { UserLoginPage, UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage, UserWechatBindingPage, UserResetPasswordPage, UserPriceListPage } from '../pages';
 import { User } from '../../providers/user/user';
 
 /**
@@ -40,13 +40,13 @@ export class MemberPage implements OnInit {
       items: [
         { title: "微信支付", image: "assets/imgs/member-8.png", page: UserWechatPayPage },
         { title: "我的账单", image: "assets/imgs/member-9.png" },
-        { title: "查看报价", image: "assets/imgs/member-10.png" }
+        { title: "查看报价", image: "assets/imgs/member-10.png",page:UserPriceListPage }
       ]
     },
     {
       rowIndex: 2,
       items: [
-        { title: "修改密码", image: "assets/imgs/member-11.png" },
+        { title: "修改密码", image: "assets/imgs/member-11.png",page: UserResetPasswordPage },
         { title: "账号管理", image: "assets/imgs/member-12.png" },
         { title: "微信绑定", image: "assets/imgs/member-13.png", page: UserWechatBindingPage }
       ]
