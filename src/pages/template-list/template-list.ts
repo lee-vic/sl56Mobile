@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { PriceProvider } from '../../providers/price/price';
-import { PriceInfo } from '../../models/price.model';
+import { TemplateProvider } from '../../providers/template/template';
+import { Template } from '../../models/template.model';
 import { apiUrl } from '../../globals';
+
 /**
- * Generated class for the PriceListPage page.
+ * Generated class for the TemplateListPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,37 +13,36 @@ import { apiUrl } from '../../globals';
 
 @IonicPage()
 @Component({
-  selector: 'page-price-list',
-  templateUrl: 'price-list.html',
+  selector: 'page-template-list',
+  templateUrl: 'template-list.html',
 })
-export class PriceListPage implements OnInit {
-
+export class TemplateListPage implements OnInit {
+ 
   currentPageIndex: number = 1;
-  items: PriceInfo[] = [];
+  items: Template[] = [];
   isBusy: boolean = false;
-  allowDownload:boolean=false;
-  downloadUrl:string=apiUrl + "/Price/Download";
-  constructor(public navCtrl: NavController,
-    private service: PriceProvider,
+  constructor(public navCtrl: NavController, 
+    private service:TemplateProvider,
     public navParams: NavParams) {
   }
   ngOnInit(): void {
     this.getItems(null);
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PriceListPage');
+    console.log('ionViewDidLoad TemplateListPage');
   }
   getItems(infiniteScroll) {
     if (this.isBusy == true)
       return;
     this.isBusy = true;
     this.service.getList(this.currentPageIndex).subscribe(res => {
-      this.allowDownload=res.AllowDownloadPrice;
-      if (res.Items.length < 10) {
+    
+      if (res.length < 10) {
         infiniteScroll.enable(false);
       }
-      for (var i = 0; i < res.Items.length; i++) {
-        this.items.push(res.Items[i]);
+      for (var i = 0; i < res.length; i++) {
+        res[i].Url=apiUrl + "/Template/Download/"+res[i].Id;
+        this.items.push(res[i]);
       }
       this.currentPageIndex++;
       if (infiniteScroll != null)
@@ -50,6 +50,4 @@ export class PriceListPage implements OnInit {
       this.isBusy = false;
     });
   }
- 
-
 }

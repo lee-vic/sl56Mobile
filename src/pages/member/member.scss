@@ -1,40 +1,75 @@
 page-member {
-    .user-header{
-        height: 10rem;
-        background: url(../assets/imgs/member-1.png);
-        width: 100%;
-        background-repeat: no-repeat;
-        background-size:cover;
+    user-header{
+        position: relative;
     }
-    .user-header-title{
-       color: white;
-       font-size: 2rem;
-       padding-top: 1rem;
-       padding-left: 4rem;
+    .user-title{
+        position: absolute;
+        top: 2rem;
+        color: #ffffff;
+        font-size: 2rem;
+        left: 3.5rem;
     }
     #btnLogin{
         border: solid 1px white;
+        top: 5rem;
+        left: 3.5rem;
         color: white;
         width: 9rem;
-        margin-left: 4rem;
+        border-radius:10px;
         height: 2.5em;
         margin-top: 1em;
+        position: absolute;
+        z-index: 10;
     }
-    ion-row.row{
+    #menu-grid ion-row.row{
         border-bottom: solid 1px #dcdcdc;
     }
-    ion-col.col{
-        padding-top: 1.6rem;
-        padding-bottom: 1.6rem;
-        border-right: solid 1px #dcdcdc;
+    #menu-grid ion-row.row:first-child{
+        border-top: solid 1px #dcdcdc;
     }
-    ion-col.col:last-child{
+    #menu-grid ion-col.col{
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        border-right: solid 1px #dcdcdc;
+        background-color: white;
+    }
+    #menu-grid ion-col.col:last-child{
         border-right:none;
     }
-    ion-grid.grid{
-        padding: 0;
+    #menu-grid{
+        padding-left: 0;
+        padding-right: 0;
     }
     .menu-title{
         margin-top: 1rem;
+    }
+    .content-ios{
+        background-color: #f7f7f7;
+    }
+   #btnPerson{
+       padding: 0;
+       margin: 0;
+       height: 1.5rem;
+       color: #d0e6fe;
+   }
+   #titlte{
+   
+    background-color: #004ea2;
+}
+    #info{
+        background-color: #0152A8;
+        color: #ffffff;
+        font-size: 1.8rem;
+    }
+    #name{
+        line-height: 40px;
+        color: #ffffff;
+        padding-left: 1rem;
+        font-size: 2.0rem;
+    }
+    .v-line{
+        width: 1px;
+        height: 10px;;
+        background-color: #ffffff
     }
 }

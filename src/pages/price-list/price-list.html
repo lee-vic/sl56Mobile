@@ -42,10 +42,10 @@
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
-<!-- <ion-footer>
+<ion-footer>
   <ion-toolbar>
 
-    <button ion-button full (click)="download()">下载完整报价</button>
-
+    <!-- <button ion-button full (click)="download()">下载完整报价</button> -->
+    <a href="{{downloadUrl}}" ion-button full *ngIf="allowDownload" >下载完整报价</a>
   </ion-toolbar>
-</ion-footer> -->
+</ion-footer>

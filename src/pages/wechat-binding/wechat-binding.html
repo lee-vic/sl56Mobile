@@ -14,10 +14,10 @@
 
 
 <ion-content>
-    <ion-list >
-        <ion-item *ngFor="let item of list">
-          <ion-label>{{item.Name}}</ion-label>
-          <button ion-button item-end outline (click)="onItemDeleteClick(item)">解除绑定</button>
-        </ion-item>
-        </ion-list>
+  <ion-list>
+    <ion-item *ngFor="let item of list">
+      <ion-label>{{item.Name}}</ion-label>
+      <button ion-button item-end outline (click)="onItemDeleteClick(item)">解除绑定</button>
+    </ion-item>
+  </ion-list>
 </ion-content>

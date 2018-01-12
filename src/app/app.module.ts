@@ -18,6 +18,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { CalculationProvider } from '../providers/calculation/calculation';
 import { NoticeProvider } from '../providers/notice/notice';
 import { PriceProvider } from '../providers/price/price';
+import { TemplateProvider } from '../providers/template/template';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { PriceProvider } from '../providers/price/price';
     CalculationProvider,
     WechatBindingProvider,
     NoticeProvider,
-    PriceProvider
+    PriceProvider,
+    TemplateProvider
   ]
 })
 export class AppModule {}

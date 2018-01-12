@@ -83,4 +83,8 @@ export class User {
     })
     return seq;
   }
+  getHomeInfo(){
+    let seq = this.http.get(apiUrl + "/UserHome/Load", { withCredentials: true });
+    return seq;
+  }
 }

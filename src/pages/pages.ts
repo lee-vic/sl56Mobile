@@ -17,3 +17,4 @@ export const ProductPage="ProductPage";
 export const NoticeDetailPage="NoticeDetailPage";
 export const UserResetPasswordPage="ResetPasswordPage";
 export const UserPriceListPage="PriceListPage";
+export const UserTemplateListPage="TemplateListPage";
