@@ -4,7 +4,7 @@ import { CalculationProvider } from '../../providers/calculation/calculation';
 import { CountryProvider } from '../../providers/country/country';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserCalculationListPage } from '../pages';
-import { CookieService } from 'ngx-cookie-service';
+// import { CookieService } from 'ngx-cookie-service';
 
 
 @IonicPage()
@@ -36,7 +36,7 @@ export class CalculationPage implements OnInit {
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
     public viewCtrl: ViewController,
-    private cookieService: CookieService,
+    // private cookieService: CookieService,
     public service: CalculationProvider) {
     this.myForm = this.formBuilder.group({
       ModeOfTransportId: ['0', Validators.required],
@@ -61,8 +61,8 @@ export class CalculationPage implements OnInit {
       .subscribe((res) => {
         this.countryList = this.countrySearch = res;
       });
-    if (this.cookieService.get('State') != "")
-      this.viewCtrl.showBackButton(false);
+    // if (this.cookieService.get('State') != "")
+    //   this.viewCtrl.showBackButton(false);
   }
 
   ionViewDidLoad() {

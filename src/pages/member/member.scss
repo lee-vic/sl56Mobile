@@ -11,7 +11,7 @@ page-member {
     }
     #btnLogin{
         border: solid 1px white;
-        top: 5rem;
+        top: 4rem;
         left: 3.5rem;
         color: white;
         width: 9rem;
@@ -28,8 +28,8 @@ page-member {
         border-top: solid 1px #dcdcdc;
     }
     #menu-grid ion-col.col{
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding-top: 1.2rem;
+        padding-bottom: 1.2rem;
         border-right: solid 1px #dcdcdc;
         background-color: white;
     }
@@ -41,7 +41,7 @@ page-member {
         padding-right: 0;
     }
     .menu-title{
-        margin-top: 1rem;
+        margin-top: 0.8rem;
     }
     .content-ios{
         background-color: #f7f7f7;
@@ -59,17 +59,22 @@ page-member {
     #info{
         background-color: #0152A8;
         color: #ffffff;
-        font-size: 1.8rem;
+        font-size: 1.3rem;
+    }
+    #info .title{
+     
+        font-size: 2rem;
     }
     #name{
-        line-height: 40px;
+        line-height: 20px;
         color: #ffffff;
         padding-left: 1rem;
-        font-size: 2.0rem;
+        font-size: 1.5rem;
     }
-    .v-line{
-        width: 1px;
-        height: 10px;;
-        background-color: #ffffff
+   
+    ion-img{
+        background: none;
     }
+  
+        
 }

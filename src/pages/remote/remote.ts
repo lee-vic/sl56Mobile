@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, ToastController
 import { RemoteProvider } from '../../providers/remote/remote';
 import { CountryProvider } from '../../providers/country/country';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
+
 
 /**
  * Generated class for the RemotePage page.
@@ -34,7 +34,7 @@ export class RemotePage implements OnInit {
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public viewCtrl: ViewController,
-    private cookieService: CookieService,
+   
     public navParams: NavParams) {
     this.myForm = this.formBuilder.group({
       ModeOfTransportTypeId: ['1', Validators.required],
@@ -51,8 +51,7 @@ export class RemotePage implements OnInit {
     this.countryService.getCoutryList().subscribe(res => {
       this.countryList = this.countrySearch = res;
     })
-    if (this.cookieService.get('State') != "")
-     this.viewCtrl.showBackButton(false);
+   
   }
 
   ionViewDidLoad() {

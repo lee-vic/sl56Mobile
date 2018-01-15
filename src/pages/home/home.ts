@@ -34,10 +34,10 @@ export class HomePage {
       image:"assets/imgs/home-slidebox-1.png",
     },
     {
-      image:"assets/imgs/home-slidebox-1.png",
+      image:"assets/imgs/home-slidebox-2.png",
     },
     {
-      image:"assets/imgs/home-slidebox-1.png",
+      image:"assets/imgs/home-slidebox-3.png",
     }
   ];
   products =[

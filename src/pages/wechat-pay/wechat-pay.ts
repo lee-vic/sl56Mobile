@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController, PopoverController, ViewController } from 'ionic-angular';
 import { WechatPayProvider } from '../../providers/wechat-pay/wechat-pay';
 import { UserWechatPayListPage } from '../pages';
-import { CookieService } from 'ngx-cookie-service';
+
 
 
 declare var jQuery: any;
@@ -23,7 +23,7 @@ export class WechatPayPage implements OnInit,OnDestroy {
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
     public viewCtrl: ViewController,
-    private cookieService: CookieService,
+
     public popoverCtrl: PopoverController,
     public navParams: NavParams) {
 
@@ -50,8 +50,7 @@ export class WechatPayPage implements OnInit,OnDestroy {
       });
       toast.present();
     });
-    if (this.cookieService.get('State') != "")
-      this.viewCtrl.showBackButton(false);
+ 
     jQuery.connection.hub.url = "http://signalr.sl56.com/signalr";
     var hub = jQuery.connection.messageHub;
     hub.client.messageReceived = this.success.bind(this);

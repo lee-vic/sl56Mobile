@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController, LoadingController, ViewController } from 'ionic-angular';
 import { ConfirmationProvider } from '../../providers/confirmation/confirmation';
-import { CookieService } from 'ngx-cookie-service';
 import { UserDeliveryRecordDetailPage } from '../pages';
 
 @IonicPage()
@@ -21,7 +20,6 @@ export class ConfirmationPage implements OnInit {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public viewCtrl: ViewController,
-    private cookieService: CookieService,
     public navParams: NavParams) {
 
   }
@@ -30,8 +28,7 @@ export class ConfirmationPage implements OnInit {
       this.searchList = this.receiveGoodsDetailList = res;
     });
    
-    if (this.cookieService.get('State') != "")
-      this.viewCtrl.showBackButton(false);
+  
   }
  
   ionViewDidLoad() {
@@ -57,6 +54,7 @@ export class ConfirmationPage implements OnInit {
   onItemConfirmClick(item) {
     let confirm = this.alertCtrl.create({
       title: '确认出货?',
+      message: '请仔细核实数据准确无误，运单确认后任何更改将收取操作费！',
       buttons: [
         {
           text: '取消'
@@ -87,7 +85,7 @@ export class ConfirmationPage implements OnInit {
     else {
       let confirm = this.alertCtrl.create({
         title: '确认出货?',
-        message: '本次共选择' + selectedItems.length + "票",
+        message: '本次共选择' + selectedItems.length + "票.请仔细核实数据准确无误，运单确认后任何更改将收取操作费！",
         buttons: [
           {
             text: '取消'

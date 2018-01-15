@@ -10,71 +10,74 @@
     <button ion-button clear id="btnLogin" (click)="loginClick()">登录</button>
   </div>
   <div class="user-heder-1" *ngIf="isLogin">
-    <ion-grid  id="titlte">
+    <ion-grid id="titlte">
       <ion-row align-items-center>
-        <ion-col col-4 align-self-center >
-          <div float-left><img src="assets/imgs/member-14.png"></div>
-        <div float-left id="name">{{username}}</div>
+        <ion-col col-4 align-self-center>
+          <div float-left>
+              <ion-img width="20" height="20" src="assets/imgs/member-14.png"></ion-img>
+         
+          </div>
+          <div float-left id="name">{{username}}</div>
         </ion-col>
         <ion-col col-4 align-self-center text-center>
-            <img src="assets/imgs/member-16.png">
-            
-        </ion-col >
+      
+          <ion-img width="35" height="35" src="assets/imgs/member-16.png"></ion-img>
+        </ion-col>
         <ion-col col-4 align-self-center text-right>
-            <img src="assets/imgs/member-15.png">
+       
+          <ion-img width="20" height="20" src="assets/imgs/member-15.png"></ion-img>
         </ion-col>
       </ion-row>
       <ion-row>
-          <ion-col col-2 text-center>
-          
-          </ion-col>
-          <ion-col col-8 text-center>
-             
-              <button ion-button icon-right clear id="btnPerson">
-                  我的客服专员
-                  <ion-icon name="arrow-forward"></ion-icon>
-                </button>
-          </ion-col>
-          <ion-col col-2 text-center>
-             
-          </ion-col>
-        </ion-row>
+        <ion-col col-2 text-center>
+
+        </ion-col>
+        <ion-col col-8 text-center>
+
+          <button ion-button icon-right clear id="btnPerson">
+            我的客服专员
+            <ion-icon name="arrow-forward"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-2 text-center>
+
+        </ion-col>
+      </ion-row>
     </ion-grid>
-    <ion-grid  id="info">
-        <ion-row align-items-center>
-          <ion-col col-4>
-            <div   text-center>￥{{userInfo?.Amount}}</div>
-            
-           
-          </ion-col>
-          <ion-col col-4 text-center>
-              {{userInfo?.Quantity1}}
-              
-          </ion-col >
-          <ion-col col-4 text-center>
-              {{userInfo?.Quantity2}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col col-4 text-center>
-            欠款金额(元)
-            </ion-col>
-            <ion-col col-4 text-center>
-               
-               待确认运单
-            </ion-col>
-            <ion-col col-4 text-center>
-               待跟进问题件
-            </ion-col>
-          </ion-row>
-      </ion-grid>
+    <ion-grid id="info">
+      <ion-row align-items-center>
+        <ion-col col-4>
+          <div text-center class="title">￥{{userInfo?.Amount}}</div>
+
+
+        </ion-col>
+        <ion-col col-4 text-center class="title">
+          {{userInfo?.Quantity1}}
+        </ion-col>
+        <ion-col col-4 text-center class="title">
+          {{userInfo?.Quantity2}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4 text-center>
+          欠款金额(元)
+        </ion-col>
+        <ion-col col-4 text-center>
+          待确认运单
+        </ion-col>
+        <ion-col col-4 text-center>
+          问题件
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
-  <ion-grid padding-top id="menu-grid">
+  <ion-grid id="menu-grid">
     <ion-row *ngFor="let row of menus">
       <ion-col text-center col-4 *ngFor="let item of row.items">
         <div (click)="menuClick(item)">
           <div>
-            <img [src]="item.image"> </div>
+            <img [src]="item.image" style="max-width:2.0rem;height:auto;"> </div>
+       
           <div class="menu-title">{{item.title}}</div>
         </div>
       </ion-col>

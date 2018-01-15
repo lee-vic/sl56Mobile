@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, Content, ViewCo
 import { DeliveryRecordProvider } from '../../providers/delivery-record/delivery-record';
 import { deliveryRecord } from '../../models/delivery-record.model';
 import { UserDeliveryRecordDetailPage } from '../pages';
-import { CookieService } from 'ngx-cookie-service';
+
 
 /**
  * Generated class for the DeliveryRecordPage page.
@@ -32,7 +32,7 @@ export class DeliveryRecordPage  implements OnInit {
     public service:DeliveryRecordProvider,
     public loadingCtrl: LoadingController,
     public viewCtrl: ViewController,
-    private cookieService: CookieService,
+  
     public navParams: NavParams) {
       let now=new Date();
       this.endDate=now.toISOString();
@@ -42,8 +42,7 @@ export class DeliveryRecordPage  implements OnInit {
   ngOnInit(): void {
   
     this.getData();
-    if (this.cookieService.get('State') != "")
-    this.viewCtrl.showBackButton(false);
+  
   }
  
   ionViewDidLoad() {
