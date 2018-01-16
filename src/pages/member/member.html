@@ -1,87 +1,115 @@
-<ion-content>
-  <!-- <div class="user-header">
-    <div class="user-header-title">欢迎进入会员中心</div>
-    <button ion-button clear id="btnLogin" (click)="loginClick()">{{isLogin?"退出":"登录"}}</button>
+<ion-header [hidden]="isLogin">
+  <ion-navbar>
+    <ion-title>登录</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="forgetPasswordClick()">
+        忘记密码?
+      </button>
+    </ion-buttons>
+  </ion-navbar>
 
-  </div> -->
-  <div class="user-header" *ngIf="!isLogin">
-    <img src="assets/imgs/member-1.png">
-    <div class=user-title>欢迎进入会员中心</div>
-    <button ion-button clear id="btnLogin" (click)="loginClick()">登录</button>
+</ion-header>
+<ion-content [ngClass]="{'my-content':isLogin}">
+
+  <div *ngIf="!isLogin" style="padding:16px;">
+
+    <form (ngSubmit)="doLogin(authForm.value)" [formGroup]="authForm" novalidate>
+
+      <h1></h1>
+
+      <ion-item>
+        <ion-label stacked color="dark">用户名</ion-label>
+        <ion-input type="text" formControlName="username" value="" placeholder="请输入用户名或者手机号码"></ion-input>
+
+      </ion-item>
+      <ion-item>
+        <ion-label stacked color="dark">密码</ion-label>
+        <ion-input type="password" formControlName="password" value="" placeholder="请输入密码 区分大小写"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>记住我</ion-label>
+        <ion-checkbox checked="true" formControlName="rememberMe"></ion-checkbox>
+      </ion-item>
+      <button ion-button block type="submit" [disabled]="!authForm.valid">登录</button>
+
+
+    </form>
   </div>
-  <div class="user-heder-1" *ngIf="isLogin">
-    <ion-grid id="titlte">
-      <ion-row align-items-center>
-        <ion-col col-4 align-self-center>
-          <div float-left>
-              <ion-img width="20" height="20" src="assets/imgs/member-14.png"></ion-img>
-         
+  <div *ngIf="isLogin">
+
+    <div class="user-heder-1">
+      <ion-grid id="titlte">
+        <ion-row align-items-center>
+          <ion-col col-4 align-self-center>
+            <div float-left>
+
+              <img src="assets/imgs/member-14.png" style="width:20px;height:20px;">
+            </div>
+            <div float-left id="name">{{username}}</div>
+          </ion-col>
+          <ion-col col-4 align-self-center text-center>
+            <img src="assets/imgs/member-16.png" style="width:35px;height:35px;">
+
+          </ion-col>
+          <ion-col col-4 align-self-center text-right>
+
+
+            <img src="assets/imgs/member-15.png" style="width:20px;height:20px;">
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-2 text-center>
+
+          </ion-col>
+          <ion-col col-8 text-center>
+
+            <button ion-button icon-right clear id="btnPerson">
+              我的客服专员
+              <ion-icon name="arrow-forward"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col col-2 text-center>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid id="info">
+        <ion-row align-items-center>
+          <ion-col col-4>
+            <div text-center >
+              <div class="title">{{userInfo?.Amount}}</div>
+              欠款金额(元)
+            </div>
+          </ion-col>
+          <ion-col col-4>
+            <div text-center>
+            
+                <div class="title"> {{userInfo?.Quantity1}}</div>
+                待确认运单
+            
+            </div>
+          </ion-col>
+          <ion-col col-4 text-center>
+            <div class="title"> {{userInfo?.Quantity2}}</div>
+            问题件
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
+    <ion-grid id="menu-grid">
+      <ion-row *ngFor="let row of menus.rows">
+        <ion-col text-center col-4 *ngFor="let item of row.items">
+          <div (click)="menuClick(item)">
+            <div>
+              <img [src]="item.image" style="max-width:2.0rem;height:auto;"> </div>
+            <div class="menu-title">{{item.title}}</div>
           </div>
-          <div float-left id="name">{{username}}</div>
-        </ion-col>
-        <ion-col col-4 align-self-center text-center>
-      
-          <ion-img width="35" height="35" src="assets/imgs/member-16.png"></ion-img>
-        </ion-col>
-        <ion-col col-4 align-self-center text-right>
-       
-          <ion-img width="20" height="20" src="assets/imgs/member-15.png"></ion-img>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-2 text-center>
-
-        </ion-col>
-        <ion-col col-8 text-center>
-
-          <button ion-button icon-right clear id="btnPerson">
-            我的客服专员
-            <ion-icon name="arrow-forward"></ion-icon>
-          </button>
-        </ion-col>
-        <ion-col col-2 text-center>
-
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-grid id="info">
-      <ion-row align-items-center>
-        <ion-col col-4>
-          <div text-center class="title">￥{{userInfo?.Amount}}</div>
-
-
-        </ion-col>
-        <ion-col col-4 text-center class="title">
-          {{userInfo?.Quantity1}}
-        </ion-col>
-        <ion-col col-4 text-center class="title">
-          {{userInfo?.Quantity2}}
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-4 text-center>
-          欠款金额(元)
-        </ion-col>
-        <ion-col col-4 text-center>
-          待确认运单
-        </ion-col>
-        <ion-col col-4 text-center>
-          问题件
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <div padding style="margin-top:5rem;">
+      <button ion-button block (click)="logOff()" *ngIf="isLogin" outline>退出登录</button>
+    </div>
   </div>
-  <ion-grid id="menu-grid">
-    <ion-row *ngFor="let row of menus">
-      <ion-col text-center col-4 *ngFor="let item of row.items">
-        <div (click)="menuClick(item)">
-          <div>
-            <img [src]="item.image" style="max-width:2.0rem;height:auto;"> </div>
-       
-          <div class="menu-title">{{item.title}}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <button ion-button full (click)="logOff()" *ngIf="isLogin">退出登录</button>
 </ion-content>

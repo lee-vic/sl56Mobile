@@ -1,0 +1,35 @@
+page-about {
+    .segment-button{
+        font-size: 1.5rem !important;
+        color: #969696 !important;
+    }
+    .segment-activated{
+        border-color: #004ea2 !important;
+        border-bottom-width:3px !important;
+        color: #444444 !important;
+    }
+    .my-content{
+        background-color: #004ea2;
+        margin-top: -4px;
+      
+    }
+    .content1{
+        border: 1px solid  #004ea2;
+        border-radius: 3rem;
+        background-color: cornsilk;
+       
+    }
+    .my-content1{
+        height: 100%;
+        background-size: cover;
+        background-image: url('/assets/imgs/about-3.png')
+    }
+    .content-title{
+        font-size: 2rem;
+        line-height: 7rem;
+    }
+    .content-title span{
+        color: #ffba27;
+        
+    }
+}

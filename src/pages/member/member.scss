@@ -21,29 +21,27 @@ page-member {
         position: absolute;
         z-index: 10;
     }
-    #menu-grid ion-row.row{
-        border-bottom: solid 1px #dcdcdc;
-    }
+  
     #menu-grid ion-row.row:first-child{
         border-top: solid 1px #dcdcdc;
     }
     #menu-grid ion-col.col{
-        padding-top: 1.2rem;
-        padding-bottom: 1.2rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
         border-right: solid 1px #dcdcdc;
         background-color: white;
+        border-bottom: solid 1px #dcdcdc;
+      
     }
-    #menu-grid ion-col.col:last-child{
-        border-right:none;
-    }
+    
     #menu-grid{
         padding-left: 0;
         padding-right: 0;
     }
     .menu-title{
-        margin-top: 0.8rem;
+        margin-top: 1rem;
     }
-    .content-ios{
+    .my-content{
         background-color: #f7f7f7;
     }
    #btnPerson{
@@ -51,11 +49,10 @@ page-member {
        margin: 0;
        height: 1.5rem;
        color: #d0e6fe;
-   }
+    }
    #titlte{
-   
     background-color: #004ea2;
-}
+    }
     #info{
         background-color: #0152A8;
         color: #ffffff;
@@ -75,6 +72,11 @@ page-member {
     ion-img{
         background: none;
     }
-  
-        
+    .v-line{
+        border-right: solid 1px #ffffff;
+    }
+    [col-4]{
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+    }
 }

@@ -4,6 +4,7 @@ import { apiUrl } from '../../globals';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ForgotPassword } from '../../models/forgot-password.model';
 import { ResetPassword } from '../../models/reset-Password.model';
+import { UserInfo } from '../../models/userinfo.model';
 
 /*
   Generated class for the UserProvider provider.
@@ -84,7 +85,7 @@ export class User {
     return seq;
   }
   getHomeInfo(){
-    let seq = this.http.get(apiUrl + "/UserHome/Load", { withCredentials: true });
+    let seq = this.http.get<UserInfo>(apiUrl + "/UserHome/Load", { withCredentials: true });
     return seq;
   }
 }
