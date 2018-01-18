@@ -51,7 +51,7 @@ export class WechatPayPage implements OnInit,OnDestroy {
       toast.present();
     });
  
-    jQuery.connection.hub.url = "http://signalr.sl56.com/signalr";
+    jQuery.connection.hub.url = "https://signalr.sl56.com/signalr";
     var hub = jQuery.connection.messageHub;
     hub.client.messageReceived = this.success.bind(this);
     jQuery.connection.hub.start({ xdomain: true }).done(function () {
