@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { DeliveryRecordDetailProvider } from '../../providers/delivery-record-detail/delivery-record-detail';
 
 /**
@@ -21,6 +21,7 @@ export class DeliveryRecordDetailPage implements OnInit {
   constructor(public navCtrl: NavController, 
     public service:DeliveryRecordDetailProvider,
     public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController,
     public navParams: NavParams) {
       this.id=navParams.get("id");
   }
@@ -32,6 +33,14 @@ export class DeliveryRecordDetailPage implements OnInit {
     this.service.getDetail(this.id).subscribe(res=>{
       this.data=res;
       loading.dismiss();
+    },(err)=>{
+      loading.dismiss();
+      let toast = this.toastCtrl.create({
+        message: err.message,
+        position: 'middle',
+        duration: 2000
+      });
+      toast.present();
     });
   }
   ionViewDidLoad() {

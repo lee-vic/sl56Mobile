@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Content, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ViewController, InfiniteScroll, Searchbar } from 'ionic-angular';
 import { DeliveryRecordProvider } from '../../providers/delivery-record/delivery-record';
 import { deliveryRecord } from '../../models/delivery-record.model';
 import { UserDeliveryRecordDetailPage } from '../pages';
@@ -17,77 +17,63 @@ import { UserDeliveryRecordDetailPage } from '../pages';
   selector: 'page-delivery-record',
   templateUrl: 'delivery-record.html',
 })
-export class DeliveryRecordPage  implements OnInit {
-  
-  deliveryRecordList:Array<deliveryRecord>;
-  searchList:Array<deliveryRecord>;
-  startDate:string;
-  endDate:string;
-  showFilter:boolean=false;
-  @ViewChild(Content) content: Content;
-  
- 
+export class DeliveryRecordPage implements OnInit {
 
-  constructor(public navCtrl: NavController, 
-    public service:DeliveryRecordProvider,
+  items: Array<deliveryRecord> = [];
+  currentPageIndex: number = 1;
+  isBusy: boolean = false;
+  @ViewChild(InfiniteScroll) infiniteScroll: InfiniteScroll;
+  @ViewChild(Searchbar) searchbar: Searchbar;
+
+
+
+  constructor(public navCtrl: NavController,
+    public service: DeliveryRecordProvider,
     public loadingCtrl: LoadingController,
     public viewCtrl: ViewController,
-  
     public navParams: NavParams) {
-      let now=new Date();
-      this.endDate=now.toISOString();
-      this.startDate=new Date(now.setMonth(now.getMonth()-1)).toISOString();
-   
   }
   ngOnInit(): void {
-  
-    this.getData();
-  
+    this.getItems("",false);
+
   }
- 
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad DeliveryRecordPage');
   }
-  getData(){
-    let loading = this.loadingCtrl.create({
-      content: '请稍后...'
+  searchItems() {
+    let val = this.searchbar.value;
+    let key = val.trim();
+    this.currentPageIndex = 1;
+    this.items.length = 0;
+    this.getItems(key,false);
+  }
+
+  //加载数据
+  getItems(key:string,isScroll:boolean) {
+    if (this.isBusy == true)
+      return;
+    this.isBusy = true;
+    this.service.loadList(this.currentPageIndex, key).subscribe(res => {
+      let flag = res.length < 10;
+      this.infiniteScroll.enable(!flag);
+      for (var i = 0; i < res.length; i++) {
+        this.items.push(res[i]);
+      }
+      this.currentPageIndex++;
+      if(isScroll)
+        this.infiniteScroll.complete();
+      this.isBusy = false;
     });
-    loading.present();
-    this.service.getList(this.startDate,this.endDate).subscribe(res=>{
-      this.searchList=this.deliveryRecordList=res;
-      loading.dismiss();
-    });
   }
-  filterClick(){
-    if(!this.showFilter){
-      this.showFilter=true;
-      this.scrollToTop();
-    }
-    else{
-      this.showFilter=false;
-      this.getData();
-    }
+  scrollItems($event) {
+    this.getItems(this.searchbar.value,true);
+   
   }
-  getItems(ev: any) {
-    // set val to the value of the searchbar
-    let val = ev.target.value;
-    console.log(val);
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.searchList = this.deliveryRecordList.filter((item) => {
-        return (item.ReferenceNumber.toLowerCase().indexOf(val.toLowerCase()) > -1||item.TrackNumber.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-    else {
-      this.searchList = this.deliveryRecordList;
-    }
-  }
-  scrollToTop() {
-    this.content.scrollToTop();
-  }
-  detail(item){
-    this.navCtrl.push(UserDeliveryRecordDetailPage,{
-        id:item.Id
+
+  detail(item) {
+    this.navCtrl.push(UserDeliveryRecordDetailPage, {
+      id: item.Id
     });
   }
 }
