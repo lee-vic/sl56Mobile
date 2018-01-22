@@ -19,6 +19,7 @@ import { CalculationProvider } from '../providers/calculation/calculation';
 import { NoticeProvider } from '../providers/notice/notice';
 import { PriceProvider } from '../providers/price/price';
 import { TemplateProvider } from '../providers/template/template';
+import { SubAccountProvider } from '../providers/sub-account/sub-account';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { TemplateProvider } from '../providers/template/template';
     WechatBindingProvider,
     NoticeProvider,
     PriceProvider,
-    TemplateProvider
+    TemplateProvider,
+    SubAccountProvider
   ]
 })
 export class AppModule {}

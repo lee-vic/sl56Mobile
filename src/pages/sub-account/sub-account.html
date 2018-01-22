@@ -7,12 +7,23 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>sub-account</ion-title>
+    <ion-title>子账号管理</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="add()">
+        新增
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="detail(item)">
+        <h2>{{item.ObjectNo}}</h2>
+        <ion-note item-end>{{item.ObjectName}}</ion-note>
+      </button>
+  
+  </ion-list>
 </ion-content>

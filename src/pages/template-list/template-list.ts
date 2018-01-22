@@ -37,7 +37,7 @@ export class TemplateListPage implements OnInit {
     this.isBusy = true;
     this.service.getList(this.currentPageIndex).subscribe(res => {
     
-      if (res.length < 10) {
+      if (res.length < 15) {
         infiniteScroll.enable(false);
       }
       for (var i = 0; i < res.length; i++) {

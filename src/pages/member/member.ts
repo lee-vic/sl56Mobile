@@ -30,7 +30,7 @@ export class MemberPage implements OnInit {
     { title: "微信支付", image: "assets/imgs/member-8.png", page: UserWechatPayPage,type:[0,1] },
     { title: "查看报价", image: "assets/imgs/member-10.png", page: UserPriceListPage,type:[0] },
     { title: "修改密码", image: "assets/imgs/member-11.png", page: UserResetPasswordPage,type:[0]},
-    { title: "账号管理", image: "assets/imgs/member-12.png", page: UserSubAccountPage,type:[0]},
+    { title: "子账号管理", image: "assets/imgs/member-12.png", page: UserSubAccountPage,type:[0]},
     { title: "微信绑定", image: "assets/imgs/member-13.png", page: UserWechatBindingPage,type:[0,1] }
   ];
   menus:Menus;
