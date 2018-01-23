@@ -20,3 +20,5 @@ export const UserPriceListPage="PriceListPage";
 export const UserTemplateListPage="TemplateListPage";
 export const HomeAboutPage="AboutPage";
 export const UserSubAccountPage="SubAccountPage";
+export const UserEditSubAccountPage="EditSubAccountPage";
+export const UserNoticePage="NoticePage";

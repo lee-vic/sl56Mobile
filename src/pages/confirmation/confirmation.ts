@@ -11,8 +11,8 @@ import { UserDeliveryRecordDetailPage } from '../pages';
 export class ConfirmationPage implements OnInit {
   allSelected: boolean = false;
   total = 0;
-  receiveGoodsDetailList: any;
-  searchList: any;
+  receiveGoodsDetailList: Array<any>;
+  searchList: Array<any>;
 
   constructor(public navCtrl: NavController,
     public service: ConfirmationProvider,
@@ -74,7 +74,7 @@ export class ConfirmationPage implements OnInit {
       return item.Selected == true;
     }).map(item => item.Id);
 
-    if (selectedItems == undefined || selectedItems == "undefined" || selectedItems.length == 0) {
+    if (selectedItems == undefined || selectedItems.length == 0) {
       let toast = this.toastCtrl.create({
         message: '请选择需要确认的运单',
         position: 'middle',

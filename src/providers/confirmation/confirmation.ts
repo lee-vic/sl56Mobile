@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { apiUrl } from '../../globals';
+import { deliveryRecord } from '../../models/delivery-record.model';
 /*
   Generated class for the ConfirmationProvider provider.
 
@@ -15,7 +16,7 @@ export class ConfirmationProvider {
     console.log('Hello ConfirmationProvider Provider');
   }
   getReceiveGoodsDetailList(){
-    let seq= this.http.get(apiUrl + "/Confirmation/GetReceiveGoodsDetailList",{
+    let seq= this.http.get<Array<deliveryRecord>>(apiUrl + "/Confirmation/GetReceiveGoodsDetailList",{
       headers:{
         "content-type":"application/json"
       },
@@ -27,7 +28,7 @@ export class ConfirmationProvider {
   confirm(selectIdList:string){
    
    let data={"SelectIdList":selectIdList};
-    let seq= this.http.post(apiUrl + "/Confirmation/Confirm",data,{
+    let seq= this.http.post<Array<deliveryRecord>>(apiUrl + "/Confirmation/Confirm",data,{
       headers:{
         "content-type":"application/json"
       },

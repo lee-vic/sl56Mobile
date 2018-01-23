@@ -16,11 +16,17 @@ export class NoticeProvider {
     console.log('Hello NoticeProvider Provider');
   }
 
-  getList(categoryId,pageIndex){
+  getNewsList(categoryId,pageIndex){
     let paras=new HttpParams()
     .set("categoryId",categoryId)
     .set("pageIndex",pageIndex)
     let seq= this.http.get<Array<Notice>> (apiUrl+"/Notice/GetData",{ withCredentials:true,params:paras});
+    return seq;
+  }
+  getNoticeList(pageIndex){
+    let paras=new HttpParams()
+    .set("pageIndex",pageIndex)
+    let seq= this.http.get<Array<Notice>> (apiUrl+"/Notice/GetList",{ withCredentials:true,params:paras});
     return seq;
   }
   getDetail(id){

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Modal, ModalController, ToastController, LoadingController, Platform, Content } from 'ionic-angular';
-import { UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage, UserWechatBindingPage, UserResetPasswordPage, UserPriceListPage, UserTemplateListPage, UserForgotPasswordPage, UserSubAccountPage } from '../pages';
+import { UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage, UserWechatBindingPage, UserResetPasswordPage, UserPriceListPage, UserTemplateListPage, UserForgotPasswordPage, UserSubAccountPage, UserNoticePage } from '../pages';
 import { User } from '../../providers/user/user';
 import { CookieService } from 'ngx-cookie-service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -40,6 +40,7 @@ export class MemberPage implements OnInit {
   userInfo: UserInfo;
   public loading: any;
   public authForm: FormGroup;
+  customerType:number;
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -162,13 +163,14 @@ export class MemberPage implements OnInit {
     if(val){
       this.setUsername();
       this.getUserInfo();
-      let customerType=parseInt(this.cookieService.get('CustomerType'));
-      if(isNaN(customerType)){
-        customerType=0;
+       this.customerType=parseInt(this.cookieService.get('CustomerType'));
+       console.log(this.customerType);
+      if(isNaN(this.customerType)){
+        this.customerType=0;
       }
     
       let tempMenus=this.allMenus.filter(p=>{
-        return p.type.indexOf(customerType)>-1;
+        return p.type.indexOf(this.customerType)>-1;
       });
       let rowIndex=0;
       this.menus=new Menus();
@@ -185,5 +187,8 @@ export class MemberPage implements OnInit {
       }
     }
     this.content.resize();
+  }
+  openNotice(){
+    this.navCtrl.push(UserNoticePage);
   }
 }

@@ -63,7 +63,7 @@ export class NewsPage implements OnInit {
     if (tab.isBusy)
       return;
     tab.isBusy = true;
-    this.service.getList(tab.categoryId, tab.currentPageIndex).subscribe(res => {
+    this.service.getNewsList(tab.categoryId, tab.currentPageIndex).subscribe(res => {
       let rep = res as Notice[];
       if (rep.length == 0) {
         infiniteScroll.enable(false);
