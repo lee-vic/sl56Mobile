@@ -6,7 +6,7 @@
 -->
 
 
-<ion-content padding>
+<ion-content padding-left padding-right>
 
   <ion-segment [(ngModel)]="tab" mode="md">
     <ion-segment-button value="1">
@@ -18,6 +18,7 @@
     <ion-segment-button value="3">
       广深莞汽运
     </ion-segment-button>
+
   </ion-segment>
   <div [ngSwitch]="tab">
     <div *ngSwitchCase="1">
@@ -119,7 +120,7 @@
           高素质、国际化水平的团队
         </div>
         <p class="clear" style="padding-top:5px;">为您量身订做物流方案,提供一次到位的全方位国际空运解决方案，可以接收全国各地外销货品, 对各种物品均有强势出口的能力。 经多年的努力和规范化操作，我司实现了国际空运市场销售服务、航班配载、货物安检、装机卸机、货物仓储、远程派送等操作的一条龙国际空运服务，服务水平与国际标准接轨。
-          </p>
+        </p>
       </div>
       <div class="product-title" margin-top>
         <h4>特色服务</h4>
@@ -132,14 +133,15 @@
       <p>5.提供全方位的空运、快递、货运“提---运---送”一站式门对门国际空运服务。</p>
       <p>6.提供DHL国际快递大货代理专项服务。</p>
       <p>7.提供香港深圳之间货物的快递进出口服务。</p>
-      <p>8.提供大宗货物空运专线快递服务、提供国际空运最优惠代理价格，包括：DHL快递代理, UPS代理，DHL深圳,UPS深圳,TNT深圳,FEDEX深圳,深圳快递,深圳UPS代理,深圳FEDEX代理,TNT快递,UPS快递,FEDEX快递,EMS快递,深圳DHL快递,DHL代理快递,深圳联邦代理,深圳TNT快递代理,深圳EMS,深圳UPS代理公司,深圳FEDEX代理,深圳速递,DHL国际快递, DHL代理公司,深圳UPS，深圳TNT，深圳FEDEX等。</p>
+      <p>8.提供大宗货物空运专线快递服务、提供国际空运最优惠代理价格，包括：DHL快递代理, UPS代理，DHL深圳,UPS深圳,TNT深圳,FEDEX深圳,深圳快递,深圳UPS代理,深圳FEDEX代理,TNT快递,UPS快递,FEDEX快递,EMS快递,深圳DHL快递,DHL代理快递,深圳联邦代理,深圳TNT快递代理,深圳EMS,深圳UPS代理公司,深圳FEDEX代理,深圳速递,DHL国际快递,
+        DHL代理公司,深圳UPS，深圳TNT，深圳FEDEX等。</p>
     </div>
     <div *ngSwitchCase="3">
-        <div class="product-title" margin-top>
-            <h4>广深莞汽运</h4>
-          </div>
-          <img src="assets/imgs/product-7.png" padding-bottom>
-        <p>广深莞汽运-提供广州、深圳、东莞卡车货运空运全程无缝中转服务,专业代理深圳、广州、东莞、TNT快递、DHL国际快递、UPS快递、FedEx快递、Ems快递、国际专线等全球多种快递业务。</p>
+      <div class="product-title" margin-top>
+        <h4>广深莞汽运</h4>
+      </div>
+      <img src="assets/imgs/product-7.png" padding-bottom>
+      <p>广深莞汽运-提供广州、深圳、东莞卡车货运空运全程无缝中转服务,专业代理深圳、广州、东莞、TNT快递、DHL国际快递、UPS快递、FedEx快递、Ems快递、国际专线等全球多种快递业务。</p>
     </div>
   </div>
 </ion-content>

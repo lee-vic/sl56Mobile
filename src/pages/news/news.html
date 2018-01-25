@@ -4,7 +4,7 @@
       {{tab.title}}
     </ion-segment-button>
   </ion-segment>
-  <div [ngSwitch]="tabIndex">
+  <div [ngSwitch]="tabIndex" padding-top>
     <div *ngSwitchCase="2">
       <ion-list>
         <button ion-item (click)="openDetail(item)" *ngFor="let item of noticeTabs[0].items" text-wrap>
@@ -18,40 +18,40 @@
       </ion-infinite-scroll>
     </div>
     <div *ngSwitchCase="3">
-        <ion-list>
-          <button ion-item (click)="openDetail(item)" *ngFor="let item of noticeTabs[1].items" text-wrap>
-            <h3>{{item.CreateAt}}</h3>
-            <h2>{{item.Title}}</h2>
-            <p>{{item.Summary}}</p>
-          </button>
-        </ion-list>
-        <ion-infinite-scroll (ionInfinite)="getItems(noticeTabs[1],$event)">
-          <ion-infinite-scroll-content></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-      </div>
-      <div *ngSwitchCase="4">
-          <ion-list>
-            <button ion-item (click)="openDetail(item)" *ngFor="let item of noticeTabs[2].items" text-wrap>
-              <h3>{{item.CreateAt}}</h3>
-              <h2>{{item.Title}}</h2>
-              <p>{{item.Summary}}</p>
-            </button>
-          </ion-list>
-          <ion-infinite-scroll (ionInfinite)="getItems(noticeTabs[2],$event)">
-            <ion-infinite-scroll-content></ion-infinite-scroll-content>
-          </ion-infinite-scroll>
-        </div>
-        <div *ngSwitchCase="5">
-            <ion-list>
-              <button ion-item (click)="openDetail(item)" *ngFor="let item of noticeTabs[3].items" text-wrap>
-                <h3>{{item.CreateAt}}</h3>
-                <h2>{{item.Title}}</h2>
-                <p>{{item.Summary}}</p>
-              </button>
-            </ion-list>
-            <ion-infinite-scroll (ionInfinite)="getItems(noticeTabs[3],$event)">
-              <ion-infinite-scroll-content></ion-infinite-scroll-content>
-            </ion-infinite-scroll>
-          </div>
+      <ion-list>
+        <button ion-item (click)="openDetail(item)" *ngFor="let item of noticeTabs[1].items" text-wrap>
+          <h3>{{item.CreateAt}}</h3>
+          <h2>{{item.Title}}</h2>
+          <p>{{item.Summary}}</p>
+        </button>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="getItems(noticeTabs[1],$event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+    <div *ngSwitchCase="4">
+      <ion-list>
+        <button ion-item (click)="openDetail(item)" *ngFor="let item of noticeTabs[2].items" text-wrap>
+          <h3>{{item.CreateAt}}</h3>
+          <h2>{{item.Title}}</h2>
+          <p>{{item.Summary}}</p>
+        </button>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="getItems(noticeTabs[2],$event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+    <div *ngSwitchCase="5">
+      <ion-list>
+        <button ion-item (click)="openDetail(item)" *ngFor="let item of noticeTabs[3].items" text-wrap>
+          <h3>{{item.CreateAt}}</h3>
+          <h2>{{item.Title}}</h2>
+          <p>{{item.Summary}}</p>
+        </button>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="getItems(noticeTabs[3],$event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
   </div>
 </ion-content>

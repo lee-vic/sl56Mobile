@@ -34,7 +34,7 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
+  primary:    #004EA1,
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
@@ -53,8 +53,8 @@ $colors: (
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-
-
+$segment-button-md-font-size:1.5rem;
+$segment-button-md-border-bottom-width:3px;
 
 // App Windows Variables
 // --------------------------------------------------

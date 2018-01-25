@@ -73,7 +73,7 @@ export class EditSubAccountPage implements OnInit {
       {type:"required",message:"帐号必须输入"},
       {type:"minlength",message:"帐号至少为2位"},
       {type:"maxlength",message:"帐号不能超过8位"},
-      { type:"pattern",message:"只能为英文字母或者数字"}
+      { type:"pattern",message:"账号只能包含字母、数字、下划线"}
     ],
     "password":[
       {type:"required",message:"登录密码不能为空"},
