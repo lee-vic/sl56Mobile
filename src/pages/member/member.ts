@@ -164,7 +164,6 @@ export class MemberPage implements OnInit {
       this.setUsername();
       this.getUserInfo();
        this.customerType=parseInt(this.cookieService.get('CustomerType'));
-       console.log(this.customerType);
       if(isNaN(this.customerType)){
         this.customerType=0;
       }

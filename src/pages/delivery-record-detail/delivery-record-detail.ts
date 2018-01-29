@@ -9,7 +9,9 @@ import { DeliveryRecordDetailProvider } from '../../providers/delivery-record-de
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment: 'delivery-record-detail/:id'
+})
 @Component({
   selector: 'page-delivery-record-detail',
   templateUrl: 'delivery-record-detail.html',
@@ -26,15 +28,13 @@ export class DeliveryRecordDetailPage implements OnInit {
       this.id=navParams.get("id");
   }
   ngOnInit(): void {
-    let loading = this.loadingCtrl.create({
-      content: '请稍后...'
-    });
-    loading.present();
-    this.service.getDetail(this.id).subscribe(res=>{
+    //不能返回的视为站外链接
+   let canGoBack:boolean=this.navCtrl.canGoBack();
+    this.service.getDetail(!canGoBack, this.id).subscribe(res=>{
       this.data=res;
-      loading.dismiss();
+     
     },(err)=>{
-      loading.dismiss();
+     
       let toast = this.toastCtrl.create({
         message: err.message,
         position: 'middle',
