@@ -1,0 +1,59 @@
+<!--
+  Generated template for the RegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-content>
+  <img src="assets/imgs/recharge-1.png">
+  <div class="page-background-image" padding-top>
+    <div padding>
+      <form  [formGroup]="myForm" novalidate>
+        <ion-list no-lines>
+          <ion-item>
+            <ion-label>
+              <ion-icon name="phone-portrait"></ion-icon>
+            </ion-label>
+            <ion-input placeholder="请输入手机号码"  formControlName="mobile" type="text"></ion-input>
+          </ion-item>
+          <div class="validation-errors" padding-left>
+              <div *ngFor="let validation of validation_messages.mobile">
+                <ng-container>
+                  <div class="error-message" *ngIf="myForm.get('mobile').hasError(validation.type) && (myForm.get('mobile').dirty || myForm.get('mobile').touched)">
+                    {{validation.message}}
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          <ion-item>
+            <ion-input placeholder="验证码"  formControlName="code"></ion-input>
+            <button ion-button item-end (click)="getCode($event)"  class="my-code" [disabled]="btnDisabled">{{codeText}}</button>
+          </ion-item>
+          <div class="validation-errors" padding-left>
+              <div *ngFor="let validation of validation_messages.code">
+                <ng-container>
+                  <div class="error-message" *ngIf="myForm.get('code').hasError(validation.type) && (myForm.get('code').dirty || myForm.get('code').touched)">
+                    {{validation.message}}
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+        </ion-list>
+       
+      </form>
+      <button ion-button block type="button" (click)="doSubmit()">立即充值</button>
+    
+      <img src="assets/imgs/register-2.png" style="margin-top:2rem;">
+      <div class="page-bg-image" margin-top>
+        <p>1、服务暂停时段：</p>
+        <p>A. 广东移动：周五12:00至周一8:00，月底4天至月初4天，36小时内到账；</p>
+        <p>B. 成都移动：月底2天至月初5天，24小时内到账；</p>
+        <p>2、本服务为慢充服务，不提供任何发票，每月每号码限充一次，暂仅支持广东移动、成都移动（不包含资阳、眉山）号码充值，如有疑问请联系客服：4007882007,0755-22222007，客服QQ：4008844007。</p>
+        <p>3、成都移动特别提示：</p>
+        <p>A. 充值成功后运营商无系统短信通知，请用户自行拔打1008611或发送HF至10086查询；</p>
+        <p>B. 当月只体现当月消费费用，未使用的充值金额于次月5号后到用户帐户；</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

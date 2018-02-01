@@ -20,6 +20,8 @@ import { NoticeProvider } from '../providers/notice/notice';
 import { PriceProvider } from '../providers/price/price';
 import { TemplateProvider } from '../providers/template/template';
 import { SubAccountProvider } from '../providers/sub-account/sub-account';
+import { RechargeProvider } from '../providers/recharge/recharge';
+import { RegisterProvider } from '../providers/register/register';
 
 
 @NgModule({
@@ -57,7 +59,9 @@ import { SubAccountProvider } from '../providers/sub-account/sub-account';
     NoticeProvider,
     PriceProvider,
     TemplateProvider,
-    SubAccountProvider
+    SubAccountProvider,
+    RechargeProvider,
+    RegisterProvider
   ]
 })
 export class AppModule {}

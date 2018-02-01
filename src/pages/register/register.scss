@@ -1,0 +1,34 @@
+page-register {
+    .page-background-image{
+     
+        background-image: url('/assets/imgs/register-1.png');
+        background-size: cover;
+        margin-top:-13px;
+    }
+    .my-code{
+        height: 3rem !important;
+      
+       
+    }
+    .item-ios{
+        margin-bottom: 1rem !important;
+        border-radius:.5rem !important;
+    }
+    .button-ios{
+        background-color: #FBC600 !important;
+    }
+    .page-bg-image{
+     
+        background-image: url('/assets/imgs/register-3.png');
+        background-size: cover;
+       color: #FFF;
+       padding: .6rem;
+    }
+    .error-message{
+        color: #FFF;
+        padding-bottom: 16px;
+    }
+    .validation-errors{
+        
+    }
+}

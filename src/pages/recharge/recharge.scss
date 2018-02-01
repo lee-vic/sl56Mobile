@@ -1,0 +1,56 @@
+page-recharge {
+    .page-background-image{
+        height: 1000px;
+        background-image: url('/assets/imgs/recharge-2.png');
+        background-size: cover;
+        margin-top:-6px;
+    }
+    .grid{
+        padding: 0;
+    }
+    .my-input{
+        background-color: #fff;
+        width: 100%;
+        height: 4rem;
+        border-radius:8px;
+        border: none;
+        padding: .6rem;
+    }
+    .my-button{
+        background-color: #FBC600;
+        width: 100%;
+        height: 4rem;
+        border-radius:8px;
+        border: none;
+       
+    }
+    .amount{
+      
+        height: 5rem;
+        width: 100%;
+       border-radius: 8px;
+       border: solid 1px #FBC600;
+        }
+    .amount > .title{
+        height: 3rem;
+        line-height: 3rem;
+        font-size: 2rem;
+    }
+    .amount > .info{
+        height: 2rem;
+        
+    }
+    .selected{
+        background-color: #FBC600;
+    }
+    .my-ion-input{
+        background-color: #fff;
+    }
+   .charge{
+    color: #FBC600;
+   }
+   .button-ios{
+    background-color: #FBC600 !important;
+}
+   
+}

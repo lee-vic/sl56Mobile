@@ -22,3 +22,4 @@ export const HomeAboutPage="AboutPage";
 export const UserSubAccountPage="SubAccountPage";
 export const UserEditSubAccountPage="EditSubAccountPage";
 export const UserNoticePage="NoticePage";
+export const UserRechargePage="RechargePage";
