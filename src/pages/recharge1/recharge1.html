@@ -17,7 +17,7 @@
 <ion-content>
   <form [formGroup]="myForm" novalidate>
     <ion-item no-lines>
-      <ion-label floating>充值号码</ion-label>
+      <ion-label floating>充值号码(移动、联通、电信)</ion-label>
       <ion-input type="text" formControlName="mobile"></ion-input>
     </ion-item>
     <div class="validation-errors" padding-left>
@@ -43,7 +43,7 @@
           <ion-col col-4 text-center *ngFor="let col of row">
             <div class="amount" (click)="amountSelected(col)" [ngClass]="{selected:selectedAmount==col.amount}">
               <div class="title">{{col.amount}}元</div>
-              <div class="info">{{col.desc}}</div>
+          
             </div>
 
           </ion-col>
@@ -69,13 +69,7 @@
           </ion-col>
 
         </ion-row>
-        <ion-row>
-          <ion-col text-center>
-
-            点击立即充值,即表示您已经同意<span (click)="openAgreement()" class="charge">《充值活动规则》</span>
-          </ion-col>
-
-        </ion-row>
+       
       </ion-grid>
 
     </div>

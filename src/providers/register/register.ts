@@ -22,10 +22,12 @@ export class RegisterProvider {
     let seq = this.http.get<registerInfo>(apiUrl + "/Register/GetCode", { withCredentials: true,params:paras});
     return seq;
   }
-  doRegister(mobile:string,code:string){
+  doRegister(mobile:string,code:string,openId:string,unionId:string){
     let paras=new HttpParams()
     .set("mobile",mobile)
-    .set("code",code);
+    .set("code",code)
+    .set("openId",openId)
+    .set("unionId",unionId);
     let seq = this.http.get<registerInfo>(apiUrl + "/Register/DoRegister", { withCredentials: true,params:paras});
     return seq;
   }

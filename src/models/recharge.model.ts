@@ -1,6 +1,7 @@
 export class RechargeInfo{
     Amount:number;
-    Phone:string;
+    Mobile:string;
     OpenId:string;
     TradeType:string;
+    NNKType:string;
 }

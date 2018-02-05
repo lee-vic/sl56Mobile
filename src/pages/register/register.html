@@ -42,7 +42,7 @@
         </ion-list>
        
       </form>
-      <button ion-button block type="button" (click)="doSubmit()">立即充值</button>
+      <button ion-button block type="button" (click)="doSubmit()" [disabled]="submitDisabled">立即充值</button>
     
       <img src="assets/imgs/register-2.png" style="margin-top:2rem;">
       <div class="page-bg-image" margin-top>

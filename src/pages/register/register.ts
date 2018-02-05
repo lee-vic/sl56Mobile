@@ -23,6 +23,7 @@ export class RegisterPage {
   public myForm: FormGroup;
   codeText: string = "获取验证码";
   btnDisabled: boolean = false;
+  submitDisabled:boolean=false;
   constructor(public navCtrl: NavController,
     private cookieService: CookieService,
     public formBuilder: FormBuilder,
@@ -31,7 +32,7 @@ export class RegisterPage {
     private dataService: RegisterProvider,
     public navParams: NavParams) {
     this.myForm = this.formBuilder.group({
-      mobile: ['18925206393', Validators.compose([
+      mobile: ['13538109920', Validators.compose([
         Validators.required,
         Validators.pattern("^1[3|4|5|7|8][0-9]{9}$")
       ])],
@@ -71,11 +72,12 @@ export class RegisterPage {
       toast.present();
     }
     else {
+      this.btnDisabled = true;
       this.dataService.getCode(this.myForm.value.mobile).subscribe(res => {
 
         if (res.Success) {
           console.log(res);
-          this.btnDisabled = true;
+          
           let time: number = 60;
 
           let handle;
@@ -151,7 +153,9 @@ export class RegisterPage {
   doSubmit(formValue) {
     if (!this.myForm.invalid) {
       console.log(this.myForm.value);
-      this.dataService.doRegister(this.myForm.value.mobile,this.myForm.value.code).subscribe(res=>{
+      this.submitDisabled=true;
+      this.dataService.doRegister(this.myForm.value.mobile,this.myForm.value.code,this.cookieService.get('OpenId'),this.cookieService.get('UnionId')).subscribe(res=>{
+        this.submitDisabled=false;
         if(!res.Success){
           let toast = this.toastCtrl.create({
             message: res.ErrMsg,
@@ -159,6 +163,9 @@ export class RegisterPage {
             duration: 2000
           });
           toast.present();
+        }
+        else{
+          this.navCtrl.push(UserRechargePage);
         }
       });
     }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UnifiedOrderResul } from '../../models/unified-order-result.model';
 import { apiUrl } from '../../globals';
+import { UnifiedOrderResul } from '../../models/unified-order-result.model';
 
 /*
   Generated class for the RechargeProvider provider.

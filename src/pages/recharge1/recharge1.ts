@@ -1,45 +1,43 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, ToastController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { RechargeInfo } from '../../models/recharge.model';
 import { CookieService } from 'ngx-cookie-service';
 import { RechargeProvider } from '../../providers/recharge/recharge';
-import { RechargeInfo } from '../../models/recharge.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserRechargeAgreementPage } from '../pages';
 
 /**
- * Generated class for the RechargePage page.
+ * Generated class for the Recharge1Page page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 declare var jQuery: any;
 declare var WeixinJSBridge: any;
-
 @IonicPage()
 @Component({
-  selector: 'page-recharge',
-  templateUrl: 'recharge.html',
+  selector: 'page-recharge1',
+  templateUrl: 'recharge1.html',
 })
-export class RechargePage implements OnInit, OnDestroy {
+export class Recharge1Page implements OnInit, OnDestroy {
   public myForm: FormGroup;
   selectedAmount: number = 0;
   charge: string;
   para: RechargeInfo = new RechargeInfo();
   rows=[
     [
-      {amount:10,discount:0.85,desc:"85折"},
-      {amount:20,discount:0.85,desc:"85折"},
-      {amount:30,discount:0.85,desc:"85折"}
+      {amount:10,discount:1,desc:"85折"},
+      {amount:20,discount:1,desc:"85折"},
+      {amount:30,discount:1,desc:"85折"}
     ],
     [
-      {amount:50,discount:0.85,desc:"85折"},
-      {amount:100,discount:0.85,desc:"85折"},
-      {amount:200,discount:0.9,desc:"9折"}
+      {amount:50,discount:1,desc:"85折"},
+      {amount:100,discount:1,desc:"85折"},
+      {amount:200,discount:1,desc:"9折"}
     ],
     [
-      {amount:300,discount:0.9,desc:"9折"},
-      {amount:400,discount:0.9,desc:"9折"},
-      {amount:500,discount:0.9,desc:"9折"}
+      {amount:300,discount:1,desc:"9折"},
+      {amount:400,discount:1,desc:"9折"},
+      {amount:500,discount:1,desc:"9折"}
     ]
   ]
   constructor(public navCtrl: NavController,
@@ -51,7 +49,7 @@ export class RechargePage implements OnInit, OnDestroy {
     public formBuilder: FormBuilder,
     public navParams: NavParams) {
     this.myForm = this.formBuilder.group({
-      mobile: ['13538109920', Validators.compose([
+      mobile: ['', Validators.compose([
         Validators.required,
         Validators.pattern("^1[3|4|5|7|8][0-9]{9}$")
       ])]
@@ -117,7 +115,7 @@ export class RechargePage implements OnInit, OnDestroy {
         this.para.Amount = this.selectedAmount;
         this.para.OpenId = this.cookieService.get('OpenId');
         this.para.Mobile = this.myForm.value.mobile;
-        this.para.NNKType="10000"
+        this.para.NNKType="10001"
         console.log(this.para);
         if (this.IsMicroMessenger()) {
           this.payByJsApi();
@@ -224,34 +222,17 @@ export class RechargePage implements OnInit, OnDestroy {
       jsApiParam,//josn串
       (res) => {
         if (res.err_msg == "get_brand_wcpay_request:ok") {
-          let alert = this.alertCtrl.create({
-            title: '恭喜你成功充值'+this.selectedAmount+"元",
-            subTitle: "进入会员中心快速查报价、跟踪单号轨迹",
-            buttons: [
-              {
-                text: '暂时不用了',
-                role: 'cancel',
-                handler: () => {
-                  console.log('Cancel clicked');
-                }
-              },
-              {
-                text: '进入会员中心',
-                handler: () => {
-                  this.navCtrl.setRoot("MemberPage");
-                }
-              }
-            ]
+          let toast = this.toastCtrl.create({
+            message: "充值已成功",
+            position: 'middle',
+            duration: 2000
           });
-      
-          alert.present();
+          toast.present();
         }
         else {
           alert(res.err_code + res.err_desc + res.err_msg);
         }
       });
   }
-  openAgreement(){
-    this.navCtrl.push(UserRechargeAgreementPage);
-  }
+ 
 }

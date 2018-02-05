@@ -3,4 +3,5 @@ export class UnifiedOrderResul{
     PayUrl:string;
     PrepayId:string;
     Data:any;
+    ErrMsg:string;
 }
