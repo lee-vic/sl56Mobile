@@ -19,4 +19,8 @@ export class RechargeProvider {
     let seq= this.http.post<UnifiedOrderResul>(apiUrl+"/Recharge/Deposit",data,{ withCredentials:true});
     return seq;
   }
+  pay1(data:any){
+    let seq= this.http.post<UnifiedOrderResul>(apiUrl+"/Recharge/Deposit1",data,{ withCredentials:true});
+    return seq;
+  }
 }

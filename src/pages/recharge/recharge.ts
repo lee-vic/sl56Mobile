@@ -51,7 +51,7 @@ export class RechargePage implements OnInit, OnDestroy {
     public formBuilder: FormBuilder,
     public navParams: NavParams) {
     this.myForm = this.formBuilder.group({
-      mobile: ['13538109920', Validators.compose([
+      mobile: ['', Validators.compose([
         Validators.required,
         Validators.pattern("^1[3|4|5|7|8][0-9]{9}$")
       ])]
@@ -128,6 +128,21 @@ export class RechargePage implements OnInit, OnDestroy {
         
       }
 
+    }
+    else{
+      let errMsg: Array<string> = [];
+      this.validation_messages.mobile.forEach(item => {
+        if (this.myForm.get('mobile').hasError(item.type))
+          errMsg.push(item.message);
+      });
+      if (errMsg.length > 0) {
+        let toast = this.toastCtrl.create({
+          message: errMsg.toString(),
+          position: 'middle',
+          duration: 2000
+        });
+        toast.present();
+      }
     }
 
   }

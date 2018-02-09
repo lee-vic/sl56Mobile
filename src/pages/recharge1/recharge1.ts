@@ -90,7 +90,7 @@ export class Recharge1Page implements OnInit, OnDestroy {
     console.log('ionViewDidLoad RechargePage');
   }
   amountSelected(item) {
-    this.selectedAmount = parseInt(item.amount);
+    this.selectedAmount = parseFloat(item.amount);
     this.charge = (this.selectedAmount * item.discount).toFixed(2);
   }
   getCode() {
@@ -126,6 +126,21 @@ export class Recharge1Page implements OnInit, OnDestroy {
         
       }
 
+    }
+    else{
+      let errMsg: Array<string> = [];
+      this.validation_messages.mobile.forEach(item => {
+        if (this.myForm.get('mobile').hasError(item.type))
+          errMsg.push(item.message);
+      });
+      if (errMsg.length > 0) {
+        let toast = this.toastCtrl.create({
+          message: errMsg.toString(),
+          position: 'middle',
+          duration: 2000
+        });
+        toast.present();
+      }
     }
 
   }
@@ -234,5 +249,48 @@ export class Recharge1Page implements OnInit, OnDestroy {
         }
       });
   }
- 
+  doSubmit1() {
+    // console.log(this.cookieService.get('OpenId'));
+    // console.log(this.cookieService.get('UnionId'));
+    // console.log(this.cookieService.get('State'));
+    // console.log(this.cookieService.get('Username'));
+    //微信浏览器
+    if (!this.myForm.invalid) {
+      if (this.selectedAmount == 0) {
+        let toast = this.toastCtrl.create({
+          message: "请选择充值金额",
+          position: 'middle',
+          duration: 2000
+        });
+        toast.present();
+      }
+      else {
+        this.para.Amount = this.selectedAmount;
+        this.para.OpenId = this.cookieService.get('OpenId');
+        this.para.Mobile = this.myForm.value.mobile;
+        this.para.NNKType="10001"
+        this.dataService.pay1(this.para).subscribe(res=>{
+          console.log("OK");
+        });
+        
+      }
+
+    }
+    else{
+      let errMsg: Array<string> = [];
+      this.validation_messages.mobile.forEach(item => {
+        if (this.myForm.get('mobile').hasError(item.type))
+          errMsg.push(item.message);
+      });
+      if (errMsg.length > 0) {
+        let toast = this.toastCtrl.create({
+          message: errMsg.toString(),
+          position: 'middle',
+          duration: 2000
+        });
+        toast.present();
+      }
+    }
+
+  }
 }

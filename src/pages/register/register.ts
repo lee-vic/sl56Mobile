@@ -32,7 +32,7 @@ export class RegisterPage {
     private dataService: RegisterProvider,
     public navParams: NavParams) {
     this.myForm = this.formBuilder.group({
-      mobile: ['13538109920', Validators.compose([
+      mobile: ['', Validators.compose([
         Validators.required,
         Validators.pattern("^1[3|4|5|7|8][0-9]{9}$")
       ])],

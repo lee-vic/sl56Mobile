@@ -48,6 +48,7 @@ export class ForgotPassword2Page {
         toast.present();
         setTimeout(() => {
           this.navCtrl.popToRoot();
+          this.navCtrl.pop();
         }, 1000);
        
       }
