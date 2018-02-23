@@ -4,4 +4,6 @@ export class RechargeInfo{
     OpenId:string;
     TradeType:string;
     NNKType:string;
+    Status:string;
+    Date:string;
 }

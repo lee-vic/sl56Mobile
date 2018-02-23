@@ -31,7 +31,7 @@ export class Recharge1Page implements OnInit, OnDestroy {
     ],
     [
       {amount:50,discount:1,desc:"85折"},
-      {amount:100,discount:1,desc:"85折"},
+      {amount:100,discount:1,desc:"9折"},
       {amount:200,discount:1,desc:"9折"}
     ],
     [
@@ -269,9 +269,9 @@ export class Recharge1Page implements OnInit, OnDestroy {
         this.para.OpenId = this.cookieService.get('OpenId');
         this.para.Mobile = this.myForm.value.mobile;
         this.para.NNKType="10001"
-        this.dataService.pay1(this.para).subscribe(res=>{
-          console.log("OK");
-        });
+        // this.dataService.pay1(this.para).subscribe(res=>{
+        //   console.log("OK");
+        // });
         
       }
 

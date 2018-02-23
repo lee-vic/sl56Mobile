@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { apiUrl } from '../../globals';
 import { UnifiedOrderResul } from '../../models/unified-order-result.model';
+import { RechargeInfo } from '../../models/recharge.model';
 
 /*
   Generated class for the RechargeProvider provider.
@@ -19,8 +20,12 @@ export class RechargeProvider {
     let seq= this.http.post<UnifiedOrderResul>(apiUrl+"/Recharge/Deposit",data,{ withCredentials:true});
     return seq;
   }
-  pay1(data:any){
-    let seq= this.http.post<UnifiedOrderResul>(apiUrl+"/Recharge/Deposit1",data,{ withCredentials:true});
+  getList(){
+    let seq= this.http.get<Array<RechargeInfo>>(apiUrl+"/Recharge/GetList",{ withCredentials:true});
     return seq;
   }
+  // pay1(data:any){
+  //   let seq= this.http.post<UnifiedOrderResul>(apiUrl+"/Recharge/Deposit1",data,{ withCredentials:true});
+  //   return seq;
+  // }
 }

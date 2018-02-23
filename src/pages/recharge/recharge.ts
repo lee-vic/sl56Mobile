@@ -4,7 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { RechargeProvider } from '../../providers/recharge/recharge';
 import { RechargeInfo } from '../../models/recharge.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserRechargeAgreementPage } from '../pages';
+import { UserRechargeAgreementPage, UserRechargeListPage } from '../pages';
 
 /**
  * Generated class for the RechargePage page.
@@ -27,13 +27,8 @@ export class RechargePage implements OnInit, OnDestroy {
   para: RechargeInfo = new RechargeInfo();
   rows=[
     [
-      {amount:10,discount:0.85,desc:"85折"},
-      {amount:20,discount:0.85,desc:"85折"},
-      {amount:30,discount:0.85,desc:"85折"}
-    ],
-    [
       {amount:50,discount:0.85,desc:"85折"},
-      {amount:100,discount:0.85,desc:"85折"},
+      {amount:100,discount:0.9,desc:"9折"},
       {amount:200,discount:0.9,desc:"9折"}
     ],
     [
@@ -92,7 +87,7 @@ export class RechargePage implements OnInit, OnDestroy {
     console.log('ionViewDidLoad RechargePage');
   }
   amountSelected(item) {
-    this.selectedAmount = parseInt(item.amount);
+    this.selectedAmount = parseFloat(item.amount);
     this.charge = (this.selectedAmount * item.discount).toFixed(2);
   }
   getCode() {
@@ -146,6 +141,7 @@ export class RechargePage implements OnInit, OnDestroy {
     }
 
   }
+  
   payByJsApi() {
     this.para.TradeType = "JSAPI";
     let loading = this.loadingCtrl.create({
@@ -240,8 +236,8 @@ export class RechargePage implements OnInit, OnDestroy {
       (res) => {
         if (res.err_msg == "get_brand_wcpay_request:ok") {
           let alert = this.alertCtrl.create({
-            title: '恭喜你成功充值'+this.selectedAmount+"元",
-            subTitle: "进入会员中心快速查报价、跟踪单号轨迹",
+            title: '恭喜你成功充值'+this.selectedAmount+'元',
+            subTitle: '进入会员中心快速查报价、跟踪单号轨迹。',
             buttons: [
               {
                 text: '暂时不用了',
@@ -268,5 +264,8 @@ export class RechargePage implements OnInit, OnDestroy {
   }
   openAgreement(){
     this.navCtrl.push(UserRechargeAgreementPage);
+  }
+  listClick(){
+    this.navCtrl.push(UserRechargeListPage);
   }
 }

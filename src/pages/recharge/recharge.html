@@ -10,6 +10,11 @@
 
   <ion-navbar>
     <ion-title>手机充值</ion-title>
+    <ion-buttons end>
+      <button ion-button  (click)="listClick()">
+        充值记录
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -18,7 +23,7 @@
   <form [formGroup]="myForm" novalidate>
     <ion-item no-lines>
       <ion-label floating>充值号码 仅支持广东移动</ion-label>
-      <ion-input type="text" formControlName="mobile"></ion-input>
+      <ion-input type="number" formControlName="mobile"></ion-input>
     </ion-item>
     <div class="validation-errors" padding-left>
         <div *ngFor="let validation of validation_messages.mobile">
@@ -69,15 +74,20 @@
           </ion-col>
 
         </ion-row>
-        <ion-row>
+        
+        <!-- <ion-row>
           <ion-col text-center>
 
             点击立即充值,即表示您已经同意<span (click)="openAgreement()" class="charge">《充值活动规则》</span>
           </ion-col>
 
-        </ion-row>
+        </ion-row> -->
       </ion-grid>
 
     </div>
+  </div>
+  <div padding>
+    <p>1、服务暂停时段：周五12:00至周一8:00，月底4天至月初4天;</p>
+    <p>2、本服务为慢充服务，36小时内到账，不提供任何发票，每月每号码限充一次，暂仅支持广东移动;</p>
   </div>
 </ion-content>
