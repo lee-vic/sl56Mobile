@@ -105,10 +105,29 @@ export class MemberPage implements OnInit {
       toast.present();
     }
     else {
-      
+      if(this.IsMicroMessenger()&&item.page==UserWechatPayPage){
+        let toast = this.toastCtrl.create({
+          message: '请使用公众号导航菜单"会员中心-微信支付"进行支付',
+          position: 'middle',
+          duration: 2000
+        });
+        toast.present();
+      }
+      else{
         this.navCtrl.push(item.page);
+      }
+        
     }
 
+  }
+  IsMicroMessenger(): boolean {
+    let ua = navigator.userAgent.toLowerCase();
+    let m = ua.match(/MicroMessenger/i);
+
+    if (m != null && m.toString() == "micromessenger") {
+      return true;
+    }
+    return false;
   }
   doLogin(formValue) {
 

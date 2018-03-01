@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-segment [(ngModel)]="tab" mode="md">
     <ion-segment-button value="1">
       基本信息
@@ -69,13 +69,13 @@
         </ion-item>
       </ion-list>
     </div>
-    <div *ngSwitchCase="2" [innerHTML]="data.CommonRemark" >
+    <div *ngSwitchCase="2" [innerHTML]="data.CommonRemark" padding >
     
     </div>
-    <div *ngSwitchCase="3"  [innerHTML]="data.Remark">
+    <div *ngSwitchCase="3"  [innerHTML]="data.Remark" padding>
      
     </div>
-    <div *ngSwitchCase="4" [innerHTML]="data.CountryRemark">
+    <div *ngSwitchCase="4" [innerHTML]="data.CountryRemark" padding>
       
     </div>
     <div *ngSwitchCase="5">
