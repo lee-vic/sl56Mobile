@@ -58,54 +58,68 @@ export class RegisterPage {
   }
   getCode(formValue) {
     // console.log(this.myForm);
-    let errMsg: Array<string> = [];
-    this.validation_messages.mobile.forEach(item => {
-      if (this.myForm.get('mobile').hasError(item.type))
-        errMsg.push(item.message);
-    });
-    if (errMsg.length > 0) {
-      let toast = this.toastCtrl.create({
-        message: errMsg.toString(),
-        position: 'middle',
-        duration: 2000
+    let openId= this.cookieService.get('OpenId')
+    if(openId===""||openId==""||openId==undefined){
+      let alert = this.alertCtrl.create({
+        title: '请搜索公众号"升蓝国际物流"并关注',
+        subTitle: '进入公众号之后使用导航菜单"手机充值->85折充话费"进行充值',
+        buttons: ['确定']
       });
-      toast.present();
+      alert.present();
     }
-    else {
-      this.btnDisabled = true;
-      this.dataService.getCode(this.myForm.value.mobile).subscribe(res => {
-
-        if (res.Success) {
-          console.log(res);
-          
-          let time: number = 60;
-
-          let handle;
-          setTimeout(() => {
-            clearInterval(handle);
-            this.codeText = "获取验证码";
-            this.btnDisabled = false;
-          }, time * 1000);
-          handle = setInterval(() => {
-            time--;
-            this.codeText = time + "秒后重发";
-          }, 1000);
-        }
-        else{
-          if(res.Customers.length>0){
-            //手机号码查询到一个已注册账号
-            if(res.Customers.length==1){
-              this.doAlert(res.Customers[0]);
-            }
-            //多个已注册账号，让用户选择
-            else if(res.Customers.length>1){
-              this.showRadio(res.Customers);
-            }
+    else{
+      let errMsg: Array<string> = [];
+      this.validation_messages.mobile.forEach(item => {
+        if (this.myForm.get('mobile').hasError(item.type))
+          errMsg.push(item.message);
+      });
+      if (errMsg.length > 0) {
+        let toast = this.toastCtrl.create({
+          message: errMsg.toString(),
+          position: 'middle',
+          duration: 2000
+        });
+        toast.present();
+      }
+      else {
+        this.btnDisabled = true;
+        this.dataService.getCode(this.myForm.value.mobile).subscribe(res => {
+  
+          if (res.Success) {
+            console.log(res);
             
+            let time: number = 60;
+  
+            let handle;
+            setTimeout(() => {
+              clearInterval(handle);
+              this.codeText = "获取验证码";
+              this.btnDisabled = false;
+            }, time * 1000);
+            handle = setInterval(() => {
+              time--;
+              this.codeText = time + "秒后重发";
+            }, 1000);
           }
-        }
-      });
+          else{
+            if(res.Customers.length>0){
+              //手机号码查询到一个已注册账号
+              if(res.Customers.length==1){
+                this.doAlert(res.Customers[0]);
+              }
+              //多个已注册账号，让用户选择
+              else if(res.Customers.length>1){
+                this.showRadio(res.Customers);
+              }
+              
+            }
+          }
+        });
+      }
     }
+      
+  
+    
   }
   doAlert(customer:ValueNameInfo) {
     let alert = this.alertCtrl.create({

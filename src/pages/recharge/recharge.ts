@@ -98,48 +98,59 @@ export class RechargePage implements OnInit, OnDestroy {
     // console.log(this.cookieService.get('UnionId'));
     // console.log(this.cookieService.get('State'));
     // console.log(this.cookieService.get('Username'));
-    //微信浏览器
-    if (!this.myForm.invalid) {
-      if (this.selectedAmount == 0) {
-        let toast = this.toastCtrl.create({
-          message: "请选择充值金额",
-          position: 'middle',
-          duration: 2000
-        });
-        toast.present();
-      }
-      else {
-        this.para.Amount = this.selectedAmount;
-        this.para.OpenId = this.cookieService.get('OpenId');
-        this.para.Mobile = this.myForm.value.mobile;
-        this.para.NNKType="10000"
-        console.log(this.para);
-        if (this.IsMicroMessenger()) {
-          this.payByJsApi();
-        }
-        else {
-          this.payByH5();
-        }
-        
-      }
-
+    let openId= this.cookieService.get('OpenId')
+    if(openId===""||openId==""||openId==undefined){
+      let alert = this.alertCtrl.create({
+        title: '请搜索公众号"升蓝国际物流"并关注',
+        subTitle: '进入公众号之后使用导航菜单"手机充值->85折充话费"进行充值',
+        buttons: ['确定']
+      });
+      alert.present();
     }
     else{
-      let errMsg: Array<string> = [];
-      this.validation_messages.mobile.forEach(item => {
-        if (this.myForm.get('mobile').hasError(item.type))
-          errMsg.push(item.message);
-      });
-      if (errMsg.length > 0) {
-        let toast = this.toastCtrl.create({
-          message: errMsg.toString(),
-          position: 'middle',
-          duration: 2000
-        });
-        toast.present();
+      if (!this.myForm.invalid) {
+        if (this.selectedAmount == 0) {
+          let toast = this.toastCtrl.create({
+            message: "请选择充值金额",
+            position: 'middle',
+            duration: 2000
+          });
+          toast.present();
+        }
+        else {
+          this.para.Amount = this.selectedAmount;
+          this.para.OpenId = this.cookieService.get('OpenId');
+          this.para.Mobile = this.myForm.value.mobile;
+          this.para.NNKType="10000"
+          console.log(this.para);
+          if (this.IsMicroMessenger()) {
+            this.payByJsApi();
+          }
+          else {
+            this.payByH5();
+          }
+          
+        }
+  
       }
+      else{
+        let errMsg: Array<string> = [];
+        this.validation_messages.mobile.forEach(item => {
+          if (this.myForm.get('mobile').hasError(item.type))
+            errMsg.push(item.message);
+        });
+        if (errMsg.length > 0) {
+          let toast = this.toastCtrl.create({
+            message: errMsg.toString(),
+            position: 'middle',
+            duration: 2000
+          });
+          toast.present();
+        }
+      }  
     }
-
+    
+    
   }
   
   payByJsApi() {
