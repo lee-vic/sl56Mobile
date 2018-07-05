@@ -22,7 +22,8 @@ import { TemplateProvider } from '../providers/template/template';
 import { SubAccountProvider } from '../providers/sub-account/sub-account';
 import { RechargeProvider } from '../providers/recharge/recharge';
 import { RegisterProvider } from '../providers/register/register';
-
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { BankSlipsProvider } from '../providers/bank-slips/bank-slips';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,9 @@ import { RegisterProvider } from '../providers/register/register';
     TemplateProvider,
     SubAccountProvider,
     RechargeProvider,
-    RegisterProvider
+    RegisterProvider,
+    FileTransfer,
+    BankSlipsProvider
   ]
 })
 export class AppModule {}

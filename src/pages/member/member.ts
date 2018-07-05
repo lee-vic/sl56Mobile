@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Modal, ModalController, ToastController, LoadingController, Platform, Content } from 'ionic-angular';
-import { UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage, UserWechatBindingPage, UserResetPasswordPage, UserPriceListPage, UserTemplateListPage, UserForgotPasswordPage, UserSubAccountPage, UserNoticePage } from '../pages';
+import { UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage, UserWechatBindingPage, UserResetPasswordPage, UserPriceListPage, UserTemplateListPage, UserForgotPasswordPage, UserSubAccountPage, UserNoticePage, UserBankSlipsPage } from '../pages';
 import { User } from '../../providers/user/user';
 import { CookieService } from 'ngx-cookie-service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -31,7 +31,8 @@ export class MemberPage implements OnInit {
     { title: "查看报价", image: "assets/imgs/member-10.png", page: UserPriceListPage,type:[0] },
     { title: "修改密码", image: "assets/imgs/member-11.png", page: UserResetPasswordPage,type:[0]},
     { title: "子账号管理", image: "assets/imgs/member-12.png", page: UserSubAccountPage,type:[0]},
-    { title: "微信绑定", image: "assets/imgs/member-13.png", page: UserWechatBindingPage,type:[0,1] }
+    { title: "微信绑定", image: "assets/imgs/member-13.png", page: UserWechatBindingPage,type:[0,1] },
+    { title: "回单上传", image: "assets/imgs/member-17.png", page: UserBankSlipsPage,type:[0,1] }
   ];
   menus:Menus;
   loginModalPage: Modal;

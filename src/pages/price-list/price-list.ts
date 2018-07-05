@@ -38,7 +38,7 @@ export class PriceListPage implements OnInit {
     this.isBusy = true;
     this.service.getList(this.currentPageIndex).subscribe(res => {
       this.allowDownload=res.AllowDownloadPrice;
-      if (res.Items.length < 10) {
+      if (res.Items.length < 10&&infiniteScroll!=null) {
         infiniteScroll.enable(false);
       }
       for (var i = 0; i < res.Items.length; i++) {

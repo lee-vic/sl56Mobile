@@ -25,3 +25,4 @@ export const UserNoticePage="NoticePage";
 export const UserRechargePage="RechargePage";
 export const UserRechargeAgreementPage="RechargeAgreementPage";
 export const UserRechargeListPage="RechargeListPage";
+export const UserBankSlipsPage="BankSlipsPage";
