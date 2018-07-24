@@ -1,4 +1,4 @@
-export class UnifiedOrderResul{
+export class UnifiedOrderResult{
     Success:boolean;
     PayUrl:string;
     PrepayId:string;

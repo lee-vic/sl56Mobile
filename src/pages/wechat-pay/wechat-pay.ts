@@ -1,32 +1,36 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController, PopoverController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, PopoverController, ViewController, AlertController } from 'ionic-angular';
 import { WechatPayProvider } from '../../providers/wechat-pay/wechat-pay';
-import { UserWechatPayListPage } from '../pages';
+import { UserWechatPayListPage, UserWechatPayDescPage } from '../pages';
+
+
 
 
 
 declare var jQuery: any;
 declare var WeixinJSBridge: any;
-
-@IonicPage()
+@IonicPage({
+  segment: 'wechat-pay/:openId'
+})
 @Component({
   selector: 'page-wechat-pay',
   templateUrl: 'wechat-pay.html',
 })
 export class WechatPayPage implements OnInit,OnDestroy {
  
-  data: any;
-
+  data: any={};
+  openId:any;
   allSelected: boolean = true;
+  amountInputDisable: boolean =false;
   constructor(public navCtrl: NavController,
     public service: WechatPayProvider,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
     public viewCtrl: ViewController,
-
+    public alertCtrl: AlertController,
     public popoverCtrl: PopoverController,
     public navParams: NavParams) {
-
+     this.openId=navParams.get("openId");
   }
 
   ionViewDidLoad() {
@@ -38,9 +42,28 @@ export class WechatPayPage implements OnInit,OnDestroy {
       content: '请稍后...'
     });
     loading.present();
-    this.service.getList().subscribe(res => {
+    this.service.getList(this.openId).subscribe(res => {
       this.data = res;
+      if(this.data.Amount1>=0){
+        if(this.data.ReceiveGoodsDetailList.length==0){
+          this.amountInputDisable=false;
+        }
+        else{
+          this.amountInputDisable=true;
+        }
+       
+      }
+      else{
+        this.amountInputDisable=true;
+      }
       loading.dismiss();
+      jQuery.connection.hub.url = "https://signalr.sl56.com/signalr";
+      var hub = jQuery.connection.messageHub;
+      hub.client.messageReceived = this.success.bind(this);
+      jQuery.connection.hub.start({ xdomain: true }).done(function () {
+        console.log('Now connected, connection ID=' + jQuery.connection.hub.id);
+      });
+      
     }, (error) => {
       loading.dismiss();
       let toast = this.toastCtrl.create({
@@ -51,12 +74,7 @@ export class WechatPayPage implements OnInit,OnDestroy {
       toast.present();
     });
  
-    jQuery.connection.hub.url = "https://signalr.sl56.com/signalr";
-    var hub = jQuery.connection.messageHub;
-    hub.client.messageReceived = this.success.bind(this);
-    jQuery.connection.hub.start({ xdomain: true }).done(function () {
-      console.log('Now connected, connection ID=' + jQuery.connection.hub.id);
-    });
+   
    
   }
   ngOnDestroy(): void {
@@ -85,13 +103,22 @@ export class WechatPayPage implements OnInit,OnDestroy {
   }
   selectChange() {
     let totalAmount: number = 0;
+    let selectedList=new Array();
     this.data.ReceiveGoodsDetailList.filter(item => {
       return item.Selected;
     }).forEach(item => {
 
       totalAmount = totalAmount + parseFloat(item.Amount)
+      selectedList.push(item.Id);
     });
     this.data.Amount = totalAmount.toFixed(2);
+    this.data.SelectIdList=selectedList.toString();
+    if(selectedList.length>0){
+      this.amountInputDisable=true;
+    }
+    else{
+      this.amountInputDisable=false;
+    }
     this.calculateAmount();
   }
   amountChange() {
@@ -214,5 +241,11 @@ export class WechatPayPage implements OnInit,OnDestroy {
           alert(res.err_code + res.err_desc + res.err_msg);
         }
       });
+  }
+  //val 0:历史欠款模式 1:无历史欠款模式
+  showDesc(val){
+    this.navCtrl.push(UserWechatPayDescPage,{
+      type:val
+    })
   }
 }
