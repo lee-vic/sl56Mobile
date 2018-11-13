@@ -39,26 +39,23 @@
    
     <ion-item *ngIf="data?.Amount1>0">
       <ion-label>自动放货</ion-label>
-      <ion-toggle [ngModel]="data?.IsRelease" (ngModelChange)="data.IsRelease=$event" ></ion-toggle>
+      <ion-toggle [ngModel]="data?.IsRelease" (ngModelChange)="data.IsRelease=$event" [disabled]="amountInputDisable"></ion-toggle>
     </ion-item>
   
-    <button ion-item (click)="showDesc(0)" *ngIf="data?.Amount1>0">
-     
-      <ion-label>放货说明</ion-label>
-    </button>
-    <button ion-item (click)="showDesc(1)" *ngIf="data?.Amount1<=0">
+   
+    <button ion-item (click)="showDesc(1)">
       <ion-label>支付说明</ion-label>
     </button>
   </ion-list>
  
   <ion-list>
-    <ion-item *ngIf="data?.Amount1<=0">
+    <ion-item>
       <ion-label>{{allSelected?'反选':'全选'}}</ion-label>
       <ion-checkbox (ionChange)="onAllClick()" [(ngModel)]="allSelected"></ion-checkbox>
     </ion-item>
     <ion-item *ngFor="let item of data?.ReceiveGoodsDetailList">
       <ion-label>{{item.ReferenceNumber}}</ion-label>
-      <ion-checkbox [(ngModel)]="item.Selected" (ionChange)="selectChange()" *ngIf="data?.Amount1<=0"></ion-checkbox>
+      <ion-checkbox [(ngModel)]="item.Selected" (ionChange)="selectChange()"></ion-checkbox>
       <ion-note item-end>{{item.Amount}}元</ion-note>
     </ion-item>
   </ion-list>

@@ -44,17 +44,14 @@ export class WechatPayPage implements OnInit,OnDestroy {
     loading.present();
     this.service.getList(this.openId).subscribe(res => {
       this.data = res;
-      if(this.data.Amount1>=0){
-        if(this.data.ReceiveGoodsDetailList.length==0){
-          this.amountInputDisable=false;
-        }
-        else{
+      if(this.data.ReceiveGoodsDetailList.length>0){
+       
           this.amountInputDisable=true;
-        }
+       
        
       }
       else{
-        this.amountInputDisable=true;
+        this.amountInputDisable=false;
       }
       loading.dismiss();
       jQuery.connection.hub.url = "https://signalr.sl56.com/signalr";
@@ -102,22 +99,26 @@ export class WechatPayPage implements OnInit,OnDestroy {
     });
   }
   selectChange() {
-    let totalAmount: number = 0;
+    let selectedAmount: number = 0;
     let selectedList=new Array();
     this.data.ReceiveGoodsDetailList.filter(item => {
       return item.Selected;
     }).forEach(item => {
 
-      totalAmount = totalAmount + parseFloat(item.Amount)
+      selectedAmount = selectedAmount + parseFloat(item.Amount)
       selectedList.push(item.Id);
     });
-    this.data.Amount = totalAmount.toFixed(2);
+    console.log(selectedAmount);
+    console.log(this.data.Amount1);
+    this.data.Amount = (selectedAmount+this.data.Amount1).toFixed(2);
     this.data.SelectIdList=selectedList.toString();
     if(selectedList.length>0){
       this.amountInputDisable=true;
+      this.data.IsRelease=false;
     }
     else{
       this.amountInputDisable=false;
+      this.data.IsRelease=true;
     }
     this.calculateAmount();
   }
