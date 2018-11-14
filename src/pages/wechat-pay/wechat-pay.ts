@@ -2,12 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController, PopoverController, ViewController, AlertController } from 'ionic-angular';
 import { WechatPayProvider } from '../../providers/wechat-pay/wechat-pay';
 import { UserWechatPayListPage, UserWechatPayDescPage } from '../pages';
+import { SignalRConnection, SignalR } from 'ng2-signalr';
 
 
-
-
-
-declare var jQuery: any;
 declare var WeixinJSBridge: any;
 @IonicPage({
   segment: 'wechat-pay/:openId'
@@ -16,12 +13,13 @@ declare var WeixinJSBridge: any;
   selector: 'page-wechat-pay',
   templateUrl: 'wechat-pay.html',
 })
-export class WechatPayPage implements OnInit,OnDestroy {
- 
-  data: any={};
-  openId:any;
+export class WechatPayPage implements OnInit, OnDestroy {
+
+  data: any = {};
+  openId: any;
   allSelected: boolean = true;
-  amountInputDisable: boolean =false;
+  amountInputDisable: boolean = false;
+  signalRConnection: SignalRConnection;
   constructor(public navCtrl: NavController,
     public service: WechatPayProvider,
     public loadingCtrl: LoadingController,
@@ -29,38 +27,53 @@ export class WechatPayPage implements OnInit,OnDestroy {
     public viewCtrl: ViewController,
     public alertCtrl: AlertController,
     public popoverCtrl: PopoverController,
+    private signalR: SignalR,
     public navParams: NavParams) {
-     this.openId=navParams.get("openId");
+    this.openId = navParams.get("openId");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WechatPayPage');
   }
   ngOnInit(): void {
-   
+
     let loading = this.loadingCtrl.create({
       content: '请稍后...'
     });
     loading.present();
+    this.signalRConnection = this.signalR.createConnection();
+    this.signalRConnection.status.subscribe((p) => console.warn(p.name));
+    this.signalRConnection.start().then((c) => {
+      let listener = c.listenFor("messageReceived");
+      listener.subscribe((msg: any) => {
+        let obj = JSON.parse(msg);
+        if (obj.Content == "True") {
+          this.navCtrl.push(UserWechatPayListPage);
+        }
+        else {
+          let toast1 = this.toastCtrl.create({
+            message: "支付失败",
+            position: 'middle',
+            duration: 1500
+          });
+          toast1.present();
+        }
+      });
+    });
     this.service.getList(this.openId).subscribe(res => {
       this.data = res;
-      if(this.data.ReceiveGoodsDetailList.length>0){
-       
-          this.amountInputDisable=true;
-       
-       
+      if (this.data.ReceiveGoodsDetailList.length > 0) {
+
+        this.amountInputDisable = true;
+
+
       }
-      else{
-        this.amountInputDisable=false;
+      else {
+        this.amountInputDisable = false;
       }
       loading.dismiss();
-      jQuery.connection.hub.url = "https://signalr.sl56.com/signalr";
-      var hub = jQuery.connection.messageHub;
-      hub.client.messageReceived = this.success.bind(this);
-      jQuery.connection.hub.start({ xdomain: true }).done(function () {
-        console.log('Now connected, connection ID=' + jQuery.connection.hub.id);
-      });
-      
+
+
     }, (error) => {
       loading.dismiss();
       let toast = this.toastCtrl.create({
@@ -70,27 +83,14 @@ export class WechatPayPage implements OnInit,OnDestroy {
       });
       toast.present();
     });
- 
-   
-   
+
+
+
   }
   ngOnDestroy(): void {
-    jQuery.connection.hub.stop();
+    this.signalRConnection.stop();
   }
-  success(msg) {
-    let obj=JSON.parse(msg);
-    if(obj.Content=="True"){
-      this.navCtrl.push(UserWechatPayListPage);
-    }
-    else{
-      let toast1 = this.toastCtrl.create({
-        message: "支付失败",
-        position: 'middle',
-        duration: 1500
-      });
-      toast1.present();
-    }
-  }
+
 
   onAllClick() {
 
@@ -100,7 +100,7 @@ export class WechatPayPage implements OnInit,OnDestroy {
   }
   selectChange() {
     let selectedAmount: number = 0;
-    let selectedList=new Array();
+    let selectedList = new Array();
     this.data.ReceiveGoodsDetailList.filter(item => {
       return item.Selected;
     }).forEach(item => {
@@ -110,15 +110,15 @@ export class WechatPayPage implements OnInit,OnDestroy {
     });
     console.log(selectedAmount);
     console.log(this.data.Amount1);
-    this.data.Amount = (selectedAmount+this.data.Amount1).toFixed(2);
-    this.data.SelectIdList=selectedList.toString();
-    if(selectedList.length>0){
-      this.amountInputDisable=true;
-      this.data.IsRelease=false;
+    this.data.Amount = (selectedAmount + this.data.Amount1).toFixed(2);
+    this.data.SelectIdList = selectedList.toString();
+    if (selectedList.length > 0) {
+      this.amountInputDisable = true;
+      this.data.IsRelease = false;
     }
-    else{
-      this.amountInputDisable=false;
-      this.data.IsRelease=true;
+    else {
+      this.amountInputDisable = false;
+      this.data.IsRelease = true;
     }
     this.calculateAmount();
   }
@@ -154,11 +154,11 @@ export class WechatPayPage implements OnInit,OnDestroy {
     });
     loading.present();
     this.service.pay(this.data).subscribe(res => {
-      
+
       loading.dismiss();
-      let jsApiParam=JSON.parse(res.Data) ;
+      let jsApiParam = JSON.parse(res.Data);
       this.callpay(jsApiParam);
-     
+
     }, (err) => {
       loading.dismiss();
       let toast = this.toastCtrl.create({
@@ -179,8 +179,8 @@ export class WechatPayPage implements OnInit,OnDestroy {
     this.service.pay(this.data).subscribe(res => {
       console.log(res);
       loading.dismiss();
-      if(res.Success)
-      location.href=res.PayUrl;
+      if (res.Success)
+        location.href = res.PayUrl;
     }, (err) => {
       loading.dismiss();
       let toast = this.toastCtrl.create({
@@ -225,7 +225,7 @@ export class WechatPayPage implements OnInit,OnDestroy {
     }
   }
   jsApiCall(jsApiParam) {
-   
+
     WeixinJSBridge.invoke(
       'getBrandWCPayRequest',
       jsApiParam,//josn串
@@ -244,9 +244,9 @@ export class WechatPayPage implements OnInit,OnDestroy {
       });
   }
   //val 0:历史欠款模式 1:无历史欠款模式
-  showDesc(val){
-    this.navCtrl.push(UserWechatPayDescPage,{
-      type:val
+  showDesc(val) {
+    this.navCtrl.push(UserWechatPayDescPage, {
+      type: val
     })
   }
 }

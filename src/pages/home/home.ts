@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
 import { HomeAboutPage } from '../pages';
 
+
+
 /**
  * Generated class for the HomePage page.
  *
@@ -15,6 +17,7 @@ import { HomeAboutPage } from '../pages';
   templateUrl: 'home.html',
 })
 export class HomePage {
+ 
 
   news = [
     {
@@ -61,9 +64,10 @@ export class HomePage {
     }
   ]
   constructor(public navCtrl: NavController,
-
+  
     public navParams: NavParams) {
-
+     
+     
     // alert(this.cookieService.get("sl56Auth"));
   }
 

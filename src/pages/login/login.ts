@@ -37,7 +37,7 @@ export class LoginPage implements OnInit{
     this.authForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      clientType:[],
+      clientType:['1'],
       userType:['0'],
       rememberMe:[true],
       isBind:[true]

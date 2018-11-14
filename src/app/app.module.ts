@@ -24,6 +24,17 @@ import { RechargeProvider } from '../providers/recharge/recharge';
 import { RegisterProvider } from '../providers/register/register';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { BankSlipsProvider } from '../providers/bank-slips/bank-slips';
+import { SignalRModule } from 'ng2-signalr';
+import { SignalRConfiguration } from 'ng2-signalr';
+
+export function createConfig():SignalRConfiguration{
+  const c=new SignalRConfiguration();
+  c.hubName="chatHub";
+  c.url="https://signalr.sl56.com/signalr/hubs";
+  c.logging=true;
+  c.withCredentials=true;
+  return c;
+}
 
 @NgModule({
   declarations: [
@@ -32,10 +43,12 @@ import { BankSlipsProvider } from '../providers/bank-slips/bank-slips';
   imports: [
     BrowserModule,
     HttpClientModule,
+    SignalRModule.forRoot(createConfig),
     IonicModule.forRoot(MyApp,{
       mode:"ios",
       backButtonText:"返回",
       tabsHideOnSubPages:true
+     
     })
   ],
   bootstrap: [IonicApp],
