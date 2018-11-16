@@ -26,6 +26,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { BankSlipsProvider } from '../providers/bank-slips/bank-slips';
 import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
+import { ProblemProvider } from '../providers/problem/problem';
 
 export function createConfig():SignalRConfiguration{
   const c=new SignalRConfiguration();
@@ -77,7 +78,8 @@ export function createConfig():SignalRConfiguration{
     RechargeProvider,
     RegisterProvider,
     FileTransfer,
-    BankSlipsProvider
+    BankSlipsProvider,
+    ProblemProvider
   ]
 })
 export class AppModule {}
