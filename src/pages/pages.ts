@@ -28,3 +28,5 @@ export const UserRechargeAgreementPage="RechargeAgreementPage";
 export const UserRechargeListPage="RechargeListPage";
 export const UserBankSlipsPage="BankSlipsPage";
 export const UserProblemListPage="ProblemListPage";
+export const UserProblemDetailPage="ProblemDetailPage";
+export const UserChatPage="ChatPage";

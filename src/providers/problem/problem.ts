@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { apiUrl } from '../../globals';
 import { Problem } from '../../models/problem.model';
@@ -15,9 +15,18 @@ export class ProblemProvider {
   constructor(public http: HttpClient) {
     console.log('Hello ProblemProvider Provider');
   }
-  getList(){
-   
-    let seq= this.http.get<Array<Problem>> (apiUrl+"/Problem/GetList",{ withCredentials:true});
+  getList(pageIndex,key){
+    let paras=new HttpParams()
+    .set("pageIndex",pageIndex)
+    .set("key",key);
+    let seq= this.http.get<Array<Problem>> (apiUrl+"/Problem/GetList",{ withCredentials:true,params:paras});
+    return seq;
+  }
+  getProblemDetail(receiveGoodsDetailId,problemId){
+    let paras=new HttpParams()
+    .set("receiveGoodsDetailId",receiveGoodsDetailId)
+    .set("problemId",problemId);
+    let seq= this.http.get (apiUrl+"/Problem/GetProblemDetail",{ withCredentials:true,params:paras});
     return seq;
   }
 

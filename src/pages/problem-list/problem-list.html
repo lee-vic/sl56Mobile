@@ -15,7 +15,9 @@
 
 <ion-content>
   
-  
+  <ion-toolbar no-border-top animated>
+    <ion-searchbar placeholder="原、转单号，国家，报价，运输方式，类型，子单号" (ionInput)="searchItems($event)"></ion-searchbar>
+  </ion-toolbar>
   <ion-list *ngFor="let item of items">
     <ion-item class="bottom-border">
       <ion-label>单号:{{item.No}}</ion-label>
@@ -26,4 +28,7 @@
       {{pro.ObjectName}}
     </button>
   </ion-list>
+  <ion-infinite-scroll (ionInfinite)="scrollItems($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

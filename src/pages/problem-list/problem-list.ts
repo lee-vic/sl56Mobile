@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, InfiniteScroll, Searchbar } from 'ionic-angular';
 import { ProblemProvider } from '../../providers/problem/problem';
 import { Problem } from '../../models/problem.model';
-import { UserDeliveryRecordDetailPage } from '../pages';
+import { UserDeliveryRecordDetailPage, UserProblemDetailPage } from '../pages';
 
 /**
  * Generated class for the ProblemListPage page.
@@ -18,10 +18,12 @@ import { UserDeliveryRecordDetailPage } from '../pages';
 })
 export class ProblemListPage implements OnInit {
   items: Array<Problem> = [];
+  currentPageIndex: number = 1;
+  isBusy: boolean = false;
+  @ViewChild(InfiniteScroll) infiniteScroll: InfiniteScroll;
+  @ViewChild(Searchbar) searchbar: Searchbar;
   ngOnInit(): void {
-    this.service.getList().subscribe(res => {
-      this.items = res;
-    })
+    this.getItems("",false);
   }
 
   constructor(public navCtrl: NavController,
@@ -37,7 +39,37 @@ export class ProblemListPage implements OnInit {
       id: item.Id
     });
   }
-  problemDetail(receiveGoodsDetailId,problemId){
-    
+  problemDetail(_receiveGoodsDetailId,_problemId){
+    this.navCtrl.push(UserProblemDetailPage, {
+      receiveGoodsDetailId: _receiveGoodsDetailId,
+      problemId:_problemId
+    });
+  }
+  searchItems() {
+    let val = this.searchbar.value;
+    let key = val.trim();
+    this.currentPageIndex = 1;
+    this.items.length = 0;
+    this.getItems(key,false);
+  }
+  getItems(key:string,isScroll:boolean) {
+    if (this.isBusy == true)
+      return;
+    this.isBusy = true;
+    this.service.getList(this.currentPageIndex, key).subscribe(res => {
+      let flag = res.length < 10;
+      this.infiniteScroll.enable(!flag);
+      for (var i = 0; i < res.length; i++) {
+        this.items.push(res[i]);
+      }
+      this.currentPageIndex++;
+      if(isScroll)
+        this.infiniteScroll.complete();
+      this.isBusy = false;
+    });
+  }
+  scrollItems($event) {
+    this.getItems(this.searchbar.value,true);
+   
   }
 }
