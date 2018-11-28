@@ -27,6 +27,7 @@ import { BankSlipsProvider } from '../providers/bank-slips/bank-slips';
 import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
 import { ProblemProvider } from '../providers/problem/problem';
+import { ReturnProvider } from '../providers/return/return';
 
 export function createConfig():SignalRConfiguration{
   const c=new SignalRConfiguration();
@@ -79,7 +80,9 @@ export function createConfig():SignalRConfiguration{
     RegisterProvider,
     FileTransfer,
     BankSlipsProvider,
-    ProblemProvider
+    ProblemProvider,
+    ReturnProvider,
+    ReturnProvider
   ]
 })
 export class AppModule {}
