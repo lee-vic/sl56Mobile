@@ -26,7 +26,9 @@
         </div>
         <div class="msg-content">
           <span class="triangle"></span>
-          <p class="line-breaker ">{{msg.Content}}</p>
+
+          <p class="line-breaker " *ngIf="msg.IsFile===false">{{msg.Content}}</p>
+          <a href="{{serverUrl}}/DeliveryRecord/ChatFile/{{msg.Id}}" *ngIf="msg.IsFile===true">{{msg.Content}}</a>
         </div>
       </div>
     </div>
@@ -41,7 +43,8 @@
     <button ion-button clear icon-only item-right (click)="sendMsg()">
       <ion-icon name="send"></ion-icon>
     </button>
-    <button ion-button clear icon-only item-right>
+    <input #file type="file" multiple (change)="upload(file.files)" style="display:none" />
+    <button ion-button clear icon-only item-right (click)="file.click()">
       <ion-icon name="share"></ion-icon>
     </button>
   </div>

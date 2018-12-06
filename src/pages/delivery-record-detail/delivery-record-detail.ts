@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { DeliveryRecordDetailProvider } from '../../providers/delivery-record-detail/delivery-record-detail';
+import { UserReturnApplyPage } from '../pages';
 
 /**
  * Generated class for the DeliveryRecordDetailPage page.
@@ -20,6 +21,7 @@ export class DeliveryRecordDetailPage implements OnInit {
   data:any;
   id:any;
   tab="1";
+  isReturn=true;
   constructor(public navCtrl: NavController, 
     public service:DeliveryRecordDetailProvider,
     public loadingCtrl: LoadingController,
@@ -32,7 +34,7 @@ export class DeliveryRecordDetailPage implements OnInit {
    let canGoBack:boolean=this.navCtrl.canGoBack();
     this.service.getDetail(!canGoBack, this.id).subscribe(res=>{
       this.data=res;
-     
+     this.isReturn=this.data.IsReturnCustomer;
     },(err)=>{
      
       let toast = this.toastCtrl.create({
@@ -45,6 +47,12 @@ export class DeliveryRecordDetailPage implements OnInit {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad DeliveryRecordDetailPage');
+  }
+  applyReturn(){
+    this.navCtrl.push(UserReturnApplyPage, {
+      id: this.id,
+      type:0
+    });
   }
 
 }

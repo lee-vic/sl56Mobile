@@ -29,5 +29,9 @@ export class ProblemProvider {
     let seq= this.http.get (apiUrl+"/Problem/GetProblemDetail",{ withCredentials:true,params:paras});
     return seq;
   }
-
+  upload(form){
+    console.log(form);
+    let seq= this.http.post(apiUrl+"/DeliveryRecord/UploadAttachment",form,{ withCredentials:true});
+    return seq;
+  }
 }

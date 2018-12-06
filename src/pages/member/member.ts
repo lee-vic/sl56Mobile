@@ -177,9 +177,9 @@ export class MemberPage implements OnInit {
     });
   }
   ionViewDidEnter() {
-    if (this.isLogin) {
-      this.getUserInfo();
-    }
+    //if (this.isLogin) {
+     // this.getUserInfo();
+    //}
   }
   setLogin(val:boolean){
     this.isLogin=val;

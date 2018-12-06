@@ -1,0 +1,29 @@
+<!--
+  Generated template for the ReturnApplyHistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>提货人历史记录</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-list radio-group (ionChange)="selectedItems()" [(ngModel)]="currentItem">
+        <ion-list-header>
+          请选择
+        </ion-list-header>
+      
+        <ion-item *ngFor="let item of items" >
+          <ion-label>{{item}}</ion-label>
+          <ion-radio value={{item}}></ion-radio>
+        </ion-item>
+      
+       
+      </ion-list>
+</ion-content>

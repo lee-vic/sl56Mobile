@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { SignalR, SignalRConnection } from 'ng2-signalr';
+import { apiUrl } from '../../globals';
+import { ProblemProvider } from '../../providers/problem/problem';
 
 /**
  * Generated class for the ChatPage page.
@@ -23,6 +25,9 @@ export class ChatPage implements OnInit, OnDestroy {
   toUser: any;
   editorMsg = '';
   data: any;
+  serverUrl:string=apiUrl;
+  imageURI:any;
+  imageFileName:any;
   ngOnDestroy(): void {
     this.signalRConnection.stop();
   }
@@ -35,23 +40,27 @@ export class ChatPage implements OnInit, OnDestroy {
       listener.subscribe((msg: any) => {
         let obj = JSON.parse(msg);
         console.log(obj);
+        this.pushNewMsg(obj.MsgContent,1,obj.SenderName);
       });
     });
   }
 
   constructor(public navCtrl: NavController,
     private signalR: SignalR,
+    public service: ProblemProvider,
     public navParams: NavParams) {
     this.data = navParams.get("model");
     this.data.ChatRecords.forEach(element => {
-      if (element.Type === 1)
+      if (element.Type === 1){
         element.avatar = "assets/imgs/chat-1.png";
+      }
       else {
         element.avatar = "assets/imgs/chat-2.png";
+        element.Name="我";
       }
     });
-
     console.log(this.data);
+    
   }
 
   ionViewDidLoad() {
@@ -87,6 +96,8 @@ export class ChatPage implements OnInit, OnDestroy {
    * @param username 发送消息方姓名
    */
   pushNewMsg(msg:string,type:number,username:string){
+    if(username=="")
+      username="我";
     let obj:any={
       Content:msg,
       Date:Date.now().toString(),
@@ -101,5 +112,18 @@ export class ChatPage implements OnInit, OnDestroy {
     }
     this.data.ChatRecords.push(obj);
     this.scrollToBottom();
+  }
+  upload(files) {
+    if (files.length === 0)
+      return;
+
+    const formData = new FormData();
+
+    for (let file of files)
+      formData.append(file.name, file);
+
+    this.service.upload(formData).subscribe(res=>{
+
+    });
   }
 }

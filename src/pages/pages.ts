@@ -31,3 +31,5 @@ export const UserProblemListPage="ProblemListPage";
 export const UserProblemDetailPage="ProblemDetailPage";
 export const UserChatPage="ChatPage";
 export const UserReturnPage="ReturnListPage";
+export const UserReturnApplyPage="ReturnApplyPage";
+export const UserReturnApplyHistoryPage="ReturnApplyHistoryPage";
