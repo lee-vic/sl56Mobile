@@ -38,9 +38,16 @@ export class ChatPage implements OnInit, OnDestroy {
     this.signalRConnection.start().then((c) => {
       let listener = c.listenFor("messageReceived");
       listener.subscribe((msg: any) => {
+     
         let obj = JSON.parse(msg);
         console.log(obj);
-        this.pushNewMsg(obj.MsgContent,1,obj.SenderName);
+        let content="";
+        if(obj.IsFile==true)
+          content=obj.FileName;
+        else
+          content=obj.MsgContent;
+        this.pushNewMsg(content,1,obj.SenderName,obj.IsFile,obj.ObjectId);
+        this.signalRConnection.invoke("markIsSend",obj.ObjectId);
       });
     });
   }
@@ -71,7 +78,7 @@ export class ChatPage implements OnInit, OnDestroy {
     if (!this.editorMsg.trim()) return;
 
     this.signalRConnection.invoke("sendToEmployee",this.data.Id,this.editorMsg,0,"",0,"",this.data.Problem.ObjectId).then((data:any)=>{
-      this.pushNewMsg(this.editorMsg,0,"");
+      this.pushNewMsg(this.editorMsg,0,"",false,data);
       this.editorMsg = '';
       console.log(data);
     });
@@ -95,14 +102,16 @@ export class ChatPage implements OnInit, OnDestroy {
    * @param type -1：会话转接 0：客户发给内部职员；1：内部职员发送给客户
    * @param username 发送消息方姓名
    */
-  pushNewMsg(msg:string,type:number,username:string){
+  pushNewMsg(msg:string,type:number,username:string,isFile:boolean,objectId:number){
     if(username=="")
       username="我";
     let obj:any={
       Content:msg,
       Date:Date.now().toString(),
       Name:username,
-      Type:type
+      Type:type,
+      IsFile:isFile,
+      Id:objectId
     };
     if(type==1){
       obj.avatar="assets/imgs/chat-1.png";
@@ -110,6 +119,7 @@ export class ChatPage implements OnInit, OnDestroy {
     else{
       obj.avatar="assets/imgs/chat-2.png";
     }
+    console.log(obj);
     this.data.ChatRecords.push(obj);
     this.scrollToBottom();
   }

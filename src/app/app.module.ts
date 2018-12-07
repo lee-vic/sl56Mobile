@@ -27,6 +27,7 @@ import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
 import { ProblemProvider } from '../providers/problem/problem';
 import { ReturnProvider } from '../providers/return/return';
+import { InstantMessageProvider } from '../providers/instant-message/instant-message';
 
 export function createConfig():SignalRConfiguration{
   const c=new SignalRConfiguration();
@@ -79,7 +80,8 @@ export function createConfig():SignalRConfiguration{
     RegisterProvider,
     BankSlipsProvider,
     ProblemProvider,
-    ReturnProvider
+    ReturnProvider,
+    InstantMessageProvider
   ]
 })
 export class AppModule {}

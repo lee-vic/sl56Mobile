@@ -33,3 +33,4 @@ export const UserChatPage="ChatPage";
 export const UserReturnPage="ReturnListPage";
 export const UserReturnApplyPage="ReturnApplyPage";
 export const UserReturnApplyHistoryPage="ReturnApplyHistoryPage";
+export const UserUnreadMessageListPage="UnreadMessageListPage";

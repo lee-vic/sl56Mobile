@@ -20,6 +20,7 @@
     </ion-segment-button>
     <ion-segment-button value="2">
       退货中
+      <ion-badge item-end *ngIf="items2.length>0">{{items2.length}}</ion-badge>
     </ion-segment-button>
     <ion-segment-button value="3">
       退货通知
