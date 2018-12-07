@@ -47,7 +47,7 @@ export class WechatPayPage implements OnInit, OnDestroy {
       let listener = c.listenFor("messageReceived");
       listener.subscribe((msg: any) => {
         let obj = JSON.parse(msg);
-        if (obj.Content == "True") {
+        if (obj.MsgContent == "True") {
           this.navCtrl.push(UserWechatPayListPage);
         }
         else {

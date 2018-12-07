@@ -8,6 +8,12 @@
 
   <ion-navbar>
     <ion-title>运单详情</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="applyReturn()" *ngIf="!isReturn">
+        申请退货
+      </button>
+
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>

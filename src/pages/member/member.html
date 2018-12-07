@@ -54,7 +54,7 @@
           <ion-col col-4 align-self-center text-right>
 
 
-            <img src="assets/imgs/member-15.png" style="width:20px;height:20px;" (click)="openNotice()" *ngIf="customerType==0">
+            <img [src]="userInfo?.UnReadMessageCount>0?'assets/imgs/member-21.png':'assets/imgs/member-15.png'" style="width:20px;height:20px;" (click)="openMessage()" *ngIf="customerType==0">
           </ion-col>
         </ion-row>
         <ion-row>

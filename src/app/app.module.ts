@@ -22,10 +22,12 @@ import { TemplateProvider } from '../providers/template/template';
 import { SubAccountProvider } from '../providers/sub-account/sub-account';
 import { RechargeProvider } from '../providers/recharge/recharge';
 import { RegisterProvider } from '../providers/register/register';
-import { FileTransfer } from '@ionic-native/file-transfer';
 import { BankSlipsProvider } from '../providers/bank-slips/bank-slips';
 import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
+import { ProblemProvider } from '../providers/problem/problem';
+import { ReturnProvider } from '../providers/return/return';
+import { InstantMessageProvider } from '../providers/instant-message/instant-message';
 
 export function createConfig():SignalRConfiguration{
   const c=new SignalRConfiguration();
@@ -76,8 +78,10 @@ export function createConfig():SignalRConfiguration{
     SubAccountProvider,
     RechargeProvider,
     RegisterProvider,
-    FileTransfer,
-    BankSlipsProvider
+    BankSlipsProvider,
+    ProblemProvider,
+    ReturnProvider,
+    InstantMessageProvider
   ]
 })
 export class AppModule {}

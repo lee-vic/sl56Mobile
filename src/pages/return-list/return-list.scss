@@ -1,0 +1,30 @@
+page-return-list {
+    .list-ios .item-block .item-inner{
+        border: none;
+    }
+    .bottom-border{
+        border-bottom: 0.55px solid #c8c7cc;
+      
+    }
+    .item-last{
+        border-bottom: none !important;
+    }
+    .content-ios{
+        background-color: #f7f7f7;
+    }
+    .list-ios{
+        margin-bottom: 1rem;
+    }
+    .toolbar .searchbar-ios .searchbar-input{
+        background-color: white;
+    }
+    .list-ios > .item-block:first-child{
+        border-top: none;
+    }
+    ion-note.note{
+        color:black;
+    }
+    .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block{
+        border-bottom: none !important;
+    }
+}
