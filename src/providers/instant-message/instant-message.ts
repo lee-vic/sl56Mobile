@@ -18,4 +18,18 @@ export class InstantMessageProvider {
     let seq = this.http.get<any>(apiUrl + "/InstantMessage/GetUnReadMessage", { withCredentials: true });
     return seq;
   }
+  /**
+   * 单号消息
+   */
+  getMessages1() {
+    let seq = this.http.get<any>(apiUrl + "/InstantMessage/GetMessages2", { withCredentials: true });
+    return seq;
+  }
+  /**
+   * 非单号消息
+   */
+  getMessages2() {
+    let seq = this.http.get<any>(apiUrl + "/InstantMessage/GetMessages2", { withCredentials: true });
+    return seq;
+  }
 }

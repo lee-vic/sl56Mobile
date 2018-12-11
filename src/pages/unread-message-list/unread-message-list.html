@@ -15,13 +15,13 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item  (click)="detail(item)">
+    <button ion-item (click)="detail(item)">
       <h3>单号消息</h3>
-      <ion-note item-end>2</ion-note>
+      <ion-note item-end>{{data?.Count1}}</ion-note>
     </button>
-    <button ion-item  (click)="detail(item)">
+    <button ion-item (click)="detail(0)">
       <h3>客服消息</h3>
-      <ion-note item-end>3</ion-note>
+      <ion-note item-end>{{data?.Count2}}</ion-note>
     </button>
   </ion-list>
 </ion-content>

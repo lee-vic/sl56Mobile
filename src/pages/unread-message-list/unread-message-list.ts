@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { InstantMessageProvider } from '../../providers/instant-message/instant-message';
+import { UserChatPage } from '../pages';
 
 /**
  * Generated class for the UnreadMessageListPage page.
@@ -30,6 +31,13 @@ export class UnreadMessageListPage implements OnInit{
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnreadMessageListPage');
+  }
+  detail(type){
+    if(type==0){
+      this.navCtrl.push(UserChatPage,{
+        messageType:0
+      });
+    }
   }
 
 }

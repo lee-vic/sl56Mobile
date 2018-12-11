@@ -16,7 +16,7 @@
 <ion-content>
   <div class="message-wrap">
 
-    <div *ngFor="let msg of data.ChatRecords" class="message" [class.left]=" msg.Type === 1 " [class.right]=" msg.Type === 0 ">
+    <div *ngFor="let msg of messages" class="message" [class.left]=" msg.Type === 1 " [class.right]=" msg.Type === 0 ">
       <img class="user-img" [src]="msg.avatar" alt="">
       <ion-spinner name="dots" *ngIf="msg.status === 'pending'"></ion-spinner>
       <div class="msg-detail">

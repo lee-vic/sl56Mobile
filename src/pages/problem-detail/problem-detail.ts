@@ -39,7 +39,10 @@ export class ProblemDetailPage implements OnInit{
 
   chat(){
     this.navCtrl.push(UserChatPage, {
-      model: this.data,
+      receiveGoodsDetailId: this.data.Id,
+      problemId:this.data.Problem.ObjectId,
+      messages:this.data.ChatRecords,
+      messageType:2
     });
   }
 }
