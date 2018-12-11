@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Modal, ModalController, ToastController, LoadingController, Platform, Content } from 'ionic-angular';
-import { UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage, UserWechatBindingPage, UserResetPasswordPage, UserPriceListPage, UserTemplateListPage, UserForgotPasswordPage, UserSubAccountPage, UserNoticePage, UserBankSlipsPage, UserProblemListPage, UserReturnPage, UserUnreadMessageListPage } from '../pages';
+import { UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage, UserWechatBindingPage, UserResetPasswordPage, UserPriceListPage, UserTemplateListPage, UserForgotPasswordPage, UserSubAccountPage, UserNoticePage, UserBankSlipsPage, UserProblemListPage, UserReturnPage, UserUnreadMessageListPage, UserChatPage } from '../pages';
 import { User } from '../../providers/user/user';
 import { CookieService } from 'ngx-cookie-service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -215,5 +215,10 @@ export class MemberPage implements OnInit {
   }
   openMessage(){
     this.navCtrl.push(UserUnreadMessageListPage);
+  }
+  openChat(){
+    this.navCtrl.push(UserChatPage,{
+      messageType:0
+    });
   }
 }
