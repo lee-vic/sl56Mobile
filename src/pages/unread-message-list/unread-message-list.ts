@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { InstantMessageProvider } from '../../providers/instant-message/instant-message';
-import { UserChatPage } from '../pages';
+import { UserChatPage, UserUnreadMessageList1Page } from '../pages';
 
 /**
  * Generated class for the UnreadMessageListPage page.
@@ -18,12 +18,14 @@ import { UserChatPage } from '../pages';
 export class UnreadMessageListPage implements OnInit{
   data:any={};
   ngOnInit(): void {
+   
+  }
+  getData(){
     this.service.getUnReadMessage().subscribe(res=>{
       this.data=res;
-      console.log(this.data);
+     
     });
   }
-
   constructor(public navCtrl: NavController,
     public service:InstantMessageProvider,
      public navParams: NavParams) {
@@ -38,6 +40,12 @@ export class UnreadMessageListPage implements OnInit{
         messageType:0
       });
     }
+    else{
+      this.navCtrl.push(UserUnreadMessageList1Page)
+    }
+  }
+  ionViewDidEnter() {
+   this.getData();
   }
 
 }

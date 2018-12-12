@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { DeliveryRecordDetailProvider } from '../../providers/delivery-record-detail/delivery-record-detail';
-import { UserReturnApplyPage } from '../pages';
+import { UserReturnApplyPage, UserChatPage } from '../pages';
 
 /**
  * Generated class for the DeliveryRecordDetailPage page.
@@ -35,6 +35,7 @@ export class DeliveryRecordDetailPage implements OnInit {
     this.service.getDetail(!canGoBack, this.id).subscribe(res=>{
       this.data=res;
      this.isReturn=this.data.IsReturnCustomer;
+     console.log(this.data);
     },(err)=>{
      
       let toast = this.toastCtrl.create({
@@ -52,6 +53,13 @@ export class DeliveryRecordDetailPage implements OnInit {
     this.navCtrl.push(UserReturnApplyPage, {
       id: this.id,
       type:0
+    });
+  }
+  chat(){
+    this.navCtrl.push(UserChatPage, {
+      receiveGoodsDetailId: this.data.ObjectId,
+      messages:this.data.ChatRecords,
+      messageType:1
     });
   }
 

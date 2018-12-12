@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { apiUrl } from '../../globals';
 
@@ -22,7 +22,7 @@ export class InstantMessageProvider {
    * 单号消息
    */
   getMessages1() {
-    let seq = this.http.get<any>(apiUrl + "/InstantMessage/GetMessages2", { withCredentials: true });
+    let seq = this.http.get<any>(apiUrl + "/InstantMessage/GetMessages1", { withCredentials: true });
     return seq;
   }
   /**
@@ -30,6 +30,12 @@ export class InstantMessageProvider {
    */
   getMessages2() {
     let seq = this.http.get<any>(apiUrl + "/InstantMessage/GetMessages2", { withCredentials: true });
+    return seq;
+  }
+  getMessages3(receiveGoodsDetailId) {
+    let paras = new HttpParams()
+      .set("receiveGoodsDetailId", receiveGoodsDetailId);
+    let seq = this.http.get<any>(apiUrl + "/InstantMessage/GetMessages3", { withCredentials: true, params: paras });
     return seq;
   }
 }

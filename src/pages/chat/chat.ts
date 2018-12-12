@@ -31,6 +31,7 @@ export class ChatPage implements OnInit, OnDestroy {
   serverUrl: string = apiUrl;
   imageURI: any;
   imageFileName: any;
+  isConnected: boolean = false;
   /**
    * 0:非单号消息
    * 1:单号消息
@@ -43,23 +44,38 @@ export class ChatPage implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.signalRConnection = this.signalR.createConnection();
-    this.signalRConnection.status.subscribe((p) => console.warn(p.name));
+    this.signalRConnection.status.subscribe((p) => {
+      console.warn(p.name);
+      if (p.name == "connected") {
+        this.isConnected = true;
+        this.multiMarkIsSend();
+      }
+      else {
+        this.isConnected = false;
+      }
+    });
     this.signalRConnection.start().then((c) => {
       let listener = c.listenFor("messageReceived");
       listener.subscribe((msg: any) => {
 
         let obj = JSON.parse(msg);
-        console.log(obj);
+      
         //非单号消息模式
         if (this.messageType == 0) {
           if (obj.ReceiveGoodsDetailId == null) {
-            let content = "";
-            if (obj.IsFile == true)
-              content = obj.FileName;
-            else
-              content = obj.MsgContent;
-            this.pushNewMsg(content, 1, obj.SenderName, obj.IsFile, obj.ObjectId);
-            this.signalRConnection.invoke("markIsSend", obj.ObjectId);
+            this.appendMessage(obj);
+          }
+        }
+        //单号消息模式
+        else if (this.messageType == 1) {
+          if (obj.ReceiveGoodsDetailId == this.receiveGoodsDetailId) {
+            this.appendMessage(obj);
+          }
+        }
+        //问题件消息模式
+        else if (this.messageType == 2) {
+          if (obj.ReceiveGoodsDetailId == this.receiveGoodsDetailId && obj.ProblemId == this.problemId) {
+            this.appendMessage(obj);
           }
         }
 
@@ -71,8 +87,22 @@ export class ChatPage implements OnInit, OnDestroy {
         this.processMessages();
       })
     }
+    else if (this.messageType == 1 && this.messages == undefined) {
+      this.imService.getMessages3(this.receiveGoodsDetailId).subscribe(res => {
+        this.messages = res;
+        this.processMessages();
+      });
+    }
   }
-
+  appendMessage(obj: any) {
+    let content = "";
+    if (obj.IsFile == true)
+      content = obj.FileName;
+    else
+      content = obj.MsgContent;
+    this.pushNewMsg(content, 1, obj.SenderName, obj.IsFile, obj.ObjectId, true);
+    this.signalRConnection.invoke("markIsSend", obj.ObjectId);
+  }
   constructor(public navCtrl: NavController,
     private signalR: SignalR,
     public service: ProblemProvider,
@@ -84,6 +114,19 @@ export class ChatPage implements OnInit, OnDestroy {
     this.messages = navParams.get("messages");
     this.processMessages();
 
+  }
+  multiMarkIsSend() {
+    if (this.messages != undefined && this.messages.length > 0 && this.isConnected == true) {
+      let idList = new Array<Number>();
+      this.messages.forEach((val, idx, array) => {
+        if (val.IsSend == false) {
+          idList.push(val.Id);
+        }
+      });
+      if (idList.length > 0) {
+        this.signalRConnection.invoke("multiMarkIsSend", idList.toString());
+      }
+    }
   }
   processMessages() {
     if (this.messages != undefined) {
@@ -98,20 +141,18 @@ export class ChatPage implements OnInit, OnDestroy {
       });
     }
     this.scrollToBottom();
-    console.log(this.messages);
+    this.multiMarkIsSend();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ChatPage');
     this.scrollToBottom();
   }
   sendMsg() {
     if (!this.editorMsg.trim()) return;
 
     this.signalRConnection.invoke("sendToEmployee", this.receiveGoodsDetailId, this.editorMsg, 0, "", 0, "", this.problemId).then((data: any) => {
-      this.pushNewMsg(this.editorMsg, 0, "", false, data);
+      this.pushNewMsg(this.editorMsg, 0, "", false, data, true);
       this.editorMsg = '';
-      console.log(data);
     });
 
   }
@@ -133,7 +174,7 @@ export class ChatPage implements OnInit, OnDestroy {
    * @param type -1：会话转接 0：客户发给内部职员；1：内部职员发送给客户
    * @param username 发送消息方姓名
    */
-  pushNewMsg(msg: string, type: number, username: string, isFile: boolean, objectId: number) {
+  pushNewMsg(msg: string, type: number, username: string, isFile: boolean, objectId: number, isSned: boolean) {
     if (username == "")
       username = "我";
     let obj: any = {
@@ -142,7 +183,8 @@ export class ChatPage implements OnInit, OnDestroy {
       Name: username,
       Type: type,
       IsFile: isFile,
-      Id: objectId
+      Id: objectId,
+      IsSend: isSned
     };
     if (type == 1) {
       obj.avatar = "assets/imgs/chat-1.png";
@@ -150,7 +192,7 @@ export class ChatPage implements OnInit, OnDestroy {
     else {
       obj.avatar = "assets/imgs/chat-2.png";
     }
-    console.log(obj);
+ 
     this.messages.push(obj);
     this.scrollToBottom();
   }
