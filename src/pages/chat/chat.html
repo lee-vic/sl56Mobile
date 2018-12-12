@@ -22,7 +22,7 @@
       <div class="msg-detail">
         <div class="msg-info">
           <p>
-            {{msg.Name}}&nbsp;&nbsp;&nbsp;{{msg.Date| date:"yyyy-MM-dd HH:mm:ss"}}</p>
+            {{msg.Name}}&nbsp;&nbsp;&nbsp;{{msg.Date| date:"yyyy-MM-dd HH:mm:ss"}}<span *ngIf="msg.IsSend==false" style="color:red;padding-left:5px;">离线消息</span></p>
         </div>
         <div class="msg-content">
           <span class="triangle"></span>

@@ -34,3 +34,4 @@ export const UserReturnPage="ReturnListPage";
 export const UserReturnApplyPage="ReturnApplyPage";
 export const UserReturnApplyHistoryPage="ReturnApplyHistoryPage";
 export const UserUnreadMessageListPage="UnreadMessageListPage";
+export const UserUnreadMessageList1Page="UnreadMessageList1Page";
