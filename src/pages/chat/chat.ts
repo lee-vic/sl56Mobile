@@ -32,6 +32,9 @@ export class ChatPage implements OnInit, OnDestroy {
   imageURI: any;
   imageFileName: any;
   isConnected: boolean = false;
+  attachmentTypeId:string;
+  currentEmployeeId:number;
+  showFileUploadButton:boolean=false;
   /**
    * 0:非单号消息
    * 1:单号消息
@@ -59,7 +62,7 @@ export class ChatPage implements OnInit, OnDestroy {
       listener.subscribe((msg: any) => {
 
         let obj = JSON.parse(msg);
-      
+        this.currentEmployeeId=obj.MsgFrom;
         //非单号消息模式
         if (this.messageType == 0) {
           if (obj.ReceiveGoodsDetailId == null) {
@@ -74,7 +77,8 @@ export class ChatPage implements OnInit, OnDestroy {
         }
         //问题件消息模式
         else if (this.messageType == 2) {
-          if (obj.ReceiveGoodsDetailId == this.receiveGoodsDetailId && obj.ProblemId == this.problemId) {
+          //if (obj.ReceiveGoodsDetailId == this.receiveGoodsDetailId && obj.ProblemId == this.problemId) {
+          if (obj.ReceiveGoodsDetailId == this.receiveGoodsDetailId) {
             this.appendMessage(obj);
           }
         }
@@ -112,6 +116,13 @@ export class ChatPage implements OnInit, OnDestroy {
     this.receiveGoodsDetailId = navParams.get("receiveGoodsDetailId");
     this.problemId = navParams.get("problemId");
     this.messages = navParams.get("messages");
+    this.attachmentTypeId=navParams.get("attachmentTypeId");
+    if(this.messageType==1){
+      this.showFileUploadButton=true;
+    }
+    else if(this.messageType==2&&this.attachmentTypeId!='null'){
+      this.showFileUploadButton=true;
+    }
     this.processMessages();
 
   }
@@ -119,7 +130,7 @@ export class ChatPage implements OnInit, OnDestroy {
     if (this.messages != undefined && this.messages.length > 0 && this.isConnected == true) {
       let idList = new Array<Number>();
       this.messages.forEach((val, idx, array) => {
-        if (val.IsSend == false) {
+        if (val.IsSend == false&&val.Type==1) {
           idList.push(val.Id);
         }
       });
@@ -204,9 +215,34 @@ export class ChatPage implements OnInit, OnDestroy {
 
     for (let file of files)
       formData.append(file.name, file);
+    if(this.messageType==1){
+      this.service.upload1(formData).subscribe(res => {
+        if(res.Success==true){
+          this.sendFileMsg(res);
+        }
+      });
+    }
+    else if(this.messageType==2){
+      formData.append("filetype",this.attachmentTypeId);
+      formData.append("receiveGoodsDetailId",this.receiveGoodsDetailId.toString());
+      this.service.upload(formData).subscribe(res => {
+        if(res.Success==true){
+          this.sendFileMsg(res);
+        }
+      });
+    }
+   
+  }
+  sendFileMsg(res:any) {
 
-    this.service.upload(formData).subscribe(res => {
 
+    this.signalRConnection.invoke("sendToEmployee", this.receiveGoodsDetailId, res.Path, 1, res.Name, res.FileSize, this.currentEmployeeId, this.problemId).then((data: any) => {
+      console.log(data);
+      if(data!=-1){
+        this.pushNewMsg(res.Name,0,"",true,data,true);
+      }
+      
     });
+
   }
 }

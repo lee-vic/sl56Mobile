@@ -11,7 +11,9 @@ import { UserChatPage } from '../pages';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment: 'problem-detail/:problemId'
+})
 @Component({
   selector: 'page-problem-detail',
   templateUrl: 'problem-detail.html',
@@ -21,8 +23,9 @@ export class ProblemDetailPage implements OnInit{
   problemId:Number;
   data:any;
   ngOnInit(): void {
-    this.service.getProblemDetail(this.receiveGoodsDetailId,this.problemId).subscribe(res => {
+    this.service.getProblemDetail(this.problemId).subscribe(res => {
       this.data=res;
+      console.log(this.data);
     });
   }
 
@@ -42,7 +45,8 @@ export class ProblemDetailPage implements OnInit{
       receiveGoodsDetailId: this.data.Id,
       problemId:this.data.Problem.ObjectId,
       messages:this.data.ChatRecords,
-      messageType:2
+      messageType:2,
+      attachmentTypeId:this.data.Problem.AttachmentTypeId
     });
   }
 }
