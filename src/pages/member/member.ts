@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Modal, ModalController, ToastController, LoadingController, Platform, Content } from 'ionic-angular';
-import { UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage, UserWechatBindingPage, UserResetPasswordPage, UserPriceListPage, UserTemplateListPage, UserForgotPasswordPage, UserSubAccountPage, UserNoticePage, UserBankSlipsPage, UserProblemListPage, UserReturnPage, UserUnreadMessageListPage, UserChatPage } from '../pages';
+import { UserCalculationPage, UserRemotePage, UserConfirmationPage, UserDeliveryRecordPage, UserWechatPayPage, UserWechatBindingPage, UserResetPasswordPage, UserPriceListPage, UserTemplateListPage, UserForgotPasswordPage, UserSubAccountPage, UserNoticePage, UserBankSlipsPage, UserProblemListPage, UserReturnPage, UserUnreadMessageListPage, UserChatPage, UserTestPage } from '../pages';
 import { User } from '../../providers/user/user';
 import { CookieService } from 'ngx-cookie-service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -35,7 +35,8 @@ export class MemberPage implements OnInit {
     { title: "回单上传", image: "assets/imgs/member-17.png", page: UserBankSlipsPage,type:[0,1] },
     { title: "问题跟进", image: "assets/imgs/member-18.png", page: UserProblemListPage,type:[0,1] },
     { title: "业务公告", image: "assets/imgs/member-19.png", page: UserNoticePage,type:[0] },
-    { title: "退货管理", image: "assets/imgs/member-20.png", page: UserReturnPage,type:[0,1] }
+    { title: "退货管理", image: "assets/imgs/member-20.png", page: UserReturnPage,type:[0,1] },
+    { title: "测试", image: "assets/imgs/member-20.png", page: UserTestPage,type:[0,1] }
   ];
   menus:Menus;
   loginModalPage: Modal;

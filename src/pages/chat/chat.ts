@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, ToastController } from 'ionic-angular';
 import { SignalR, SignalRConnection } from 'ng2-signalr';
 import { apiUrl } from '../../globals';
 import { ProblemProvider } from '../../providers/problem/problem';
@@ -111,6 +111,7 @@ export class ChatPage implements OnInit, OnDestroy {
     private signalR: SignalR,
     public service: ProblemProvider,
     public imService: InstantMessageProvider,
+    public toastCtrl: ToastController,
     public navParams: NavParams) {
     this.messageType = navParams.get("messageType");
     this.receiveGoodsDetailId = navParams.get("receiveGoodsDetailId");
@@ -161,7 +162,7 @@ export class ChatPage implements OnInit, OnDestroy {
   sendMsg() {
     if (!this.editorMsg.trim()) return;
 
-    this.signalRConnection.invoke("sendToEmployee", this.receiveGoodsDetailId, this.editorMsg, 0, "", 0, "", this.problemId).then((data: any) => {
+    this.signalRConnection.invoke("sendToEmployee", this.receiveGoodsDetailId, this.editorMsg, 0, "", 0, "", this.problemId,0).then((data: any) => {
       this.pushNewMsg(this.editorMsg, 0, "", false, data, true);
       this.editorMsg = '';
     });
@@ -220,6 +221,14 @@ export class ChatPage implements OnInit, OnDestroy {
         if(res.Success==true){
           this.sendFileMsg(res);
         }
+        else{
+          let toast = this.toastCtrl.create({
+            message: "上传失败,错误信息:"+res.Text,
+            position: 'middle',
+            duration: 1500
+          });
+          toast.present();
+        }
       });
     }
     else if(this.messageType==2){
@@ -229,6 +238,14 @@ export class ChatPage implements OnInit, OnDestroy {
         if(res.Success==true){
           this.sendFileMsg(res);
         }
+        else{
+          let toast = this.toastCtrl.create({
+            message: "上传失败,错误信息:"+res.Text,
+            position: 'middle',
+            duration: 3000
+          });
+          toast.present();
+        }
       });
     }
    
@@ -236,7 +253,7 @@ export class ChatPage implements OnInit, OnDestroy {
   sendFileMsg(res:any) {
 
 
-    this.signalRConnection.invoke("sendToEmployee", this.receiveGoodsDetailId, res.Path, 1, res.Name, res.FileSize, this.currentEmployeeId, this.problemId).then((data: any) => {
+    this.signalRConnection.invoke("sendToEmployee", this.receiveGoodsDetailId, res.Path, 1, res.Name, res.FileSize, this.currentEmployeeId, this.problemId,0).then((data: any) => {
       console.log(data);
       if(data!=-1){
         this.pushNewMsg(res.Name,0,"",true,data,true);
